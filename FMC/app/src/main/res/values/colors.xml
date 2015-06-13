@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="main_color_red">#EA1D5C</color>
+    <color name="enter_your_code_color_yellow">#FCC030</color>
+    <color name="separator_color">#F4F3F3</color>
+    <color name="selected_yellow">#FEC930</color>
+    <color name="top_header_global_color">#DBDCDD</color>
+    <color name="wall_bg_color">#E5DADC</color>
+    <color name="button_blue">#19b7f1</color>
+</resources>

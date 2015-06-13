@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relCellContainer"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:clickable="true"
+    android:background="@android:color/white">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_round_corner">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/imgNext">
+            <TextView
+                android:id="@+id/txtTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:text="News 1"
+                android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/txtDescription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="10dp"
+                android:layout_below="@id/txtTitle"
+                android:gravity="center_vertical"
+                android:text="Posted on : May 2 2015"
+                android:textSize="16sp"/>
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/imgNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/next"/>
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/edtSearchKeyword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/Search_A_Product">
+        <requestFocus/>
+        </EditText>
+
+    <ListView
+        android:id="@+id/listSearchResult"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:visibility="visible"
+        android:dividerHeight="0dp"
+        android:divider="@null"
+        android:cacheColorHint="#00000000"></ListView>
+    <TextView
+        android:id="@+id/txtEmptyMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_products_found"/>
+
+</LinearLayout>

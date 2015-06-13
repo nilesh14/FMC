@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">FMC</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_label">FMC</string>
+    <string name="facebook_app_id">815594675161925</string>
+    <string name="wall">WALL</string>
+    <string name="faqs">FAQS</string>
+    <string name="bitch">B*ITCH</string>
+    <string name="more">MORE</string>
+    <string name="fmc_logo">FMC</string>
+    <string name="add_your_mommy">Add Your Mommy</string>
+    <string name="enter_your_code">Enter Your Code</string>
+    <string name="unable_to_get_info">Unable to get your information. Please try again</string>
+    <string name="error_while_get_info">Error while getting your information. Please try again</string>
+    <string name="temp_Comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="fetching_WallData">Please wait Fetching your Wall&#8230;</string>
+    <string name="please_wait">Please wait &#8230;</string>
+    <string name="show_global">Show Global Wall</string>
+    <string name="show_local">Show Local Wall</string>
+    <string name="add_new_wall_post">Add a new Wall Post</string>
+    <string name="post_comment">Post your comment</string>
+    <string name="no_internet_or_error">Error! while fetching data. Please check your Internet Connection or try again later.</string>
+</resources>

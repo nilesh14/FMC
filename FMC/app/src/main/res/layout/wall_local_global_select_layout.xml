@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app1="http://schemas.android.com/apk/res/com.fmc.v1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ImageView 
+        android:id="@+id/imgFMCImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:src="@drawable/fmc_logo"/>
+    
+    <ImageButton 
+        android:id="@+id/imgbtnOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/option_button"/>
+
+    <com.fmc.v1.view.CircularImageView
+        android:id="@+id/circularImageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_launcher"
+        app1:border="true"
+        app1:border_color="#E9E8E9"
+        app1:border_width="1dp"
+        app1:shadow="true" />
+
+    <TextView
+        android:id="@+id/txtWelComeMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circularImageView"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@color/main_color_red"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/linToggleContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtWelComeMessage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/txtLocal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:text="Local"
+            android:textSize="18sp"
+            android:textColor="@color/main_color_red" />
+
+        <Switch
+            android:id="@+id/switchLocalGlobal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff=""
+            android:textOn=""
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track" />
+
+        <TextView
+            android:id="@+id/txtGlobal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:text="Global"
+            android:textSize="18sp"
+            android:textColor="@color/main_color_red" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnShowWallOrGlobal"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/linToggleContainer"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:text="GO"
+        android:background="@drawable/bg_white_color_black_stroke"
+        android:padding="10dp" />
+
+</RelativeLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="red">#B00000</color>
+    <color name="red_selected">#FC0000</color>
+    <color name="light_black">#232323</color>
+    <color name="table_header_black">#3F3E3E</color>
+    <color name="table_cell_color">#EEEEEE</color>
+</resources>

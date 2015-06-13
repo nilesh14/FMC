@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/code_validation_bg" >
+
+    <!--
+         <TextView
+        android:id="@+id/txtCompanyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/fmc_logo"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"/>
+    -->
+
+
+    <!--
+         <Button
+        android:id="@+id/btnAddMommy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/add_your_mommy"/>
+    -->
+
+    <EditText
+        android:id="@+id/edtEnterCode"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="160dp"
+        android:layout_centerHorizontal="true"
+        android:inputType="number"
+        android:singleLine="true"
+        android:background="@drawable/bg_white_color_round_corner"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/txtEnterCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/edtEnterCode"
+        android:layout_margin="10dp"
+        android:text="@string/enter_your_code"
+        android:textColor="@color/enter_your_code_color_yellow"
+        android:textSize="18sp"
+        android:visibility="visible" />
+    
+    <TextView 
+        android:id="@+id/txtOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/txtEnterCode"
+        android:text="OR"
+        android:textSize="15sp"
+        android:textColor="@android:color/white"/>
+    
+    <Button 
+        android:id="@+id/btnAddMommyFriends"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtOr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="ADD YOUR MOMMY FRIENDS"
+        android:textColor="@color/enter_your_code_color_yellow"
+        android:background="@null"
+        android:drawableLeft="@drawable/add_mommy_friends_btn"/>
+
+    
+    
+    <Button
+        android:id="@+id/edtEnterRequestCode"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="REQUEST CODE"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:textColor="@android:color/black"
+        android:background="@drawable/bg_white_color_black_stroke"
+        android:padding="10dp" />
+
+</RelativeLayout>
