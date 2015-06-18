@@ -13,7 +13,7 @@ import android.graphics.Typeface;
 
 public class FMCApplication extends Application{
 	public static SharedPreferences mPreffs;
-	Typeface gotham,daydreamer;
+	public static Typeface gotham,daydreamer;
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub

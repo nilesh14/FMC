@@ -33,8 +33,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
@@ -42,15 +46,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity implements OnClickListener{
 
-	LoginButton loginButton;
+	/*LoginButton loginButton;*/
 	Button btnLoginWithFacebook;
 	CallbackManager callbackManager;
 	ProgressDialog pDialog;
 	SharedPreferences mPrefs;
+    TextView txtJoinGangText;
 	
 	FMCApplication app;
 	private static String TAG = "LoginActivity";
@@ -64,8 +70,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 		
 		btnLoginWithFacebook = (Button) findViewById(R.id.btnLoginWithFacebook);
 		btnLoginWithFacebook.setOnClickListener(this);
-		loginButton = (LoginButton) findViewById(R.id.login_button);
-		loginButton.setReadPermissions("user_friends,email,public_profile,user_location");
+        txtJoinGangText = (TextView) findViewById(R.id.txtJoinGangText);
+        paintJoinGangTextview(txtJoinGangText);
+        /*loginButton = (LoginButton) findViewById(R.id.login_button);
+		loginButton.setReadPermissions("user_friends,email,public_profile,user_location");*/
 		pDialog = new ProgressDialog(this);
 		
 		//loginButton.registerCallback(callbackManager, facebookCallBack); 
@@ -75,6 +83,18 @@ public class LoginActivity extends Activity implements OnClickListener{
 		updateToken(AccessToken.getCurrentAccessToken());
         accessTokenTracker.startTracking();
 	}
+
+    private void paintJoinGangTextview(TextView textView){
+        String text = getString(R.string.Join_The_Gang);
+        SpannableString spannableString = new SpannableString(text);
+        int startIndexMom = text.indexOf("MOMS");
+        int startIndexTrust = text.indexOf("TRUST");
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.Join_Gang_Text_Color)), 0, text.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.MOMS_color)), startIndexMom, startIndexMom + 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.MOMS_color)), startIndexTrust, startIndexTrust + 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setTypeface(FMCApplication.gotham);
+        textView.setText(spannableString);
+    }
 	
 	private void getUserData(final AccessToken accessToken){
 		GraphRequest request = GraphRequest.newMeRequest(

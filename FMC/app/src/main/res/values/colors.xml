@@ -8,4 +8,7 @@
     <color name="top_header_global_color">#DBDCDD</color>
     <color name="wall_bg_color">#E5DADC</color>
     <color name="button_blue">#19b7f1</color>
+    <color name="MOMS_color">#DF1C5C</color>
+    <color name="Join_Gang_Text_Color">#FDB62F</color>
+
 </resources>

@@ -149,8 +149,6 @@ public class LocalGlobalFragment extends Fragment implements OnClickListener{
         }
     }
 
-	
-
     class GetProfilePic extends AsyncTask<String, Void, Bitmap>{
 
 		@Override

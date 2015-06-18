@@ -6,26 +6,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.facebook.AccessToken;
 import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.constants.CommonMethods;
 import com.fmc.v1.constants.Constants;
+import com.fmc.v1.view.CircularImageView;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -39,7 +38,8 @@ public class CodeValidationActivity extends Activity {
 	Button edtEnterRequestCode,btnAddMommyFriends;
 	EditText edtEnterCode;
 	ProgressDialog pDialog;
-	TextView txtEnterCode;
+	CircularImageView circularImageView;
+	TextView txtEnterCode,txtName;
 	HashMap<String, String> mapData = new HashMap<String, String>();
 	public static final String TAG = "CodeValidationActivity";
 	SharedPreferences mPrefs;
@@ -51,18 +51,22 @@ public class CodeValidationActivity extends Activity {
     	setContentView(R.layout.code_validation_layout);
     	
     	app = (FMCApplication) getApplication();
-    	txtEnterCode = (TextView) findViewById(R.id.txtEnterCode);
+    	//txtEnterCode = (TextView) findViewById(R.id.txtEnterCode);
     	mPrefs = app.getmPreffs();
-    	btnAddMommyFriends = (Button) findViewById(R.id.btnAddMommyFriends);
+    	//btnAddMommyFriends = (Button) findViewById(R.id.btnAddMommyFriends);
+		circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
     	edtEnterCode = (EditText) findViewById(R.id.edtEnterCode);
-    	pDialog = new ProgressDialog(CodeValidationActivity.this);
+		txtName = (TextView) findViewById(R.id.txtName);
+		txtName.setText(mPrefs.getString(Constants.PREFS_USER_NAME, ""));
+		pDialog = new ProgressDialog(CodeValidationActivity.this);
     	Typeface gotham = Typeface.createFromAsset(getAssets(), "Gotham-Rounded-Book_21018.ttf");
-    	btnAddMommyFriends.setTypeface(gotham);
-    	txtEnterCode.setTypeface(gotham);
+    	//btnAddMommyFriends.setTypeface(gotham);
+    	//txtEnterCode.setTypeface(gotham);
 
         if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_CODE_VALIDATION_DONE,false)){
-            startWallActivity();
+            startWelcomeActivity();
         }
+		new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
     	
     	edtEnterCode.setOnEditorActionListener(new OnEditorActionListener() {
 			
@@ -148,7 +152,7 @@ public class CodeValidationActivity extends Activity {
 							mPrefs.edit().putInt(Constants.PREFS_UID, code).apply();
 
                             FMCApplication.mPreffs.edit().putBoolean(Constants.PREFS_CODE_VALIDATION_DONE,true).apply();
-                            startWallActivity();
+                            startWelcomeActivity();
 						}else{
 							Toast.makeText(getApplicationContext(), "Invalid Validation Code.Please try again!", Toast.LENGTH_LONG).show();							
 						}
@@ -170,10 +174,29 @@ public class CodeValidationActivity extends Activity {
     	
     }
 
-    private void startWallActivity(){
-        Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(CodeValidationActivity.this, MainActivity.class));
+    private void startWelcomeActivity(){
+        //Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(CodeValidationActivity.this, WelcomeActivity.class));
         finish();
     }
+	class GetProfilePic extends AsyncTask<String, Void, Bitmap>{
+
+		@Override
+		protected Bitmap doInBackground(String... params) {
+			// TODO Auto-generated method stub
+
+			return CommonMethods.getFacebookProfilePicture(CodeValidationActivity.this,params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Bitmap result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+			if(result != null){
+				circularImageView.setImageBitmap(result);
+			}
+		}
+
+	}
     
 }

@@ -11,7 +11,7 @@
     <string name="more">MORE</string>
     <string name="fmc_logo">FMC</string>
     <string name="add_your_mommy">Add Your Mommy</string>
-    <string name="enter_your_code">Enter Your Code</string>
+    <string name="enter_your_code">Enter Verification Code</string>
     <string name="unable_to_get_info">Unable to get your information. Please try again</string>
     <string name="error_while_get_info">Error while getting your information. Please try again</string>
     <string name="temp_Comment_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
@@ -22,4 +22,7 @@
     <string name="add_new_wall_post">Add a new Wall Post</string>
     <string name="post_comment">Post your comment</string>
     <string name="no_internet_or_error">Error! while fetching data. Please check your Internet Connection or try again later.</string>
+    <string name="Join_The_Gang">Join the gang of MOMS who TRUST us :) \n You know you want to.</string>
+    <string name="welcome_to_FMC">%s,\n Welcome to FMC!</string>
+    <string name="get_started">Lets get started</string>
 </resources>
