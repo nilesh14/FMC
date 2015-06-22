@@ -42,11 +42,12 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        String _id,lookup,display_name;
         if(resultCode == RESULT_OK){
             switch (requestCode){
                 case REQUEST_CODE:
                     Uri contactUri = data.getData();
-                    Cursor cursor = getContentResolver().query(contactUri, null, null, null, null);
+                    Cursor cursor = getContentResolver().query(contactUri, new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.Contacts.LOOKUP_KEY}, null, null, null);
                     Log.d(DEBUG_TAG,"Column count = "+cursor.getColumnCount());
                     String [] arrayNames = cursor.getColumnNames();
                     if(arrayNames != null){
@@ -55,15 +56,59 @@ public class MainActivity extends ActionBarActivity {
                         }*/
                         cursor.moveToFirst();
                         String columns[] = cursor.getColumnNames();
-                        for (String column : columns) {
+                        _id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                        lookup = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+                        display_name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+                        Cursor c = getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                                new String[] {ContactsContract.Contacts.Data._ID, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.LABEL,ContactsContract.CommonDataKinds.Email.ADDRESS,ContactsContract.CommonDataKinds.Email.TYPE},
+                                ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                                        + ContactsContract.Contacts.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE + "'",
+                                new String[] {String.valueOf(_id)}, null);
+
+                        while (c.moveToNext()){
+                            Log.d(DEBUG_TAG,"Number : "+ c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                            + " Type "+c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))
+                                    + " Email Address "+c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+                                    + " Email Address Type "+c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE)));
+                        }
+
+                        Cursor cursor1 = getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                                new String[] {ContactsContract.Contacts.Data._ID, ContactsContract.CommonDataKinds.Phone.NUMBER ,ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.LABEL,ContactsContract.CommonDataKinds.Email.ADDRESS,ContactsContract.CommonDataKinds.Email.TYPE},
+                                ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                                        + ContactsContract.Contacts.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE + "'",
+                                new String[] {String.valueOf(_id)}, null);
+
+                        while (cursor1.moveToNext()){
+                            Log.d(DEBUG_TAG, "Number : " + cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                                    + " Type " + cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))
+                                    + " Email Address " + cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+                                    + " Email Address Type " + cursor1.getString(cursor1.getColumnIndex(ContactsContract.CommonDataKinds.Email.TYPE)));
+                        }
+
+
+                        Cursor addressCursor = getContentResolver().query(ContactsContract.Data.CONTENT_URI,
+                                new String[] {ContactsContract.Contacts.Data._ID, ContactsContract.CommonDataKinds.Phone.NUMBER ,ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.LABEL,ContactsContract.CommonDataKinds.Email.ADDRESS,ContactsContract.CommonDataKinds.Email.TYPE},
+                                ContactsContract.Data.CONTACT_ID + "=?" + " AND "
+                                        + ContactsContract.Contacts.Data.MIMETYPE + "='" + ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE + "'",
+                                new String[] {String.valueOf(_id)}, null);
+
+                        while (addressCursor.moveToNext()){
+                            Log.d(DEBUG_TAG, "Address Formatted : " + addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                                    + " Type " + addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE))
+                                    );
+                        }
+
+
+                        /*for (String column : columns) {
                             int index = cursor.getColumnIndex(column);
                             Log.v(DEBUG_TAG, "Column: " + column + " == ["
                                     + cursor.getString(index) + "]");
-                        }
-                    }
-                    while (cursor.moveToNext()){
+                        }*/
+
 
                     }
+
                     break;
             }
         }
