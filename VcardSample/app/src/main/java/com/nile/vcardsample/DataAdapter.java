@@ -26,7 +26,7 @@ public class DataAdapter extends BaseAdapter {
     static String TYPE_MOBILE = "Mobile";
     static String TYPE_FAX_HOME = "Fax";
     static String TYPE_FAX_WORK = "Fax";
-    static String TYPE_OTHER = "";
+    static String TYPE_OTHER = "OTHER";
     static String TYPE_WORK_MOBILE = "Work";
 
     public DataAdapter(Context context, ArrayList<Data> arrNewsData) {

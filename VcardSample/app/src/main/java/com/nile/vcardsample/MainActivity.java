@@ -1,8 +1,13 @@
 package com.nile.vcardsample;
 
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.ContactsContract;
@@ -15,12 +20,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,11 +52,14 @@ public class MainActivity extends ActionBarActivity {
     ListView listDetails;
     DataAdapter adapter;
     String _id,lookup,display_name,first_name,last_name;
+    byte [] photoData,photoLarge;
+    ImageView imgPick;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        imgPick = (ImageView) findViewById(R.id.imgPick);
         btnPickContact = (Button) findViewById(R.id.btnPickContact);
         btnCreateVCard = (Button) findViewById(R.id.btnCreateVCard);
         txtDisplayNameValue = (TextView) findViewById(R.id.txtDisplayNameValue);
@@ -64,11 +77,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    if(adapter.getCount() == 0 || display_name == null){
-                        Toast.makeText(MainActivity.this,"No data to create Vcard. Please pick a contact",Toast.LENGTH_LONG).show();
-                    }else{
+                    if (adapter.getCount() == 0 || display_name == null) {
+                        Toast.makeText(MainActivity.this, "No data to create Vcard. Please pick a contact", Toast.LENGTH_LONG).show();
+                    } else {
                         writeVCFFile();
-                        Toast.makeText(MainActivity.this,"Vcard created at Location "+vcardStorageLocation,Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, "Vcard created at Location " + vcardStorageLocation, Toast.LENGTH_LONG).show();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -83,6 +96,23 @@ public class MainActivity extends ActionBarActivity {
         startActivityForResult(i, REQUEST_CODE);
     }
 
+    private void setContactImage(){
+        Bitmap bmp = null;
+        if (photoLarge != null) {
+            bmp = BitmapFactory.decodeByteArray(photoLarge, 0, photoLarge.length);
+        }else if (photoData != null){
+            bmp = BitmapFactory.decodeByteArray(photoData, 0, photoData.length);
+        }
+
+        if (bmp != null) {
+
+            imgPick.setImageBitmap(bmp);
+        }else{
+            imgPick.setImageResource(R.drawable.contact);
+        }
+        //imgPick.setImageDrawable(new BitmapDrawable(bmp));
+    }
+
     private void writeVCFFile() throws IOException {
         vcardStorageLocation = Environment.getExternalStorageDirectory()+ File.separator+"vCard_"+display_name+"_"+System.currentTimeMillis()+".vcf";
         File file = new File(vcardStorageLocation);
@@ -93,13 +123,12 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
         try {
-            fw.write("VERSION:3.0\r\n");
+            fw.write("VERSION:2.1\r\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*fw.write("N:" + first_name + ";" + last_name + "\r\n");
-        fw.write("FN:" + display_name+ "\r\n");*/
+        //fw.write("N:" + "BBB" + ";" + "Aa" + "\r\n");
+        //fw.write("FN:" + "Aa BBB"+ "\r\n");
 
         fw.write("N:" + ((TextUtils.isEmpty(last_name)) ? "":last_name) + ";" + ((TextUtils.isEmpty(last_name)) ? "":first_name) + "\r\n");
         fw.write("FN:" + display_name+ "\r\n");
@@ -109,17 +138,30 @@ public class MainActivity extends ActionBarActivity {
 
         /*fw.write("PHOTO;VALUE=URL;TYPE=JPEG:" + "http://wwwin.cisco.com/dir/photo/std/" + employee.get(0).userid + ".jpg" + "\r\n");*/
         //fw.write("TITLE:" + designation.getText().toString() + "\r\n");
+
         for (Data data : arrData) {
             if(data.getDataType().equalsIgnoreCase(MainActivity.DATA_TYPE_PHONE) && data.isChecked){
-                fw.write("TEL;TYPE="+DataAdapter.getPhoneType(Integer.parseInt(data.data2))+",VOICE:" + data.data1 + "\r\n");
+                fw.write("TEL;TYPE="+DataAdapter.getPhoneType(Integer.parseInt(data.data2))+":" + data.data1 + "\r\n");
             }
 
             if(data.getDataType().equalsIgnoreCase(MainActivity.DATA_TYPE_ADDRESS) && data.isChecked){
                 fw.write("ADR;TYPE="+DataAdapter.getPhoneType(Integer.parseInt(data.data2))+":;;" + data.data1 + "\r\n");
             }
             if(data.getDataType().equalsIgnoreCase(MainActivity.DATA_TYPE_EMAIL) && data.isChecked){
-                fw.write("EMAIL;TYPE=PREF,"+DataAdapter.getEmailType(Integer.parseInt(data.data2))+":" + data.data1 + "\r\n");
+                fw.write("EMAIL;TYPE="+DataAdapter.getEmailType(Integer.parseInt(data.data2))+":" + data.data1 + "\r\n");
             }
+        }
+        // get photo in base64 and write it in vCard
+        if (photoLarge != null) {
+            String encodedImage = Base64.encodeToString(photoLarge, Base64.NO_CLOSE);
+            String text = encodedImage.replaceAll("\\r|\\n", "");
+            fw.write("PHOTO;ENCODING=BASE64;JPEG:"+encodedImage+"\r\n");
+            Log.d(DEBUG_TAG,"Base64 Encoded Image Large "+encodedImage+"\r\n");
+        }else if(photoData != null){
+            String encodedImage = Base64.encodeToString(photoData, Base64.NO_CLOSE);
+            String text = encodedImage.replaceAll("\\r|\\n", "");
+            fw.write("PHOTO;ENCODING=BASE64;JPEG:"+encodedImage+"\r\n");
+            Log.d(DEBUG_TAG,"Base64 Encoded Image Thumbnail "+encodedImage+"\r\n");
         }
         //fw.write("TEL;TYPE=WORK,VOICE:" + workNo.getText().toString() + "\r\n");
         //fw.write("TEL;TYPE=MOBILE,VOICE:" + mobileNo.getText().toString() + "\r\n");
@@ -166,11 +208,14 @@ public class MainActivity extends ActionBarActivity {
 
                             txtDisplayNameValue.setText(display_name);
                             if(_id != null){
+                                //openPhoto(_id);
                                 getFirstAndLlastName(_id);
                                 addPhoneData(_id);
                                 addEmailData(_id);
                                 addAddressData(_id);
-                                //openPhoto(Integer.parseInt(_id));
+                               photoData =  openPhoto(Integer.parseInt(_id));
+                                photoLarge = openDisplayPhoto(Integer.parseInt(_id));
+                                setContactImage();
                                 adapter.notifyDataSetChanged();
                                 if(adapter.getCount() > 0){
                                     txtBlankMessage.setVisibility(View.GONE);
@@ -236,9 +281,24 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public InputStream openPhoto(long contactId) {
+    public byte [] openDisplayPhoto(long contactId) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+        Uri displayPhotoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
+        try {
+            AssetFileDescriptor fd =
+                    getContentResolver().openAssetFileDescriptor(displayPhotoUri, "r");
+
+            return IOUtils.toByteArray(fd.createInputStream());
+        } catch (IOException e) {
+            return null;
+        }
+    }
+
+    public byte [] openPhoto(long contactId) {
         Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
         Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        //String tempMessage = "Hello World";
+
         Cursor cursor = getContentResolver().query(photoUri,
                 new String[] {ContactsContract.Contacts.Photo.PHOTO}, null, null, null);
         if (cursor == null) {
@@ -247,8 +307,17 @@ public class MainActivity extends ActionBarActivity {
         try {
             if (cursor.moveToFirst()) {
                 byte[] data = cursor.getBlob(0);
+
+
                 if (data != null) {
-                    return new ByteArrayInputStream(data);
+                    File file = new File(Environment.getExternalStorageDirectory()+File.separator+"vCardImage.jpg");
+                    /*if(!file.exists()){
+                        file.getParentFile().mkdir();
+                    }*/
+                    /*FileOutputStream fOut = new FileOutputStream(file.getAbsolutePath().toString(), true);
+                    fOut.write(data);
+                    fOut.close();*/
+                    return data;
                 }
             }
         } finally {
