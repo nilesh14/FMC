@@ -25,4 +25,34 @@
     <string name="Join_The_Gang">Join the gang of MOMS who TRUST us :) \n You know you want to.</string>
     <string name="welcome_to_FMC">%s,\n Welcome to FMC!</string>
     <string name="get_started">Lets get started</string>
+    <string name="temp_name">Ruchita Dar Shah</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
+    <string name="select_hashtag">Select hashtags</string>
+    <string name="bio">Bio</string>
+    <string name="website">Website</string>
+    <string name="private_information">Private Information</string>
+    <string name="birthday">Birthday</string>
+    <string name="bitch_username">B*tch username</string>
+    <string name="bitch_password">B*tch Password</string>
+    <string name="children_info">Children\'s Info</string>
+    <string name="gender_prompt">Gender</string>
+    <string name="age">Age</string>
+    <string name="please_enter_birthday">Please enter your birthday</string>
+    <string name="please_enter_username">Please enter your username</string>
+    <string name="please_enter_password">Please enter your password</string>
+    <string name="please_enter_child_age">Please enter your child\'s age</string>
+    <string name="field_cannot_be_empty">This field cannot be empty</string>
+    <string name="error">Error</string>
+    <string name="ruchita_name">Ruchita Dar Shah</string>
+    <string name="hashtags_sample">#beauty #health #events #bollywood</string>
+    <string name="bio_sample">Chief Mommy Officer of First Mom\'s club an FB group of over 27K involved and aware moms.</string>
+    <string name="website_sample">www.firstmomsclub.in</string>
+    <string name="profile">Profile</string>
+
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

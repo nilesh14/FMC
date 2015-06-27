@@ -66,7 +66,12 @@ public class CodeValidationActivity extends Activity {
         if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_CODE_VALIDATION_DONE,false)){
             startWelcomeActivity();
         }
-		new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
+		if (FMCApplication.loggedinUserPic != null) {
+			circularImageView.setImageBitmap(FMCApplication.loggedinUserPic);
+		}else{
+
+			new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
+		}
     	
     	edtEnterCode.setOnEditorActionListener(new OnEditorActionListener() {
 			
@@ -194,6 +199,7 @@ public class CodeValidationActivity extends Activity {
 			super.onPostExecute(result);
 			if(result != null){
 				circularImageView.setImageBitmap(result);
+				FMCApplication.loggedinUserPic=result;
 			}
 		}
 

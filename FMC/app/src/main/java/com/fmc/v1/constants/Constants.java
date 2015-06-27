@@ -19,6 +19,7 @@ public class Constants {
     public static String PREFS_USER_ID ="user_id";
     public static String PREFS_UID ="uid";
     public static String PREFS_CODE_VALIDATION_DONE ="code_validation_done";
+    public static String PREFS_PROFILE_SET ="is_profile_set";
 
     public static String KEY_EMAIL ="email";
     public static String KEY_VALUE ="val";

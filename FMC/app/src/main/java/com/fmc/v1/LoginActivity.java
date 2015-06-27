@@ -199,6 +199,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 			// TODO Auto-generated method stub
 			if(loginResult != null){
         		loginResult.getAccessToken();
+                FMCApplication.loggedinUserPic = null;
         		getUserData(loginResult.getAccessToken());
         	}
 		}

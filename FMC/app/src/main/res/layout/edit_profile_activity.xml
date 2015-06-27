@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relHeaderButtonContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_color_red">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@null"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/btnDone"
+            android:layout_toRightOf="@+id/btnCancel"
+            android:gravity="center"
+            android:text="EDIT PROFILE"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:text="@string/done"
+            android:textColor="@android:color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:id="@+id/aboutContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="10dp">
+
+                <com.fmc.v1.view.CircularImageView
+                    android:id="@+id/imgPic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/contact"
+                    app1:border="true"
+                    app1:border_color="#E9E8E9"
+                    app1:border_width="1dp"
+                    app1:shadow="true" />
+                <LinearLayout
+                    android:id="@+id/linNameContainer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height_name"
+                    android:layout_toLeftOf="@id/imgPic"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/text_drawable_width"
+                        android:layout_height="@dimen/text_drawable_height"
+                        android:src="@drawable/image1" />
+
+                    <TextView
+                        android:id="@+id/txtName"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/temp_name"
+                        android:textColor="@color/main_color_red"
+                        android:textSize="@dimen/text_14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linHashtabContainer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height_name"
+                    android:layout_below="@id/linNameContainer"
+                    android:layout_toLeftOf="@id/imgPic"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/text_drawable_width"
+                        android:layout_height="@dimen/text_drawable_height"
+                        android:src="@drawable/image2" />
+
+                    <EditText
+                        android:id="@+id/edtHashtag"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="@string/select_hashtag"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:textSize="@dimen/text_14sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewSeparator"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/linHashtabContainer"
+                    android:layout_toLeftOf="@id/imgPic"
+                    android:background="@android:color/black"></View>
+
+                <LinearLayout
+                    android:id="@+id/linBioContainer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/height_name"
+                    android:layout_below="@id/viewSeparator"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/text_drawable_width"
+                        android:layout_height="@dimen/text_drawable_height"
+                        android:src="@drawable/image3" />
+
+                    <EditText
+                        android:id="@+id/edtBio"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:hint="@string/bio"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        android:scrollHorizontally="true"
+                        android:textSize="@dimen/text_14sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/viewSeparatorBio"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/linBioContainer"
+                    android:background="@android:color/black"></View>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/linWebsiteContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="@dimen/text_drawable_width"
+                    android:layout_height="@dimen/text_drawable_height"
+                    android:src="@drawable/image4" />
+
+                <EditText
+                    android:id="@+id/edtWebsite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:hint="@string/website"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/text_14sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewSeparatorWebsite"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/private_information"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_14sp" />
+
+            <View
+                android:id="@+id/viewSeparatorPrivateInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+
+            <LinearLayout
+                android:id="@+id/linBirthdayContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="@dimen/text_drawable_width"
+                    android:layout_height="@dimen/text_drawable_height"
+                    android:src="@drawable/image5" />
+
+                <com.fmc.v1.view.DateDisplayPicker
+                    android:id="@+id/txtBirthday"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    style="@android:style/Widget.Holo.DatePicker"
+                    android:hint="@string/birthday"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/text_14sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewSeparatorBirthday"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+
+            <LinearLayout
+                android:id="@+id/linBitchCornerContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="@dimen/text_drawable_width"
+                    android:layout_height="@dimen/text_drawable_height"
+                    android:src="@drawable/image6" />
+
+                <EditText
+                    android:id="@+id/edtBitchUserName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:hint="@string/bitch_username"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/text_14sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewSeparatorBitchCorner"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+            <LinearLayout
+                android:id="@+id/linBitchPasswordContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:layout_width="@dimen/text_drawable_width"
+                    android:layout_height="@dimen/text_drawable_height"
+                    android:src="@drawable/image7" />
+
+                <EditText
+                    android:id="@+id/edtBitchPassword"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:hint="@string/bitch_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:scrollHorizontally="true"
+                    android:textSize="@dimen/text_14sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewSeparatorBitchPasswordCorner"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+            <RelativeLayout
+                android:id="@+id/linChildrenInfoContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/height_name"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <ImageView
+                    android:id="@+id/imgIcon"
+                    android:layout_width="@dimen/text_drawable_width"
+                    android:layout_height="@dimen/text_drawable_height"
+                    android:src="@drawable/image8"
+                    android:layout_margin="5dp"/>
+
+                <TextView
+                    android:id="@+id/edtChildrenInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toLeftOf="@+id/imgAddChild"
+                    android:layout_toRightOf="@+id/imgIcon"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:text="@string/children_info"
+                    android:textSize="@dimen/text_14sp" />
+                <ImageView
+                    android:id="@+id/imgAddChild"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/image11"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="5dp"/>
+            </RelativeLayout>
+
+
+
+            <View
+                android:id="@+id/viewSeparatorChildrenInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/black"></View>
+
+            <LinearLayout
+                android:id="@+id/linChildrenDetailContainer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

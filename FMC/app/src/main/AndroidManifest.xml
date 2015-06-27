@@ -45,7 +45,9 @@
         <activity android:name=".WelcomeActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_label"></activity>
-
+        <activity android:name=".EditProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_label"></activity>
 
 
     </application>

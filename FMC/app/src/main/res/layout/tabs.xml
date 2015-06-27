@@ -29,6 +29,14 @@
         android:text="@string/bitch"
         android:textColor="@android:color/white"/>
     <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/main_color_red"
+        android:text="@string/profile"
+        android:textColor="@android:color/white"/>
+    <Button
         android:id="@+id/btnMore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
