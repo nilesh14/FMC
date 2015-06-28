@@ -17,7 +17,7 @@ public class FMCApplication extends Application {
     public static SharedPreferences mPreffs;
     public static Typeface gotham, daydreamer;
     public static UserData loggedinUserData;
-    public static Bitmap loggedinUserPic;
+    public static Bitmap loggedinUserPic,loggedinUserCoverPic;
 
     @Override
     public void onCreate() {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.fmc.v1.application.FMCApplication;
@@ -26,6 +28,12 @@ import com.fmc.v1.data.ChildData;
 import com.fmc.v1.data.UserData;
 import com.fmc.v1.view.CircularImageView;
 import com.fmc.v1.view.DateDisplayPicker;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Nilesh on 27/06/15.
@@ -33,15 +41,17 @@ import com.fmc.v1.view.DateDisplayPicker;
 public class EditProfileActivity extends Activity {
 
     private static final String TAG = "EditProfileActivity";
-    Button btnDone,btnCancel;
+    Button btnDone, btnCancel;
 
-    EditText edtHashtag,edtBio,edtWebsite, edtBitchUserName,edtBitchPassword;
+    EditText edtHashtag, edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
     DateDisplayPicker txtBirthday;
     ImageView imgAddChild;
     CircularImageView imgPic;
     LinearLayout linChildrenDetailContainer;
     LayoutInflater layoutInflater;
     ArrayAdapter<CharSequence> adapter;
+    TextView txtName;
+    UserData userData = new UserData();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +66,17 @@ public class EditProfileActivity extends Activity {
         edtWebsite = (EditText) findViewById(R.id.edtWebsite);
         edtBitchUserName = (EditText) findViewById(R.id.edtBitchUserName);
         edtBitchPassword = (EditText) findViewById(R.id.edtBitchPassword);
+        txtBirthday = (DateDisplayPicker) findViewById(R.id.txtBirthday);
+        txtName = (TextView) findViewById(R.id.txtName);
         layoutInflater = LayoutInflater.from(this);
 
-        if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_PROFILE_SET,false)){
+        /*if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_PROFILE_SET,false)){
             startNextActivity();
-        }
+        }*/
 
+        userData.setName(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
+
+        txtName.setText(userData.getName());
         txtBirthday = (DateDisplayPicker) findViewById(R.id.txtBirthday);
 
         imgAddChild = (ImageView) findViewById(R.id.imgAddChild);
@@ -69,7 +84,7 @@ public class EditProfileActivity extends Activity {
         linChildrenDetailContainer = (LinearLayout) findViewById(R.id.linChildrenDetailContainer);
         if (FMCApplication.loggedinUserPic != null) {
             imgPic.setImageBitmap(FMCApplication.loggedinUserPic);
-        }else{
+        } else {
 
             new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
         }
@@ -82,10 +97,10 @@ public class EditProfileActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (linChildrenDetailContainer != null) {
-                    Log.d(TAG,"Total number of children present is = "+linChildrenDetailContainer.getChildCount());
+                    Log.d(TAG, "Total number of children present is = " + linChildrenDetailContainer.getChildCount());
                 }
 
-                if(checkForRequiredField()){
+                if (checkForRequiredField()) {
                     startNextActivity();
                 }
                 //startNextActivity();
@@ -102,7 +117,7 @@ public class EditProfileActivity extends Activity {
         imgAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail,linChildrenDetailContainer,false);
+                LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
                 EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
                 Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
                 spinnerGender.setAdapter(adapter);
@@ -111,67 +126,140 @@ public class EditProfileActivity extends Activity {
             }
         });
 
+        prepareInitialData();
+
     }
 
-    private void startNextActivity(){
-        Intent intent = new Intent(EditProfileActivity.this,MainActivity.class);
+    private void prepareInitialData() {
+        edtBio.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIO, ""));
+        edtWebsite.setText(FMCApplication.mPreffs.getString(Constants.PREFS_WEBSITE, ""));
+        edtHashtag.setText(FMCApplication.mPreffs.getString(Constants.PREFS_HASHTAGS, ""));
+        txtBirthday.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIRTHDAY, ""));
+        edtBitchUserName.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BITCH_USERNAME, ""));
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<ChildData>>() {
+        }.getType();
+        ArrayList<ChildData> arrChildData = gson.fromJson(FMCApplication.mPreffs.getString(Constants.PREFS_CHILD_DETAIL, ""), type);
+        if (arrChildData != null) {
+            Log.d(TAG, "Child found = " + arrChildData.size());
+
+            for (ChildData childData : arrChildData) {
+                LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
+                EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
+                Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
+                spinnerGender.setAdapter(adapter);
+
+                edtAge.setText(String.valueOf(childData.getAge()));
+                if(childData.getGender().equalsIgnoreCase("MALE")){
+                    spinnerGender.setSelection(0);
+                }else{
+                    spinnerGender.setSelection(1);
+                }
+                //spinnerGender.setse
+                linChildrenDetailContainer.addView(childView);
+            }
+
+        } else {
+            Log.d(TAG, "No Child found");
+        }
+    }
+
+    private void startNextActivity() {
+        Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private boolean checkForRequiredField(){
+    private boolean checkForRequiredField() {
         boolean result = true;
-        UserData userData = new UserData();
+        SharedPreferences.Editor mPreffsEditor = FMCApplication.mPreffs.edit();
 
-        if(TextUtils.isEmpty(txtBirthday.getText())){
+        if (TextUtils.isEmpty(txtBirthday.getText())) {
             //txtBirthday.setError("This field cannot be empty");
-            showErrorDialog(getString(R.string.please_enter_birthday),getString(R.string.error));
+            showErrorDialog(getString(R.string.please_enter_birthday), getString(R.string.error));
             return false;
-        }else{
+        } else {
+            mPreffsEditor.putString(Constants.PREFS_BIRTHDAY, txtBirthday.getText().toString());
             userData.setBirthDay(txtBirthday.getText().toString());
         }
-        if(TextUtils.isEmpty(edtBitchUserName.getText())){
+        if (TextUtils.isEmpty(edtBitchUserName.getText())) {
             result = false;
             edtBitchUserName.setError(getString(R.string.field_cannot_be_empty));
             return false;
             //showErrorDialog(getString(R.string.please_enter_username),getString(R.string.error));
-        }else{
+        } else {
             userData.setBitchUserName(edtBitchUserName.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_BITCH_USERNAME, edtBitchUserName.getText().toString());
         }
-        if(TextUtils.isEmpty(edtBitchPassword.getText())){
+        if (TextUtils.isEmpty(edtBitchPassword.getText())) {
             result = false;
             edtBitchPassword.setError(getString(R.string.field_cannot_be_empty));
             return false;
             //showErrorDialog(getString(R.string.please_enter_password),getString(R.string.error));
-        }else{
+        } else {
             userData.setBitchPassword(edtBitchPassword.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_BITCH_PASSWORD, edtBitchPassword.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(edtHashtag.getText())) {
+            userData.setHashtags(edtHashtag.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, edtHashtag.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(edtBio.getText())) {
+            userData.setBio(edtBio.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_BIO, edtBio.getText().toString());
+        }
+
+        if (!TextUtils.isEmpty(edtWebsite.getText())) {
+            userData.setWebsite(edtWebsite.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_WEBSITE, edtWebsite.getText().toString());
         }
 
 
-        if(linChildrenDetailContainer != null){
-            for(int i = 0; i < linChildrenDetailContainer.getChildCount(); i ++){
+        if (linChildrenDetailContainer != null) {
+            for (int i = 0; i < linChildrenDetailContainer.getChildCount(); i++) {
                 ChildData childData = new ChildData();
                 LinearLayout childView = (LinearLayout) linChildrenDetailContainer.getChildAt(i);
                 EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
                 Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
 
-                if(TextUtils.isEmpty(edtAge.getText())){
+                if (TextUtils.isEmpty(edtAge.getText())) {
                     result = false;
                     edtAge.setError(getString(R.string.field_cannot_be_empty));
                     //showErrorDialog(getString(R.string.please_enter_child_age),getString(R.string.error));
                     return false;
-                }else{
-                    childData.setAge(Integer.parseInt(edtAge.getText().toString()));
+                } else {
+
+                    String regexStr = "^[0-9]*$";
+
+                    if (edtAge.getText().toString().trim().matches(regexStr)) {
+                        childData.setAge(Integer.parseInt(edtAge.getText().toString().trim()));
+                    }else{
+                        edtAge.setError("Not a Valid Age");
+                    }
+
                 }
                 childData.setGender(spinnerGender.getSelectedItem().toString());
-                userData.getArrChildData().add(childData);
+                if (childData.getAge() != 0) {
+
+                    userData.getArrChildData().add(childData);
+                }
+
+
                 //Log.d(TAG,spinnerGender.getSelectedItem().toString());
             }
+
+            Gson gson = new Gson();
+            String childJsonObject = gson.toJson(userData.getArrChildData());
+            Log.d(TAG, "Json Child Data " + childJsonObject);
+            mPreffsEditor.putString(Constants.PREFS_CHILD_DETAIL, childJsonObject).apply();
         }
 
-        if(result){
+        if (result) {
             FMCApplication.loggedinUserData = userData;
-            FMCApplication.mPreffs.edit().putBoolean(Constants.PREFS_PROFILE_SET,true).apply();
+            FMCApplication.mPreffs.edit().putBoolean(Constants.PREFS_PROFILE_SET, true).apply();
         }
 
         return result;
@@ -190,16 +278,17 @@ public class EditProfileActivity extends Activity {
         protected void onPostExecute(Bitmap result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            if(result != null && imgPic != null){
+            if (result != null && imgPic != null) {
                 imgPic.setImageBitmap(result);
                 FMCApplication.loggedinUserPic = result;
             }
         }
 
     }
-    private void showErrorDialog(String msg,String title){
+
+    private void showErrorDialog(String msg, String title) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(title==null?"Alert":title);
+        builder.setTitle(title == null ? "Alert" : title);
         builder.setMessage(msg);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override

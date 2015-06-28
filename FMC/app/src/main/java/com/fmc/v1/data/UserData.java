@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by Nilesh on 28/06/15.
  */
 public class UserData {
-    String name,bio,website,bitchUserName,bitchPassword,birthDay;
+    String name,bio,website,bitchUserName,bitchPassword,birthDay,hashtags;
 
     ArrayList<ChildData> arrChildData = new ArrayList<>();
 
@@ -16,6 +16,14 @@ public class UserData {
 
     public void setArrChildData(ArrayList<ChildData> arrChildData) {
         this.arrChildData = arrChildData;
+    }
+
+    public String getHashtags() {
+        return hashtags;
+    }
+
+    public void setHashtags(String hashtags) {
+        this.hashtags = hashtags;
     }
 
     public String getName() {

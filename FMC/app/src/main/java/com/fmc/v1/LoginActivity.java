@@ -100,49 +100,56 @@ public class LoginActivity extends Activity implements OnClickListener{
 		GraphRequest request = GraphRequest.newMeRequest(
                 accessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
-                
-					@Override
-					public void onCompleted(JSONObject object,
-							GraphResponse response) {
-						// TODO Auto-generated method stub
-						if(object != null){
-							Log.d(TAG, "Object "+object.toString());	
-						}
-						/*Log.v("LoginActivity", response.toString());*/
-						
-						if(pDialog.isShowing()){
-                        	pDialog.dismiss();
+
+                    @Override
+                    public void onCompleted(JSONObject object,
+                                            GraphResponse response) {
+                        // TODO Auto-generated method stub
+                        if (object != null) {
+                            Log.d(TAG, "Object " + object.toString());
                         }
-						
-						if (object != null) {
+						/*Log.v("LoginActivity", response.toString());*/
+
+                        if (pDialog.isShowing()) {
+                            pDialog.dismiss();
+                        }
+
+                        if (object != null) {
                             Log.d(TAG, "Object " + object.toString());
                             Editor editor = mPrefs.edit();
                             String name = object.optString("name");
-                            if(!TextUtils.isEmpty(name)){
-                            	editor.putString(Constants.PREFS_USER_NAME, name);
+                            if (!TextUtils.isEmpty(name)) {
+                                editor.putString(Constants.PREFS_USER_NAME, name);
                             }
                             Constants.USER_NAME = name;
                             String email = object.optString("email");
-                            if(!TextUtils.isEmpty(email)){
-                            	editor.putString(Constants.PREFS_USER_EMAIL, email);
+                            if (!TextUtils.isEmpty(email)) {
+                                editor.putString(Constants.PREFS_USER_EMAIL, email);
                             }
                             Constants.USER_EMAIL = email;
-                            
+
                             String id = object.optString("id");
-                            if(!TextUtils.isEmpty(id)){
-                            	editor.putString(Constants.PREFS_USER_ID, id);
+                            if (!TextUtils.isEmpty(id)) {
+                                editor.putString(Constants.PREFS_USER_ID, id);
                             }
-                            
+
                             String gender = object.optString("gender");
-                            if(!TextUtils.isEmpty(gender)){
-                            	editor.putString(Constants.PREFS_USER_GENDER, gender);
+                            if (!TextUtils.isEmpty(gender)) {
+                                editor.putString(Constants.PREFS_USER_GENDER, gender);
                             }
 
                             JSONObject jobj = object.optJSONObject("location");
                             if (jobj != null) {
                                 String user_location = jobj.optString("name");
-                                if(!TextUtils.isEmpty(user_location)){
+                                if (!TextUtils.isEmpty(user_location)) {
                                     editor.putString(Constants.PREFS_USER_LOCATION, user_location);
+                                }
+                            }
+                            JSONObject jCover = object.optJSONObject("cover");
+                            if (jCover != null) {
+                                String coverImage = jCover.optString("source");
+                                if (!TextUtils.isEmpty(coverImage)) {
+                                    editor.putString(Constants.PREFS_COVER_IMAGE_URL,coverImage);
                                 }
                             }
 
@@ -150,15 +157,15 @@ public class LoginActivity extends Activity implements OnClickListener{
                             Log.d(TAG, "Found Name  " + name + " Email " + email);
                             getFriendList();
                             //updateToken(accessToken);
-                        }else{
-                            showErrorDialog(getResources().getString(R.string.unable_to_get_info),"Alert!");
+                        } else {
+                            showErrorDialog(getResources().getString(R.string.unable_to_get_info), "Alert!");
                         }
-						
-						
-					}
+
+
+                    }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,gender, birthday,location");
+        parameters.putString("fields", "id,name,email,gender, birthday,location,cover");
         request.setParameters(parameters);
         pDialog.setMessage("Fetching User Data");
         pDialog.setCanceledOnTouchOutside(false);

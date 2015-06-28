@@ -15,9 +15,17 @@ public class Constants {
     public static String PREFS_USER_GENDER ="user_gender";
     public static String PREFS_USER_EMAIL ="user_email";
     public static String PREFS_USER_LOCATION ="user_location";
+    public static String PREFS_COVER_IMAGE_URL ="cover_image_URL";
     public static String PREFS_GLOBAL_SELECTED ="is_local_selected";
     public static String PREFS_USER_ID ="user_id";
     public static String PREFS_UID ="uid";
+    public static String PREFS_HASHTAGS ="hashtags_prefs";
+    public static String PREFS_BIO ="bio_prefs";
+    public static String PREFS_WEBSITE ="website_prefs";
+    public static String PREFS_BIRTHDAY ="birthday_prefs";
+    public static String PREFS_BITCH_USERNAME ="bitch_username_prefs";
+    public static String PREFS_BITCH_PASSWORD ="bitch_password_prefs";
+    public static String PREFS_CHILD_DETAIL ="child_detail_prefs";
     public static String PREFS_CODE_VALIDATION_DONE ="code_validation_done";
     public static String PREFS_PROFILE_SET ="is_profile_set";
 

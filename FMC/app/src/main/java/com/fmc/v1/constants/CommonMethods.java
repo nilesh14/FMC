@@ -114,6 +114,29 @@ public class CommonMethods {
 	    return bitmap;
 	}
 
+	public static Bitmap getFacebookProfileCoverPicture(Context context, String coverURL){
+		if(!CommonMethods.isNetworkPresent(context)){
+			//Toast.makeText(context, "No Network Present", Toast.LENGTH_SHORT).show();
+			return null;
+		}
+		URL imageURL;
+		Bitmap bitmap = null;
+		if (coverURL != null) {
+			try {
+				imageURL = new URL(coverURL);
+
+
+				bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
+		return bitmap;
+	}
+
 	public static String callSyncService(Context context,String webservice_url,String TAG) {
 
 		if(!CommonMethods.isNetworkPresent(context)){
