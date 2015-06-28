@@ -40,6 +40,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp" />
     </RelativeLayout>
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -74,6 +75,7 @@
                         app1:border_color="#E9E8E9"
                         app1:border_width="1dp"
                         app1:shadow="true" />
+
                     <LinearLayout
                         android:id="@+id/linNameContainer"
                         android:layout_width="fill_parent"
@@ -118,8 +120,8 @@
                             android:layout_marginLeft="10dp"
                             android:background="@null"
                             android:hint="@string/select_hashtag"
-                            android:singleLine="true"
                             android:imeOptions="actionNext"
+                            android:singleLine="true"
                             android:textSize="@dimen/text_14sp" />
                     </LinearLayout>
 
@@ -152,9 +154,9 @@
                             android:layout_marginLeft="10dp"
                             android:background="@null"
                             android:hint="@string/bio"
-                            android:singleLine="true"
                             android:imeOptions="actionNext"
                             android:scrollHorizontally="true"
+                            android:singleLine="true"
                             android:textSize="@dimen/text_14sp" />
                     </LinearLayout>
 
@@ -162,8 +164,8 @@
                         android:id="@+id/viewSeparatorBio"
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
-                        android:layout_toLeftOf="@id/imgPic"
                         android:layout_below="@id/linBioContainer"
+                        android:layout_toLeftOf="@id/imgPic"
                         android:background="@android:color/black"></View>
                 </RelativeLayout>
 
@@ -189,9 +191,9 @@
                         android:layout_marginLeft="10dp"
                         android:background="@null"
                         android:hint="@string/website"
-                        android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:textSize="@dimen/text_14sp" />
                 </LinearLayout>
 
@@ -239,10 +241,10 @@
 
                     <com.fmc.v1.view.DateDisplayPicker
                         android:id="@+id/txtBirthday"
+                        style="@android:style/Widget.Holo.DatePicker"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        style="@android:style/Widget.Holo.DatePicker"
                         android:hint="@string/birthday"
                         android:scrollHorizontally="true"
                         android:textSize="@dimen/text_14sp" />
@@ -279,9 +281,9 @@
                         android:layout_marginLeft="10dp"
                         android:background="@null"
                         android:hint="@string/bitch_username"
-                        android:singleLine="true"
                         android:imeOptions="actionNext"
                         android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:textSize="@dimen/text_14sp" />
                 </LinearLayout>
 
@@ -315,10 +317,10 @@
                         android:layout_marginLeft="10dp"
                         android:background="@null"
                         android:hint="@string/bitch_password"
-                        android:inputType="textPassword"
-                        android:singleLine="true"
                         android:imeOptions="actionDone"
+                        android:inputType="textPassword"
                         android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:textSize="@dimen/text_14sp" />
                 </LinearLayout>
 
@@ -334,9 +336,9 @@
                     android:id="@+id/linChildrenInfoContainer"
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height_name"
+                    android:layout_gravity="center_vertical"
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
 
@@ -344,29 +346,29 @@
                         android:id="@+id/imgIcon"
                         android:layout_width="@dimen/text_drawable_width"
                         android:layout_height="@dimen/text_drawable_height"
-                        android:src="@drawable/image8"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp"
+                        android:src="@drawable/image8" />
 
                     <TextView
                         android:id="@+id/edtChildrenInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toLeftOf="@+id/imgAddChild"
                         android:layout_toRightOf="@+id/imgIcon"
-                        android:layout_centerVertical="true"
                         android:background="@null"
                         android:text="@string/children_info"
                         android:textSize="@dimen/text_14sp" />
+
                     <ImageView
                         android:id="@+id/imgAddChild"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/image11"
                         android:layout_alignParentRight="true"
-                        android:layout_margin="5dp"/>
+                        android:layout_margin="5dp"
+                        android:src="@drawable/image11" />
                 </RelativeLayout>
-
 
 
                 <View
@@ -393,8 +395,6 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-
 
 
 </LinearLayout>
