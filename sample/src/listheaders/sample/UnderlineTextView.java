@@ -1,4 +1,4 @@
-package se.emilsjolander.stickylistheaders.sample.views;
+package listheaders.sample;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,9 +8,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.TextView;
 
-/**
- * @author Eric Frohnhoefer
- */
+
 public class UnderlineTextView  extends TextView {
     private final Paint mPaint = new Paint();
     private int mUnderlineHeight = 0;

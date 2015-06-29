@@ -1,4 +1,4 @@
-package se.emilsjolander.stickylistheaders.sample;
+package listheaders.sample;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +16,7 @@ public class TestBaseAdapter extends BaseAdapter implements
         StickyListHeadersAdapter, SectionIndexer {
 
     private final Context mContext;
-    private String[] mCountries;
+    private String [] mCountries;
     private int[] mSectionIndices;
     private Character[] mSectionLetters;
     private LayoutInflater mInflater;
@@ -149,6 +149,7 @@ public class TestBaseAdapter extends BaseAdapter implements
 
     public void clear() {
         mCountries = new String[0];
+       // mCountries.clear();
         mSectionIndices = new int[0];
         mSectionLetters = new Character[0];
         notifyDataSetChanged();
@@ -156,6 +157,13 @@ public class TestBaseAdapter extends BaseAdapter implements
 
     public void restore() {
         mCountries = mContext.getResources().getStringArray(R.array.countries);
+        mSectionIndices = getSectionIndices();
+        mSectionLetters = getSectionLetters();
+        notifyDataSetChanged();
+    }
+
+    public void restore(String [] arrData) {
+        mCountries = arrData;
         mSectionIndices = getSectionIndices();
         mSectionLetters = getSectionLetters();
         notifyDataSetChanged();
@@ -169,4 +177,7 @@ public class TestBaseAdapter extends BaseAdapter implements
         TextView text;
     }
 
+    /*public String [] getmCountries() {
+        return mCountries;
+    }*/
 }
