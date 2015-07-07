@@ -3,6 +3,7 @@ package com.app.e10d.Fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.app.e10d.HomeScreenActivity;
 import com.app.e10d.Interfaces.GeneralCallbacks;
 import com.app.e10d.MainActivity;
 import com.app.e10d.R;
@@ -134,15 +137,20 @@ public class CreateAccountFragment extends Fragment {
                         String id = jsonObject.optString("uid");
                         String userName = jsonObject.optString("name");
                         if(!TextUtils.isEmpty(id) && !TextUtils.isEmpty(userName)){
-                            E10DApplication.mPrefs.edit().putString(Constants.PREFS_ID, id).putString(Constants.PREFS_USER_NAME,userName).apply();
-                            //Toast.makeText(MainActivity.this,"Welcome "+edtID.getText(),Toast.LENGTH_SHORT).show();
+                            //E10DApplication.mPrefs.edit().putString(Constants.PREFS_ID, id).putString(Constants.PREFS_USER_NAME,userName).apply();
+                            Toast.makeText(getActivity(), "Signup successfull. Please login ", Toast.LENGTH_SHORT).show();
                             //startNextActivity();
+
+                            //Intent intent = new Intent(getActivity(), HomeScreenActivity.class);
+                            mGeneralCallBacks.switchFragment(MainActivity.FRAG_LOGIN, new LoginFragment());
+
                         }else{
-                            mGeneralCallBacks.showErrorDialog("Error", "Error while signing in. Please try again");
+                            mGeneralCallBacks.showErrorDialog("Error", "Error while registering account. Please try again");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mGeneralCallBacks.showErrorDialog("Error", "Error while registering account. Please try again");
                 }
             }else{
                 mGeneralCallBacks.showErrorDialog("Error", "Error while signing in. Please try again");

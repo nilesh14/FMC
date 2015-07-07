@@ -3,6 +3,7 @@ package com.app.e10d.Fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.app.e10d.HomeScreenActivity;
 import com.app.e10d.Interfaces.GeneralCallbacks;
 import com.app.e10d.MainActivity;
 import com.app.e10d.R;
@@ -131,12 +133,15 @@ public class LoginFragment extends Fragment {
                             E10DApplication.mPrefs.edit().putString(Constants.PREFS_ID, id).putString(Constants.PREFS_USER_NAME,userName).apply();
                             //Toast.makeText(MainActivity.this,"Welcome "+edtID.getText(),Toast.LENGTH_SHORT).show();
                             //startNextActivity();
+                            Intent intent = new Intent(getActivity(), HomeScreenActivity.class);
+                            mGeneralCallbacks.startNewActivity(intent);
                         }else{
                             mGeneralCallbacks.showErrorDialog("Error", "Error while signing in. Please try again");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    mGeneralCallbacks.showErrorDialog("Error", "Error while signing in. Please try again");
                 }
             }else{
                 mGeneralCallbacks.showErrorDialog("Error", "Error while signing in. Please try again");

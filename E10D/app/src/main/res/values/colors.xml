@@ -2,4 +2,5 @@
 <resources>
     <color name="header_red">#F90B0A</color>
     <color name="text_color">#555555</color>
+    <color name="product_text_bg">#D9D2D9</color>
 </resources>

@@ -15,4 +15,10 @@
     <string name="cell">Cell</string>
     <string name="or">OR</string>
     <string name="login_to_account">Login to Account</string>
+    <string name="latest">Latest</string>
+    <string name="apparels">Apparels</string>
+    <string name="electronics">Electronics</string>
+    <string name="health">Health</string>
+    <string name="jewelry">Jewelry</string>
+    <string name="fetching_products">Fetching Products</string>
 </resources>

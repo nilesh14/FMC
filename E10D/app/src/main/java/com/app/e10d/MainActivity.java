@@ -3,6 +3,7 @@ package com.app.e10d;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +63,12 @@ public class MainActivity extends FragmentActivity implements GeneralCallbacks {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        if(E10DApplication.mPrefs.getString(Constants.PREFS_ID,null)!=null){
+            Log.d(TAG,"Logged in User id = "+E10DApplication.mPrefs.getString(Constants.PREFS_ID,""));
+            startNewActivity(new Intent(MainActivity.this, HomeScreenActivity.class));
+            finish();
+            return;
+        }
         //linLayoutContainer = (LinearLayout) findViewById(R.id.linLayoutContainer);
         slideInLeft = AnimationUtils.loadAnimation(MainActivity.this,R.anim.slide_in_left);
         slideInRight = AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_in_right);
@@ -102,6 +109,11 @@ public class MainActivity extends FragmentActivity implements GeneralCallbacks {
             ft.replace(R.id.frameContainer,fragment).addToBackStack("CREATE_ACCOUNT").commit();
             activeFragment = FRAG_CREATE_ACCOUNT;
         }
+    }
+
+    @Override
+    public void startNewActivity(Intent intent) {
+        startActivity(intent);
     }
 
 

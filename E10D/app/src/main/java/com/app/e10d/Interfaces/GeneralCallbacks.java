@@ -1,5 +1,7 @@
 package com.app.e10d.Interfaces;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 /**
@@ -9,4 +11,5 @@ public interface GeneralCallbacks {
 
     public void showErrorDialog(String title,String msg);
     public void switchFragment(int fragID , Fragment fragment);
+    public void startNewActivity(Intent intent);
 }

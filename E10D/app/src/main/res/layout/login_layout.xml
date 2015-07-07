@@ -3,7 +3,7 @@
     android:id="@+id/linLoginLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:background="@drawable/bg_stroke_red_3_dp_red_color"
     android:gravity="center"
     android:orientation="vertical">

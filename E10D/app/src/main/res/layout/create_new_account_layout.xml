@@ -3,7 +3,7 @@
     android:id="@+id/linCreateAccountLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="20dp"
     android:background="@drawable/bg_stroke_red_3_dp_red_color"
     android:gravity="center"
     android:orientation="vertical">
@@ -11,10 +11,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="@string/account_registration"
         android:textColor="@color/text_color"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <EditText
         android:id="@+id/edtFullName"
@@ -102,10 +102,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="@string/or"
         android:textColor="@color/text_color"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
 
 
@@ -114,8 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
         android:text="@string/login_to_account"
         android:textColor="@color/text_color"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 </LinearLayout>

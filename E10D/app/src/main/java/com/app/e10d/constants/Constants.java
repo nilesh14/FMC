@@ -9,8 +9,9 @@ public class Constants {
 
     public static final String LOGIN_URL = "http://www.menuwiz.co/e10d-app/login.php";
     public static final String REGISTER_URL = "http://www.menuwiz.co/e10d-app/register.php";
-    public static final String ENTRY_LIST_URL = "http://www.menuwiz.co/cet-app/list.php";
-    public static final String VIEW_ENTRY_URL = "http://www.menuwiz.co/cet-app/list-details.php";
+    public static final String IMAGE_DOWNLOAD_URL = "http://www.menuwiz.co/e10d/images/products/"; // append the Image name to url
+    public static final String LATEST_PRODUCTS_URL = "http://www.menuwiz.co/e10d-app/latest-products.php";
+    public static final String PRODUCTS_URL = "http://www.menuwiz.co/e10d-app/products.php";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "pwd";
     public static final String PREFS_ID = "prefs_id";
