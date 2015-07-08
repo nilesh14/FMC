@@ -21,4 +21,6 @@
     <string name="health">Health</string>
     <string name="jewelry">Jewelry</string>
     <string name="fetching_products">Fetching Products</string>
+    <string name="view">View</string>
+    <string name="add">Add</string>
 </resources>

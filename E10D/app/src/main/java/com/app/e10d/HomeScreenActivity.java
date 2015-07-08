@@ -25,9 +25,9 @@ public class HomeScreenActivity extends FragmentActivity implements GeneralCallb
 
     public static int LATEST_PRODUCTS = 100;
     public static int APPARELS = 101;
-    public static int ELECTRONICS = 103;
-    public static int HEALTH = 104;
-    public static int JEWELRY = 105;
+    public static int ELECTRONICS = 102;
+    public static int HEALTH = 103;
+    public static int JEWELRY = 104;
 
     LinearLayout linLatestContainer,linApparelsContainer,linElectronicsContainer,linHealthContainer,linJewelryContainer;
 
