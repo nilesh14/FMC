@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.app.e10d.Fragments.ListProductsFragment;
@@ -22,6 +23,7 @@ import com.app.e10d.adapter.GridViewWithHeader;
 public class HomeScreenActivity extends FragmentActivity implements GeneralCallbacks,HeaderItemCallbacks, View.OnClickListener{
 
     public static int FRAG_GRID_VIEW = 1;
+    public static int FRAG_GRID_VIEW_PRODUCT_DETAIL = 2;
 
     public static int LATEST_PRODUCTS = 100;
     public static int APPARELS = 101;
@@ -36,6 +38,7 @@ public class HomeScreenActivity extends FragmentActivity implements GeneralCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen_activity);
 
@@ -69,7 +72,12 @@ public class HomeScreenActivity extends FragmentActivity implements GeneralCallb
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         if(fragID == FRAG_GRID_VIEW) {
             getSupportFragmentManager().popBackStack();
-            ft.replace(R.id.frame, fragment).commit();
+            ft.replace(R.id.frame, fragment)/*.addToBackStack("FRAG_GRID_VIEW")*/.commit();
+        }
+
+        if(fragID == FRAG_GRID_VIEW_PRODUCT_DETAIL) {
+            //getSupportFragmentManager().popBackStack();
+            ft.replace(R.id.frame, fragment).addToBackStack("FRAG_GRID_DETAIL").commit();
         }
     }
 

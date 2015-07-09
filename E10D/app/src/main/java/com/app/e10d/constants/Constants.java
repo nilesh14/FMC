@@ -12,6 +12,8 @@ public class Constants {
     public static final String IMAGE_DOWNLOAD_URL = "http://www.menuwiz.co/e10d/images/products/"; // append the Image name to url
     public static final String LATEST_PRODUCTS_URL = "http://www.menuwiz.co/e10d-app/latest-products.php";
     public static final String PRODUCTS_URL = "http://www.menuwiz.co/e10d-app/products.php";
+    public static final String PRODUCTS_DETAIL_URL = "http://www.menuwiz.co/e10d-app/product-details.php";
+    public static final String ADD_TO_CART_URL = "http://www.menuwiz.co/e10d-app/add-to-cart.php";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "pwd";
     public static final String PREFS_ID = "prefs_id";

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.app.e10d.Data.ProductData;
@@ -71,7 +72,23 @@ public class ListProductsFragment extends Fragment {
         list.addHeaderView(header);
         /*adapter = new GridViewWithHeader(getActivity(),arrProductData);
         list.setAdapter(adapter);*/
-        Toast.makeText(getActivity(),"List Fragment",Toast.LENGTH_SHORT).show();
+
+        adapter = new GridViewWithHeader(getActivity(),arrProductData,mGeneralCallBacks);
+        list.setAdapter(adapter);
+        //Toast.makeText(getActivity(),"List Fragment",Toast.LENGTH_SHORT).show();
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ProductData data = (ProductData) parent.getAdapter().getItem(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt("tag", data.getPid());
+                ProductDetailFragment detailFragment = new ProductDetailFragment();
+                detailFragment.setArguments(bundle);
+                mGeneralCallBacks.switchFragment(HomeScreenActivity.FRAG_GRID_VIEW_PRODUCT_DETAIL,detailFragment);
+            }
+        });
+
+
         return view;
     }
 
@@ -119,7 +136,7 @@ public class ListProductsFragment extends Fragment {
                     Gson gson = new Gson();
                     arrProductData = gson.fromJson(s,new TypeToken<List<ProductData>>(){}.getType());
                     Log.d(TAG,"Got Products COunt = "+arrProductData.size());
-                    adapter = new GridViewWithHeader(getActivity(),arrProductData);
+                    adapter = new GridViewWithHeader(getActivity(),arrProductData,mGeneralCallBacks);
                     list.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }else{

@@ -3,6 +3,7 @@ package com.app.e10d.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.e10d.Data.ProductData;
+import com.app.e10d.Fragments.ProductDetailFragment;
+import com.app.e10d.HomeScreenActivity;
+import com.app.e10d.Interfaces.GeneralCallbacks;
 import com.app.e10d.R;
 import com.app.e10d.constants.Constants;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -32,10 +36,12 @@ public class GridViewWithHeader extends BaseAdapter{
     LayoutInflater inflater;
     ImageLoader loader = ImageLoader.getInstance();
     DisplayImageOptions options;
+    GeneralCallbacks mGeneralCallBacks;
 
-    public GridViewWithHeader(Context context , ArrayList<ProductData> arrProductData) {
+    public GridViewWithHeader(Context context , ArrayList<ProductData> arrProductData,GeneralCallbacks mGeneralCallBacks) {
         this.context = context;
         this.arrProductData = arrProductData;
+        this.mGeneralCallBacks = mGeneralCallBacks;
         inflater = LayoutInflater.from(context);
 
         options = new DisplayImageOptions.Builder()
@@ -66,7 +72,7 @@ public class GridViewWithHeader extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
         View view = convertView;
@@ -89,9 +95,21 @@ public class GridViewWithHeader extends BaseAdapter{
             ImageLoader.getInstance().displayImage(Constants.IMAGE_DOWNLOAD_URL + data.getPimg(), holder.imgProductImage, options);
             //holder.txtDiscountRate.setPaintFlags(holder.txtDiscountRate.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            holder.txtDiscountRate.setText(data.getActual_price() + "  $" + data.getDeal_price(), TextView.BufferType.SPANNABLE);
+            holder.txtDiscountRate.setText("$"+data.getActual_price() + "  $" + data.getDeal_price(), TextView.BufferType.SPANNABLE);
             Spannable spannable = (Spannable) holder.txtDiscountRate.getText();
-            spannable.setSpan(new StrikethroughSpan(), 0, 4, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannable.setSpan(new StrikethroughSpan(), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            holder.txtView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ProductData data = (ProductData) getItem(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("tag", data.getPid());
+                    ProductDetailFragment detailFragment = new ProductDetailFragment();
+                    detailFragment.setArguments(bundle);
+                    mGeneralCallBacks.switchFragment(HomeScreenActivity.FRAG_GRID_VIEW_PRODUCT_DETAIL,detailFragment);
+                }
+            });
 
             /*loader .loadImage(Constants.IMAGE_DOWNLOAD_URL+data.getPimg(),new SimpleImageLoadingListener(){
 

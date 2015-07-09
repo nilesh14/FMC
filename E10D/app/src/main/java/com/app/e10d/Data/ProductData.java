@@ -5,7 +5,7 @@ package com.app.e10d.Data;
  */
 public class ProductData {
 
-    String ptitle,pimg,actual_price,deal_price,discount;
+    String ptitle,pimg,actual_price,deal_price,discount,pname,pdetails;
     int pid;
 
     public String getPtitle() {
@@ -54,5 +54,21 @@ public class ProductData {
 
     public void setPid(int pid) {
         this.pid = pid;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public void setPname(String pname) {
+        this.pname = pname;
+    }
+
+    public String getPdetails() {
+        return pdetails;
+    }
+
+    public void setPdetails(String pdetails) {
+        this.pdetails = pdetails;
     }
 }
