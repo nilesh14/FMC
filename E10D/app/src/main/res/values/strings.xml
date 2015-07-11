@@ -22,6 +22,7 @@
     <string name="jewelry">Jewelry</string>
     <string name="fetching_products">Fetching Products</string>
     <string name="fetching_products_detail">Fetching Product Detail</string>
+    <string name="adding_to_cart">Please wait, Adding items to Cart…</string>
     <string name="view">View</string>
     <string name="add">Add</string>
     <string name="add_to_cart">ADD TO CART</string>

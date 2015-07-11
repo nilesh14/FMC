@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.app.e10d.Data.ProductData;
 import com.app.e10d.Interfaces.GeneralCallbacks;
 import com.app.e10d.R;
+import com.app.e10d.application.E10DApplication;
 import com.app.e10d.constants.CommonMethods;
 import com.app.e10d.constants.Constants;
 import com.google.gson.Gson;
@@ -67,7 +68,11 @@ public class ProductDetailFragment extends Fragment {
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                HashMap<String,String> data = new HashMap<String, String>();
+                data.put("uid", E10DApplication.mPrefs.getString(Constants.PREFS_ID,""));
+                data.put("pid", String.valueOf(pid));
+                data.put("qty", txtItemCount.getText().toString());
+                new AddToCartTask(data,getActivity(),mGeneralCallBacks).execute(Constants.ADD_TO_CART_URL);
             }
         });
 
@@ -185,9 +190,11 @@ public class ProductDetailFragment extends Fragment {
 
         HashMap<String,String> data;
         Context context;
-        AddToCartTask(HashMap<String, String> data, Context context){
+        GeneralCallbacks generalCallbacks;
+        AddToCartTask(HashMap<String, String> data, Context context,GeneralCallbacks generalCallbacks){
             this.data = data;
             this.context = context;
+            this.generalCallbacks = generalCallbacks;
         }
 
         @Override
@@ -198,7 +205,7 @@ public class ProductDetailFragment extends Fragment {
                 pDialog = new ProgressDialog(context);
             }
 
-            pDialog.setMessage(getString(R.string.fetching_products_detail));
+            pDialog.setMessage(getString(R.string.adding_to_cart));
             pDialog.show();
         }
 
@@ -227,8 +234,13 @@ public class ProductDetailFragment extends Fragment {
                         for(int i = 0; i < jsonArray.length(); i ++){
                             JSONObject jsonObject = jsonArray.optJSONObject(i);
                             String count = jsonObject.optString("count");
-                            if(!TextUtils.isEmpty(count) && count.equalsIgnoreCase("1")){
-
+                            if(!TextUtils.isEmpty(count)){
+                                try {
+                                    generalCallbacks.showErrorDialog("Success","Items Added successfully");
+                                    generalCallbacks.updateCartCount(Integer.parseInt(count));
+                                } catch (NumberFormatException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     } catch (JSONException e) {
@@ -236,13 +248,21 @@ public class ProductDetailFragment extends Fragment {
                     }
 
                 }else{
-
+                    generalCallbacks.showErrorDialog("Error","Error While Adding to Cart");
                 }
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
-                mGeneralCallBacks.showErrorDialog("Error","Error While Fetching Products Detail");
+                generalCallbacks.showErrorDialog("Error", "Error While Adding to Cart");
             }
 
+        }
+    }
+
+
+    // not called
+    private void updateCartCount(int count){
+        if (txtItemCount != null) {
+            txtItemCount.setText(String.valueOf(count));
         }
     }
 

@@ -66,58 +66,6 @@ public class MainActivity extends ActionBarActivity {
 			public boolean onTouch(View view, MotionEvent motionEvent) {
 
 				final int action = motionEvent.getActionMasked();
-				/*switch (action){
-					case MotionEvent.ACTION_DOWN: {
-						final int pointerIndex = motionEvent.getActionIndex();
-						final float x = motionEvent.getX(pointerIndex);
-						final float y = motionEvent.getY(pointerIndex);
-
-						// Remember where we started (for dragging)
-						mLastTouchX = x;
-						mLastTouchY = y;
-						// Save the ID of this pointer (for dragging)
-						mActivePointerId = motionEvent.getPointerId( 0);
-						break;
-					}
-
-					case MotionEvent.ACTION_MOVE: {
-						// Find the index of the active pointer and fetch its position
-						final int pointerIndex =
-								motionEvent.findPointerIndex(mActivePointerId);
-
-						final float x = motionEvent.getX(pointerIndex);
-						final float y = motionEvent.getY( pointerIndex);
-
-						// Calculate the distance moved
-						final float dx = x - mLastTouchX;
-						final float dy = y - mLastTouchY;
-
-						mPosX += dx;
-						mPosY += dy;
-
-						view.setX(mPosX);
-						//view.setY(mPosY);
-						view.invalidate();
-
-						// Remember this touch position for the next move event
-						mLastTouchX = x;
-						mLastTouchY = y;
-
-						break;
-					}
-					case MotionEvent.ACTION_UP: {
-						mActivePointerId = INVALID_POINTER_ID;
-						break;
-					}
-
-					case MotionEvent.ACTION_CANCEL: {
-						mActivePointerId = INVALID_POINTER_ID;
-						break;
-					}
-
-				}*/
-
-
 
 				if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
 					FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) slideText
@@ -146,9 +94,6 @@ public class MainActivity extends ActionBarActivity {
 					//Log.d(TAG,"mPosX = "+mPosX +" viewX = "+viewX +" viewY = "+viewY);
 
 					RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-					//layoutParams.rightMargin = 0;
-
-					//view.setLayoutParams(layoutParams);
 					//Log.d(TAG,"Right margin when finger Down = "+layoutParams.rightMargin);
 
 				} else if (motionEvent.getAction() == MotionEvent.ACTION_UP
@@ -164,25 +109,16 @@ public class MainActivity extends ActionBarActivity {
 
 					view.setLayoutParams(layoutParams);
 
-					//view.setX(viewX);
-					//view.setY(viewY);
 					mPosX = 0;
 					_xDelta = 0;
 					interceptTouchEvents = true;
 
-
-					//Log.d(TAG,"Right margin when finger lift = "+layoutParams.rightMargin);
-
-
-					// stopRecording(true);
 				} else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
 					if(interceptTouchEvents){
 						_xDelta = mPosX - motionEvent.getRawX();
 						//Log.d(TAG, "Moving X position " + motionEvent.getRawX() + " xDelta = " + _xDelta);
-						float diff = view.getX() - _xDelta;
+						//float diff = view.getX() - _xDelta;
 
-
-						//view.setX(diff);
 
 						RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
 						layoutParams.rightMargin = dp(_xDelta);
@@ -252,17 +188,11 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void scaleAnimation(){
-		/*ScaleAnimation scale = new ScaleAnimation((float)1.0, (float)1.5, (float)1.0, (float)1.5);
-		scale.setFillAfter(true);
-		scale.setDuration(500);
-		audioSendButton.startAnimation(scale);*/
-		ScaleAnimation fade_in =  new ScaleAnimation(1f, 1.5f, 1f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		fade_in.setDuration(100);     // animation duration in milliseconds
-		fade_in.setFillAfter(true);    // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
-		audioSendButton.startAnimation(fade_in);
+		ScaleAnimation scale =  new ScaleAnimation(1f, 1.5f, 1f, 1.5f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+		scale.setDuration(100);     // animation duration in milliseconds
+		scale.setFillAfter(true);    // If fillAfter is true, the transformation that this animation performed will persist when it is finished.
+		audioSendButton.startAnimation(scale);
 
-		/*Animation scale = AnimationUtils.loadAnimation(this,R.anim.scale);
-		audioSendButton.startAnimation(scale);*/
 	}
 
 	private void scaleAnimationReverse(){

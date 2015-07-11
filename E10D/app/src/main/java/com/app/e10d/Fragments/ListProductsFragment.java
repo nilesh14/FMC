@@ -84,6 +84,7 @@ public class ListProductsFragment extends Fragment {
                 bundle.putInt("tag", data.getPid());
                 ProductDetailFragment detailFragment = new ProductDetailFragment();
                 detailFragment.setArguments(bundle);
+                mGeneralCallBacks.getCartCountAndUpdate();
                 mGeneralCallBacks.switchFragment(HomeScreenActivity.FRAG_GRID_VIEW_PRODUCT_DETAIL,detailFragment);
             }
         });

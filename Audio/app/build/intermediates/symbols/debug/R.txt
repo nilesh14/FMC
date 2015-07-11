@@ -357,7 +357,7 @@ int id action_settings 0x7f0b0046
 int id activity_chooser_view_content 0x7f0b0021
 int id always 0x7f0b0016
 int id beginning 0x7f0b0013
-int id chat_audio_send_button 0x7f0b0045
+int id chat_audio_send_button 0x7f0b0041
 int id chat_send_button 0x7f0b0040
 int id checkbox 0x7f0b0029
 int id collapseActionView 0x7f0b0017
@@ -384,8 +384,8 @@ int id normal 0x7f0b000a
 int id progress_circular 0x7f0b0005
 int id progress_horizontal 0x7f0b0006
 int id radio 0x7f0b002b
-int id record_panel 0x7f0b0041
-int id recording_time_text 0x7f0b0044
+int id record_panel 0x7f0b0042
+int id recording_time_text 0x7f0b0045
 int id relContainer 0x7f0b003f
 int id search_badge 0x7f0b0035
 int id search_bar 0x7f0b0034
@@ -401,8 +401,8 @@ int id shortcut 0x7f0b002a
 int id showCustom 0x7f0b000f
 int id showHome 0x7f0b0010
 int id showTitle 0x7f0b0011
-int id slideText 0x7f0b0042
-int id slideToCancelTextView 0x7f0b0043
+int id slideText 0x7f0b0043
+int id slideToCancelTextView 0x7f0b0044
 int id split_action_bar 0x7f0b0007
 int id submit_area 0x7f0b003c
 int id tabMode 0x7f0b000b

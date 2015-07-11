@@ -12,4 +12,6 @@ public interface GeneralCallbacks {
     public void showErrorDialog(String title,String msg);
     public void switchFragment(int fragID , Fragment fragment);
     public void startNewActivity(Intent intent);
+    public void updateCartCount(int count);
+    public int getCartCountAndUpdate();
 }

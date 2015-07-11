@@ -1325,7 +1325,7 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0b0021;
         public static final int always=0x7f0b0016;
         public static final int beginning=0x7f0b0013;
-        public static final int chat_audio_send_button=0x7f0b0045;
+        public static final int chat_audio_send_button=0x7f0b0041;
         public static final int chat_send_button=0x7f0b0040;
         public static final int checkbox=0x7f0b0029;
         public static final int collapseActionView=0x7f0b0017;
@@ -1352,8 +1352,8 @@ containing a value of this type.
         public static final int progress_circular=0x7f0b0005;
         public static final int progress_horizontal=0x7f0b0006;
         public static final int radio=0x7f0b002b;
-        public static final int record_panel=0x7f0b0041;
-        public static final int recording_time_text=0x7f0b0044;
+        public static final int record_panel=0x7f0b0042;
+        public static final int recording_time_text=0x7f0b0045;
         public static final int relContainer=0x7f0b003f;
         public static final int search_badge=0x7f0b0035;
         public static final int search_bar=0x7f0b0034;
@@ -1369,8 +1369,8 @@ containing a value of this type.
         public static final int showCustom=0x7f0b000f;
         public static final int showHome=0x7f0b0010;
         public static final int showTitle=0x7f0b0011;
-        public static final int slideText=0x7f0b0042;
-        public static final int slideToCancelTextView=0x7f0b0043;
+        public static final int slideText=0x7f0b0043;
+        public static final int slideToCancelTextView=0x7f0b0044;
         public static final int split_action_bar=0x7f0b0007;
         public static final int submit_area=0x7f0b003c;
         public static final int tabMode=0x7f0b000b;

@@ -118,5 +118,15 @@ public class MainActivity extends FragmentActivity implements GeneralCallbacks {
         startActivity(intent);
     }
 
+    @Override
+    public void updateCartCount(int count) {
+
+    }
+
+    @Override
+    public int getCartCountAndUpdate() {
+        return 0;
+    }
+
 
 }
