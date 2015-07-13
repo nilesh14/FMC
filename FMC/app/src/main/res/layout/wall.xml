@@ -2,7 +2,96 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/sort_by_bg_color"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txtSortBy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:background="@android:color/white"
+        android:text="@string/sort_by"
+        android:textColor="@color/main_color_red"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:id="@+id/linSortHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:gravity="center">
+        <LinearLayout
+            android:id="@+id/linLocationContainer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="2" >
+
+            <ImageView
+                android:id="@+id/imgLocation"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/location" />
+
+            <TextView
+                android:id="@+id/txtLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/location" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linLikeContainer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="2" >
+
+            <ImageView
+                android:id="@+id/imgLike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/heart" />
+
+            <TextView
+                android:id="@+id/txtLike"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/popularity" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linRecentContainer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="2" >
+
+            <ImageView
+                android:id="@+id/imgRecent"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/recent" />
+
+            <TextView
+                android:id="@+id/txtRecent"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/recent" />
+        </LinearLayout>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"

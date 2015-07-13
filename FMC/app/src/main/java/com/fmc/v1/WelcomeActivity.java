@@ -37,7 +37,13 @@ public class WelcomeActivity extends Activity{
 
     private void startWallActivity(){
         Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
-        startActivity(new Intent(WelcomeActivity.this, EditProfileActivity.class));
+        if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_PROFILE_SET,false)){
+            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+            //return;
+        }else{
+
+            startActivity(new Intent(WelcomeActivity.this, EditProfileActivity.class));
+        }
         finish();
     }
 }

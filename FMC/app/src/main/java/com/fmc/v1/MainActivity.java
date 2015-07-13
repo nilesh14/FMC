@@ -5,6 +5,7 @@ import com.facebook.AccessToken;
 import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.callbacks.PostNewWallPostDialogCallback;
 import com.fmc.v1.callbacks.SwitchFragmentsCallback;
+import com.fmc.v1.callbacks.WallFragCommands;
 import com.fmc.v1.constants.CommonMethods;
 import com.fmc.v1.constants.Constants;
 import com.fmc.v1.data.WallData;
@@ -46,12 +47,13 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
 
     private static int activeFragment = 0;
     Button btnWall, btnFAQS, btnBitch, btnProfile, btnMore;
-    CircularImageView circularImageView;
-    RelativeLayout relTopContainerContainer;
+    //CircularImageView circularImageView;
+    //RelativeLayout relTopContainerContainer;
     ProgressDialog pDialog;
     Fragment currentFragmentInstance;
-    ImageView imgAddPost;
-    Switch switchLocalGlobal;
+    ImageView imgAddPost,imgFilter;
+    WallFragCommands wallFragCommands;
+    //Switch switchLocalGlobal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         Log.d(TAG, "User ID " + AccessToken.getCurrentAccessToken().getUserId());
-        circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
+        //circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
         btnWall = (Button) findViewById(R.id.btnWall);
         btnWall.setOnClickListener(this);
         btnBitch = (Button) findViewById(R.id.btnBitch);
@@ -67,13 +69,22 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         btnProfile = (Button) findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(this);
         btnMore = (Button) findViewById(R.id.btnMore);
-        relTopContainerContainer = (RelativeLayout) findViewById(R.id.relTopContainerContainer);
+        //relTopContainerContainer = (RelativeLayout) findViewById(R.id.relTopContainerContainer);
         imgAddPost = (ImageView) findViewById(R.id.imgAddPost);
-        switchLocalGlobal = (Switch) findViewById(R.id.switchLocalGlobal);
+        imgFilter = (ImageView) findViewById(R.id.imgFilter);
+        imgFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (wallFragCommands != null) {
+                    wallFragCommands.showFilterOptions(true);
+                }
+            }
+        });
+        //switchLocalGlobal = (Switch) findViewById(R.id.switchLocalGlobal);
         //switchLocalGlobal.setSelected(mPrefs.getBoolean(Constants.PREFS_GLOBAL_SELECTED, false));
-        switchLocalGlobal.setChecked(FMCApplication.mPreffs.getBoolean(Constants.PREFS_GLOBAL_SELECTED, false));
+        //switchLocalGlobal.setChecked(FMCApplication.mPreffs.getBoolean(Constants.PREFS_GLOBAL_SELECTED, false));
 
-        switchLocalGlobal.setOnClickListener(new View.OnClickListener() {
+        /*switchLocalGlobal.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -93,7 +104,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
                     }
                 }
             }
-        });
+        });*/
 
         imgAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,13 +113,13 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             }
         });
 
-        if (FMCApplication.loggedinUserPic != null) {
+        /*if (FMCApplication.loggedinUserPic != null) {
             circularImageView.setImageBitmap(FMCApplication.loggedinUserPic);
         }else{
 
             new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
-        }
-        switchNewFragment(FRAG_LOCAL_OR_GLOBAL);
+        }*/
+        switchNewFragment(FRAG_WALL);
     }
 
     private void showAddPostDialog() {
@@ -122,13 +133,13 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         activeFragment = fragID;
 
-        if (fragID == FRAG_WALL) {
-            switchLocalGlobal.setChecked(FMCApplication.mPreffs.getBoolean(Constants.PREFS_GLOBAL_SELECTED, false));
+       /* if (fragID == FRAG_WALL) {
+            //switchLocalGlobal.setChecked(FMCApplication.mPreffs.getBoolean(Constants.PREFS_GLOBAL_SELECTED, false));
             relTopContainerContainer.setVisibility(View.VISIBLE);
         } else if (fragID == FRAG_LOCAL_OR_GLOBAL) {
 
             relTopContainerContainer.setVisibility(View.GONE);
-        }
+        }*/
 
         //updateButtonBG();
         currentFragmentInstance = fragment;
@@ -251,7 +262,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             // TODO Auto-generated method stub
             super.onPostExecute(result);
             if (result != null) {
-                circularImageView.setImageBitmap(result);
+                //circularImageView.setImageBitmap(result);
                 FMCApplication.loggedinUserPic = result;
             }
         }
@@ -264,7 +275,9 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
 		activeFragment = frag;*/
 
         if (frag == FRAG_WALL) {
-            switchFragment(new WallFragment(), FRAG_WALL, null);
+            WallFragment fragment = new WallFragment();
+            this.wallFragCommands = fragment;
+            switchFragment(fragment, FRAG_WALL, null);
 			/*transaction.replace(R.id.frame, new WallFragment()).commit();
             relTopContainerContainer.setVisibility(View.VISIBLE);*/
         } else if (frag == FRAG_LOCAL_OR_GLOBAL) {

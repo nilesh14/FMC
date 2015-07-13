@@ -67,8 +67,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 		callbackManager = CallbackManager.Factory.create();
 		app = (FMCApplication) getApplication();
 		mPrefs = app.getmPreffs();
-
-        // Ttest Comment Git
 		
 		btnLoginWithFacebook = (Button) findViewById(R.id.btnLoginWithFacebook);
 		btnLoginWithFacebook.setOnClickListener(this);

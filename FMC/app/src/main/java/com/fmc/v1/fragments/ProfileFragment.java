@@ -68,10 +68,10 @@ public class ProfileFragment extends Fragment {
 
         UserData userData = FMCApplication.loggedinUserData;
         if (userData != null) {
-            txtName.setText(  (TextUtils.isEmpty(userData.getName())? "":userData.getName() ) );
-            txtHashTags.setText(  (TextUtils.isEmpty(userData.getHashtags())? "#-":userData.getHashtags() ) );
-            txtBio.setText(  (TextUtils.isEmpty(userData.getBio())? "--":userData.getBio() ) );
-            txtWebsite.setText(  (TextUtils.isEmpty(userData.getWebsite())? "--":userData.getWebsite() ) );
+            txtName.setText( FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
+            txtHashTags.setText(  FMCApplication.mPreffs.getString(Constants.PREFS_HASHTAGS, "#") );
+            txtBio.setText(  FMCApplication.mPreffs.getString(Constants.PREFS_WEBSITE, "--") );
+            txtWebsite.setText( FMCApplication.mPreffs.getString(Constants.PREFS_BIO, "--"));
         }
         return view;
     }

@@ -70,7 +70,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2" >
+        android:weightSum="3" >
 
         <LinearLayout
             android:id="@+id/linLikeContainer"
@@ -93,7 +93,7 @@
                 android:layout_height="fill_parent"
                 android:gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Like" />
+                android:text="@string/like" />
         </LinearLayout>
 
         <LinearLayout
@@ -117,9 +117,32 @@
                 android:layout_height="fill_parent"
                 android:gravity="center"
                 android:layout_marginLeft="10dp"
-                android:text="Comment" />
+                android:text="@string/comment" />
         </LinearLayout>
-        
+
+        <LinearLayout
+            android:id="@+id/linShareContainer"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2" >
+
+            <ImageView
+                android:id="@+id/imgShareImage"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/share" />
+
+            <TextView
+                android:id="@+id/txtShare"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+                android:text="@string/share" />
+        </LinearLayout>
         
     </LinearLayout>
 

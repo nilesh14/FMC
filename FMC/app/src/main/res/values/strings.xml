@@ -49,6 +49,13 @@
     <string name="bio_sample">Chief Mommy Officer of First Mom\'s club an FB group of over 27K involved and aware moms.</string>
     <string name="website_sample">www.firstmomsclub.in</string>
     <string name="profile">Profile</string>
+    <string name="share">Share</string>
+    <string name="comment">Comment</string>
+    <string name="like">Like</string>
+    <string name="popularity">Popularity</string>
+    <string name="location">Location</string>
+    <string name="recent">Recent</string>
+    <string name="sort_by">SORT BY</string>
 
 
     <string-array name="gender_array">

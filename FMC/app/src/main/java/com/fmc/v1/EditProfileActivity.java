@@ -76,7 +76,7 @@ public class EditProfileActivity extends Activity {
 
         userData.setName(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
 
-        txtName.setText(userData.getName());
+        txtName.setText(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
         txtBirthday = (DateDisplayPicker) findViewById(R.id.txtBirthday);
 
         imgAddChild = (ImageView) findViewById(R.id.imgAddChild);
@@ -167,6 +167,7 @@ public class EditProfileActivity extends Activity {
 
     private void startNextActivity() {
         Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        FMCApplication.mPreffs.edit().putBoolean(Constants.PREFS_PROFILE_SET,true).apply();
         startActivity(intent);
         finish();
     }
