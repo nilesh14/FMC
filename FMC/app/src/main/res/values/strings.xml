@@ -56,6 +56,7 @@
     <string name="location">Location</string>
     <string name="recent">Recent</string>
     <string name="sort_by">SORT BY</string>
+    <string name="share_photo">Share Photo</string>
 
 
     <string-array name="gender_array">

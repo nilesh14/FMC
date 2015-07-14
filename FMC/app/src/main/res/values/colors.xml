@@ -12,5 +12,6 @@
     <color name="MOMS_color">#DF1C5C</color>
     <color name="Join_Gang_Text_Color">#FDB62F</color>
     <color name="sort_by_bg_color">#FECF30</color>
+    <color name="like_and_post_bg_color">#FAFAFA</color>
 
 </resources>
