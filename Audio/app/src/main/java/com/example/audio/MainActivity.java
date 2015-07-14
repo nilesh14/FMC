@@ -44,6 +44,7 @@ public class MainActivity extends ActionBarActivity {
 	RelativeLayout relContainer;
 	float mLastTouchX,mLastTouchY,mPosX,mPosY , viewX,viewY;
 	boolean interceptTouchEvents = true,recordingStopped = true;
+	int secondsRecorded = 0;
 
 	float dX, dY;
 
@@ -100,7 +101,13 @@ public class MainActivity extends ActionBarActivity {
 						|| motionEvent.getAction() == MotionEvent.ACTION_CANCEL) {
 					startedDraggingX = -1;
 					if(!recordingStopped){
-						stoprecord(false);
+
+						if(secondsRecorded <1){
+							Toast.makeText(MainActivity.this,"Hold atleast 1 second to begin recording",Toast.LENGTH_SHORT).show();
+							stoprecord(true,false);
+						}else{
+							stoprecord(false,true);
+						}
 					}
 					scaleAnimationReverse();
 					ViewProxy.setAlpha(slideText, 0);
@@ -147,7 +154,8 @@ public class MainActivity extends ActionBarActivity {
 
 							} else if (alpha < 0) {
 								alpha = 0;
-								stoprecord(true);
+
+								stoprecord(true,true);
 								interceptTouchEvents = false;
 								layoutParams.rightMargin = 0;
 								vibrate();
@@ -222,10 +230,11 @@ public class MainActivity extends ActionBarActivity {
 		vibrate();
 	}
 
-	private void stoprecord(boolean deleteAudio) {
+	private void stoprecord(boolean deleteAudio,boolean showToastMessage) {
 		// TODO Auto-generated method stub
 		if (timer != null) {
 			timer.cancel();
+			secondsRecorded = 0;
 		}
 
 
@@ -233,9 +242,13 @@ public class MainActivity extends ActionBarActivity {
 		if (recordAudio != null) {
 			recordingStopped = true;
 			if(deleteAudio){
-				Toast.makeText(this,"Audio Deleted !",Toast.LENGTH_LONG).show();
+				if(showToastMessage){
+					Toast.makeText(this,"Audio Deleted !",Toast.LENGTH_LONG).show();
+				}
 			}else{
-				Toast.makeText(this,"Audio Saved at location !"+recordAudio.getmFileName(),Toast.LENGTH_LONG).show();
+				if(showToastMessage){
+					Toast.makeText(this,"Audio Saved at location !"+recordAudio.getmFileName(),Toast.LENGTH_LONG).show();
+				}
 			}
 			recordAudio.stopRecording(deleteAudio);
 		}
@@ -272,6 +285,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void run() {
+			secondsRecorded++;
 			timeInMilliseconds = SystemClock.uptimeMillis() - startTime;
 			updatedTime = timeSwapBuff + timeInMilliseconds;
 			final String hms = String.format(
