@@ -5,63 +5,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.SectionIndexer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+import se.emilsjolander.listheaders.StickyListHeadersAdapter;
 
 public class TestBaseAdapter extends BaseAdapter implements
-        StickyListHeadersAdapter, SectionIndexer {
+        StickyListHeadersAdapter {
 
     private final Context mContext;
-    private String [] mCountries;
-    private int[] mSectionIndices;
-    private Character[] mSectionLetters;
+    private List<Contacts> data;
     private LayoutInflater mInflater;
 
-    public TestBaseAdapter(Context context) {
+    public TestBaseAdapter(Context context, List<Contacts> data) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
-        mCountries = context.getResources().getStringArray(R.array.countries);
-        mSectionIndices = getSectionIndices();
-        mSectionLetters = getSectionLetters();
-    }
-
-    private int[] getSectionIndices() {
-        ArrayList<Integer> sectionIndices = new ArrayList<Integer>();
-        char lastFirstChar = mCountries[0].charAt(0);
-        sectionIndices.add(0);
-        for (int i = 1; i < mCountries.length; i++) {
-            if (mCountries[i].charAt(0) != lastFirstChar) {
-                lastFirstChar = mCountries[i].charAt(0);
-                sectionIndices.add(i);
-            }
-        }
-        int[] sections = new int[sectionIndices.size()];
-        for (int i = 0; i < sectionIndices.size(); i++) {
-            sections[i] = sectionIndices.get(i);
-        }
-        return sections;
-    }
-
-    private Character[] getSectionLetters() {
-        Character[] letters = new Character[mSectionIndices.length];
-        for (int i = 0; i < mSectionIndices.length; i++) {
-            letters[i] = mCountries[mSectionIndices[i]].charAt(0);
-        }
-        return letters;
+        this.data = data;
     }
 
     @Override
     public int getCount() {
-        return mCountries.length;
+        return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mCountries[position];
+        return data.get(position);
     }
 
     @Override
@@ -70,19 +43,62 @@ public class TestBaseAdapter extends BaseAdapter implements
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.test_list_item_layout, parent, false);
             holder.text = (TextView) convertView.findViewById(R.id.text);
+            holder.imgMoveUp = (ImageView) convertView.findViewById(R.id.imgMoveUp);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text.setText(mCountries[position]);
+        holder.text.setText(data.get(position).getContactTitle());
+
+        holder.imgMoveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //smoveValueUp(position);
+
+                Contacts con = (Contacts) getItem(position);
+
+                //data.remove(position);
+
+                if(con.getContactType().equalsIgnoreCase(TestActivity.InvitationReceived)){
+                    ((TestActivity)mContext).getInvitationContacts().remove(con);
+                    ((TestActivity)mContext).addDataToVisibleContacts(con);
+
+                }
+
+                if(con.getContactType().equalsIgnoreCase(TestActivity.InvitationSend)){
+                    ((TestActivity)mContext).getInvitationSend().remove(con);
+                    ((TestActivity)mContext).addDataToInvitationReceivedContacts(con);
+
+                }
+
+                if(con.getContactType().equalsIgnoreCase(TestActivity.AddToTrustedNetwork)){
+                    ((TestActivity)mContext).getAddToTrustedNetwork().remove(con);
+                    ((TestActivity)mContext).addDataToInvitationSendContacts(con);
+
+                }
+
+                if(con.getContactType().equalsIgnoreCase(TestActivity.InviteContacts)){
+                    ((TestActivity)mContext).getInviteContacts().remove(con);
+                    ((TestActivity)mContext).addDataToAddToTrustedNetworkContacts(con);
+
+                }
+
+
+
+
+
+                notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }
@@ -101,11 +117,31 @@ public class TestBaseAdapter extends BaseAdapter implements
         }
 
         // set header text as first char in name
-        CharSequence headerChar = mCountries[position].subSequence(0, 1);
+        CharSequence headerChar = data.get(position).getContactType();
         holder.text.setText(headerChar);
 
         return convertView;
     }
+
+    /*private void moveValueUp(int position){
+        CharSequence headerChar = data.get(position).subSequence(0, 1);
+        for(int i = position; i > 0 ; i -- ){
+            CharSequence value1 = data.get(i).subSequence(0, 1);
+            CharSequence value2 = data.get(i-1).subSequence(0, 1);
+            if(!value2.toString().equalsIgnoreCase(value1.toString())){
+                String swapValue = data.get(i-1);
+                String newValue = data.get(position);
+                //data[position] = swapValue;
+                //Collections.swap(data,i-1,position);
+                data.remove(position);
+                data.add(i, swapValue);
+               //data[i-1] = newValue;
+                data.remove(i - 1);
+                data.add(i - 1, newValue);
+                return;
+            }
+        }
+    }*/
 
     /**
      * Remember that these have to be static, postion=1 should always return
@@ -115,57 +151,31 @@ public class TestBaseAdapter extends BaseAdapter implements
     public long getHeaderId(int position) {
         // return the first character of the country as ID because this is what
         // headers are based upon
-        return mCountries[position].subSequence(0, 1).charAt(0);
-    }
-
-    @Override
-    public int getPositionForSection(int section) {
-        if (mSectionIndices.length == 0) {
-            return 0;
-        }
-        
-        if (section >= mSectionIndices.length) {
-            section = mSectionIndices.length - 1;
-        } else if (section < 0) {
-            section = 0;
-        }
-        return mSectionIndices[section];
-    }
-
-    @Override
-    public int getSectionForPosition(int position) {
-        for (int i = 0; i < mSectionIndices.length; i++) {
-            if (position < mSectionIndices[i]) {
-                return i - 1;
-            }
-        }
-        return mSectionIndices.length - 1;
-    }
-
-    @Override
-    public Object[] getSections() {
-        return mSectionLetters;
+        long val;
+        val = ((Contacts)getItem(position)).getHeaderID();
+        return val;
+        //return position;
     }
 
     public void clear() {
-        mCountries = new String[0];
-       // mCountries.clear();
-        mSectionIndices = new int[0];
-        mSectionLetters = new Character[0];
+       // data = new String[0];
+        data.clear();
+        //mSectionIndices = new int[0];
+        //mSectionLetters = new Character[0];
         notifyDataSetChanged();
     }
 
-    public void restore() {
-        mCountries = mContext.getResources().getStringArray(R.array.countries);
-        mSectionIndices = getSectionIndices();
-        mSectionLetters = getSectionLetters();
+    /*public void restore() {
+        data = new LinkedList<String>(Arrays.asList(mContext.getResources().getStringArray(R.array.countries)));
+        //mSectionIndices = getSectionIndices();
+        //mSectionLetters = getSectionLetters();
         notifyDataSetChanged();
-    }
+    }*/
 
-    public void restore(String [] arrData) {
-        mCountries = arrData;
-        mSectionIndices = getSectionIndices();
-        mSectionLetters = getSectionLetters();
+    public void restore(List<Contacts> arrData) {
+        data = arrData;
+        //mSectionIndices = getSectionIndices();
+        //mSectionLetters = getSectionLetters();
         notifyDataSetChanged();
     }
 
@@ -175,9 +185,10 @@ public class TestBaseAdapter extends BaseAdapter implements
 
     class ViewHolder {
         TextView text;
+        ImageView imgMoveUp;
     }
 
     /*public String [] getmCountries() {
-        return mCountries;
+        return data;
     }*/
 }

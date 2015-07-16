@@ -16,8 +16,8 @@ android {
     buildToolsVersion '22.0.1'
 
     defaultConfig {
-        applicationId 'se.emilsjolander.stickylistheaders'
-        minSdkVersion 7
+        applicationId 'se.emilsjolander.listheaders'
+        minSdkVersion 10
         targetSdkVersion 22
     }
 

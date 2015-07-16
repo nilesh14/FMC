@@ -1,4 +1,4 @@
-package se.emilsjolander.stickylistheaders;
+package se.emilsjolander.listheaders;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -25,7 +25,8 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.SectionIndexer;
 
-import se.emilsjolander.stickylistheaders.WrapperViewList.LifeCycleListener;
+import se.emilsjolander.listheaders.WrapperViewList.LifeCycleListener;
+import se.emilsjolander.stickylistheaders.R;
 
 /**
  * Even though this is a FrameLayout subclass we still consider it a ListView.
@@ -135,7 +136,7 @@ public class StickyListHeadersListView extends FrameLayout {
         mList.setDividerHeight(0);
 
         if (attrs != null) {
-            TypedArray a = context.getTheme().obtainStyledAttributes(attrs,R.styleable.StickyListHeadersListView, defStyle, 0);
+            TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StickyListHeadersListView, defStyle, 0);
 
             try {
                 // -- View attributes --

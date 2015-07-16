@@ -54,7 +54,7 @@ Getting Started
 
 Ok lets start with your activities or fragments xml file. It might look something like this.
 ```xml
-<se.emilsjolander.stickylistheaders.StickyListHeadersListView
+<listheaders.StickyListHeadersListView
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
@@ -173,7 +173,7 @@ You can then apply this style to all `StickyListHeadersListView`s by adding some
 Now, you can use `ExpandableStickyListHeadersListView` to expand/collapse subitems.
 xml first
 ```xml
-<se.emilsjolander.stickylistheaders.ExpandableStickyListHeadersListView
+<listheaders.ExpandableStickyListHeadersListView
     android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
@@ -208,7 +208,7 @@ and put it into the ExpandableStickyListHeadersListView by `setAnimExecutor` met
 
 Upgrading from 1.x versions
 ---------------------------
-First of all the package name has changed from `com.emilsjolander.components.stickylistheaders` -> `se.emilsjolander.stickylistheaders` so update all your imports and xml files using StickyListHeaders!
+First of all the package name has changed from `com.emilsjolander.components.stickylistheaders` -> `listheaders` so update all your imports and xml files using StickyListHeaders!
 
 If you are Upgrading from a version prior to 2.x you might run into the following problems.
 1. `StickyListHeadersListView` is no longer a `ListView` subclass. This means that it cannot be passed into a method expecting a ListView. You can retrieve an instance of the `ListView` via `getWrappedList()` but use this with caution as things will probably break if you start setting things directly on that list.

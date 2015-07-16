@@ -1,4 +1,4 @@
-package se.emilsjolander.stickylistheaders;
+package se.emilsjolander.listheaders;
 
 import android.database.DataSetObserver;
 import android.view.View;

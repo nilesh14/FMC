@@ -18,5 +18,6 @@
     <string name="draw_behind_header">Draw behind header</string>
     <string name="fast_scroll">Fast scroll</string>
     <string name="search_hint">Search for country here</string>
+    <string name="loading_contact">Loading Contact …</string>
 
 </resources>

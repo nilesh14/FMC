@@ -1,4 +1,4 @@
-package se.emilsjolander.stickylistheaders;
+package se.emilsjolander.listheaders;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/btnGetContacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Get Contacts"/>
+
     <EditText
         android:id="@+id/edtSearch"
         android:layout_width="fill_parent"
@@ -21,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+            <se.emilsjolander.listheaders.StickyListHeadersListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +67,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-            <se.emilsjolander.stickylistheaders.sample.views.UnderlineTextView
+            <listheaderse.views.UnderlineTextView
                     style="@style/MenuSectionHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,7 +101,7 @@
                     android:id="@+id/clear_button"
                     android:text="@string/clear_list"/>
 
-            <se.emilsjolander.stickylistheaders.sample.views.UnderlineTextView
+            <listheaderse.views.UnderlineTextView
                     style="@style/MenuSectionHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
