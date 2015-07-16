@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VcardMaker</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Pick a Contact</string>
+    <string name="pick_contact">Click to pick contact</string>
+    <string name="name">Name :</string>
+    <string name="none">None</string>
+    <string name="no_contact_found">No Contact Data Found. Please add one using the picker button at top</string>
+</resources>

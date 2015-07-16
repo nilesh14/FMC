@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/linBaseContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        android:text="Title"
+        android:textSize="20sp"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/imgProductImage"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/glovesandmitts1"/>
+
+    <LinearLayout
+        android:id="@+id/linSizeStatic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/size_colon"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txtSizeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text=""
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linAvailableForms"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/txtAvailableForms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="@string/available_colors"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/txtAvailableFormsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text=""
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linSizeTable"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/linHeaderLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/txtSizeHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_header_black"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/white"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCmHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_header_black"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+        <!--<LinearLayout
+            android:id="@+id/linCell1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCell2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCell3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCell4"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCell5"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linCell6"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="1dp">
+            <TextView
+                android:id="@+id/txtSize6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_weight="3"
+                android:text="@string/size"
+                android:textColor="@android:color/black"/>
+
+
+            <TextView
+                android:id="@+id/txtMetricCm6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/table_cell_color"
+                android:layout_weight="7"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="1dp"
+                android:text="@string/metric_cm"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>-->
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txtMaterial"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Material"
+        android:layout_margin="10dp"
+        android:textStyle="bold"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/txtMaterialData"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Temp"
+        android:layout_margin="10dp"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Description"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/txtDescriptionData"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Temp"
+        android:layout_margin="10dp"
+        android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_round_corner"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:weightSum="3">
+
+            <LinearLayout
+                android:id="@+id/linCall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/call_128x128"/>
+                <TextView
+                    android:id="@+id/txtCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/call"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/email_128x128"/>
+                <TextView
+                    android:id="@+id/txtEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/email"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linShare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/share_128x128"/>
+                <TextView
+                    android:id="@+id/txtShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/share"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    <!--<Button-->
+        <!--android:id="@+id/btnSendEnquiry"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="20dp"-->
+        <!--android:text="@string/Sned_Enquiry"-->
+        <!--android:textColor="@android:color/white"-->
+        <!--android:background="@color/red"/>-->
+    </LinearLayout>
+
+</ScrollView>

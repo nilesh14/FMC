@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    >
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/welcome_bg"
+        android:scaleType="centerCrop"/>
+
+
+    <TextView
+        android:id="@+id/txtWelComeMessage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/btnGetStarted"
+        android:layout_marginBottom="70dp"
+        android:text="@string/welcome_to_FMC"
+        android:textColor="@color/main_color_red"
+        android:textSize="22sp"/>
+    
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bg_main_ruby_color_round_corner"
+        android:text="@string/get_started"
+        android:textColor="@android:color/white"/>
+</RelativeLayout>

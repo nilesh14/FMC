@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linChildContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linAgeContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_name"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="40dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="@dimen/text_drawable_width"
+            android:layout_height="@dimen/text_drawable_height"
+            android:src="@drawable/image9" />
+
+        <EditText
+            android:id="@+id/edtAge"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@null"
+            android:hint="@string/age"
+            android:inputType="number"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:textSize="@dimen/text_14sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black"></View>
+
+    <LinearLayout
+        android:id="@+id/linGenderContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/height_name"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:layout_width="@dimen/text_drawable_width"
+            android:layout_height="@dimen/text_drawable_height"
+            android:src="@drawable/image10" />
+
+        <Spinner
+            android:id="@+id/spinnerGender"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:prompt="@string/gender_prompt"
+            android:textSize="@dimen/text_14sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/black"></View>
+
+
+</LinearLayout>

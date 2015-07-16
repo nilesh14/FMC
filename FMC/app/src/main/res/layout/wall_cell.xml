@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_color_round_corner_stroke_1dp"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp"
+    android:layout_margin="5dp">
+
+    <RelativeLayout
+        android:id="@+id/relHeaderContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" >
+
+        <ImageView
+            android:id="@+id/imgImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/imgImage"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Nilesh Singh"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtPostTime"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="28 minutes ago" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtPost"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp_Comment_text"
+        android:textColor="@android:color/black" />
+
+    <RelativeLayout
+        android:id="@+id/relPostPhotoContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:layout_margin="15dp"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/imgPostImage"
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_access"/>
+        <TextView
+            android:id="@+id/txtPhotoLikesAndComment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_below="@id/imgPostImage"
+            android:text="105\t\t\tlikes\t\t\t\t7\t\t\tComments"
+            android:textSize="@dimen/text_14sp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtCommentCount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="1 Comment" />
+
+    <View
+        android:id="@+id/viewSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/separator_color" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+        <LinearLayout
+            android:id="@+id/linBottomContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/like_and_post_bg_color"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/linLikeContainer"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2" >
+
+                <ImageView
+                    android:id="@+id/imgLikeImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/like" />
+
+                <TextView
+                    android:id="@+id/txtLike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/like" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linCommentContainer"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2" >
+
+                <ImageView
+                    android:id="@+id/imgCommentImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/comment" />
+
+                <TextView
+                    android:id="@+id/txtComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/comment" />
+            </LinearLayout>
+
+            <!--<LinearLayout
+                android:id="@+id/linShareContainer"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2" >
+
+                <ImageView
+                    android:id="@+id/imgShareImage"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/share" />
+
+                <TextView
+                    android:id="@+id/txtShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/share" />
+            </LinearLayout>-->
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/black"></View>
+    </RelativeLayout>
+
+</LinearLayout>

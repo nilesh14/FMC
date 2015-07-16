@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/relHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+        <Button
+            android:id="@+id/btnCommentCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@null"
+            android:visibility="gone"
+            android:drawableLeft="@drawable/comment_blue"
+            android:text="20" />
+
+        <ImageView
+            android:id="@+id/imgPost"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/done"
+            android:textColor="@color/button_blue"/>
+
+        <TextView
+            android:id="@+id/txtWriteAPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Write A Post"
+            android:textSize="16sp"/>
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:text="X"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/viewSeparator"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#F2F2F2" />
+
+    <RelativeLayout
+        android:id="@+id/relComments"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edittext_bg">
+
+        <EditText
+            android:id="@+id/edtComment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:gravity="center|left"
+            android:inputType="textMultiLine"
+            android:minLines="5"
+            android:paddingLeft="10dp" >
+        </EditText>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

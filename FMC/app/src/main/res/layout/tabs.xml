@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linTabsContainer"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnWall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:text="@string/wall"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnFAQS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:text="@string/faqs"
+        android:layout_weight="1"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnBitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:layout_weight="1"
+        android:text="@string/bitch"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/main_color_red"
+        android:text="@string/profile"
+        android:textColor="@android:color/white"/>
+    <Button
+        android:id="@+id/btnMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/main_color_red"
+        android:text="@string/more"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>
