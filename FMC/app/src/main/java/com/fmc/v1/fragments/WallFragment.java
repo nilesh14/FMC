@@ -46,14 +46,14 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
     private RecyclerView.LayoutManager mLayoutManager;
     WallAdapter adapter;
     ArrayList<WallData> arrWallData = new ArrayList<WallData>();
-    LinearLayout linSortHeader;
+    LinearLayout linSortHeader,linWritePostContainer;
     ProgressDialog pDialog;
     HashMap<String, String> mapData;
     PostNewWallPostDialogCallback postNewWallPostDialogCallback;
     SharedPreferences mPrefs = FMCApplication.mPreffs;
     PostCommentDialog postCommentDialog;
     Animation slideFromTop,slideFromBottom;
-    TextView txtSortBy;
+    TextView txtSortBy,txtWritePost,txtSharePhoto;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -67,8 +67,20 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
         txtSortBy = (TextView) view.findViewById(R.id.txtSortBy);
         slideFromTop = AnimationUtils.loadAnimation(getActivity(),R.anim.slide_from_top);
         slideFromBottom = AnimationUtils.loadAnimation(getActivity(),R.anim.slide_from_bottom);
+        linWritePostContainer = (LinearLayout) view.findViewById(R.id.linWritePostContainer);
+        txtWritePost = (TextView) view.findViewById(R.id.txtWritePost);
+        txtWritePost.setTypeface(FMCApplication.ubuntu);
+        txtSharePhoto = (TextView) view.findViewById(R.id.txtSharePhoto);
+        txtSharePhoto.setTypeface(FMCApplication.ubuntu);
 
-		//Toast.makeText(getActivity(),"Global Selected : "+mPrefs.getBoolean(Constants.PREFS_GLOBAL_SELECTED,false),Toast.LENGTH_SHORT).show();
+        linWritePostContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postNewWallPostDialogCallback.showAddNewWallPostDialog();
+            }
+        });
+
+        //Toast.makeText(getActivity(),"Global Selected : "+mPrefs.getBoolean(Constants.PREFS_GLOBAL_SELECTED,false),Toast.LENGTH_SHORT).show();
         
         adapter = new WallAdapter(arrWallData,this);
         mRecyclerView.setAdapter(adapter);

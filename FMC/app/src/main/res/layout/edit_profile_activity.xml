@@ -239,7 +239,7 @@
                         android:layout_height="@dimen/text_drawable_height"
                         android:src="@drawable/image5" />
 
-                    <com.fmc.v1.view.DateDisplayPicker
+                    <TextView
                         android:id="@+id/txtBirthday"
                         style="@android:style/Widget.Holo.DatePicker"
                         android:layout_width="fill_parent"

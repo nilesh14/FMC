@@ -3,6 +3,7 @@ package com.fmc.v1.adapter;
 import java.util.ArrayList;
 
 import com.fmc.v1.R;
+import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.data.WallData;
 import com.fmc.v1.fragments.WallFragment;
 
@@ -59,8 +60,8 @@ public class WallAdapter extends Adapter<WallAdapter.ViewHolder> {
             viewHolder.txtName.setText(data.getName());
             viewHolder.txtPostTime.setText(data.getTime_elapsed());
             viewHolder.txtPost.setText(data.getTextPost());
-            viewHolder.txtLike.setText("Like ("+ ((data.getLikeCount() == 0)?"0":data.getLikeCount()) +")");
-            viewHolder.txtCommentCount.setText( ((data.getCommentCount() == 0)?"0":data.getCommentCount()) + " Comment");
+            viewHolder.txtLike.setText("("+ ((data.getLikeCount() == 0)?"0":data.getLikeCount()) +")");
+            viewHolder.txtCommentCount.setText( (data.getCommentCount() == 0)? "":String.valueOf(data.getCommentCount()) );
 
 
         }
@@ -100,12 +101,17 @@ public class WallAdapter extends Adapter<WallAdapter.ViewHolder> {
 		public ViewHolder(View v) {
 			super(v);
 			txtName = (TextView) v.findViewById(R.id.txtName);
+			txtName.setTypeface(FMCApplication.ubuntu);
 			txtPostTime = (TextView) v.findViewById(R.id.txtPostTime);
+			txtPostTime.setTypeface(FMCApplication.ubuntu);
             txtPost = (TextView) v.findViewById(R.id.txtPost);
+			txtPost.setTypeface(FMCApplication.ubuntu);
 			txtCommentCount = (TextView) v.findViewById(R.id.txtCommentCount);
+			txtCommentCount.setTypeface(FMCApplication.ubuntu);
 			linLikeContainer = (LinearLayout) v.findViewById(R.id.linLikeContainer);
 			linCommentContainer = (LinearLayout) v.findViewById(R.id.linCommentContainer);
             txtLike = (TextView) v.findViewById(R.id.txtLike);
+			txtLike.setTypeface(FMCApplication.ubuntu);
 		}
 	}
 

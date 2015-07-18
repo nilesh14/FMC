@@ -24,7 +24,9 @@ public class WelcomeActivity extends Activity{
         setContentView(R.layout.welcome_activity);
 
         txtWelComeMessage = (TextView) findViewById(R.id.txtWelComeMessage);
+        txtWelComeMessage.setTypeface(FMCApplication.ubuntu);
         btnGetStarted = (Button) findViewById(R.id.btnGetStarted);
+        btnGetStarted.setTypeface(FMCApplication.ubuntu);
         btnGetStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

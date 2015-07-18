@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.fmc.v1.R;
 import com.fmc.v1.callbacks.PostNewWallPostDialogCallback;
@@ -69,6 +70,8 @@ public class AddWallPostDialog extends Dialog {
                     data.setTextPost(edtComment.getText().toString());
                     postNewWallPostDialogCallback.postNewWallMessage(data);
                     dismiss();
+                }else{
+                    Toast.makeText(getOwnerActivity(),"Please write a post",Toast.LENGTH_SHORT).show();
                 }
             }
         });

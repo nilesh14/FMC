@@ -24,8 +24,9 @@
         <ImageView
             android:id="@+id/imgPost"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:padding="5dp"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:src="@drawable/done"
@@ -33,11 +34,11 @@
 
         <Button
             android:id="@+id/btnClose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
             android:background="@null"
             android:text="X"
             android:textSize="20sp" />

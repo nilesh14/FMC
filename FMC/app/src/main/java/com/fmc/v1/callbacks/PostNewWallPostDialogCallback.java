@@ -8,4 +8,5 @@ import com.fmc.v1.data.WallData;
 public interface PostNewWallPostDialogCallback {
 
     public void postNewWallMessage(WallData wallData);
+    public void showAddNewWallPostDialog();
 }

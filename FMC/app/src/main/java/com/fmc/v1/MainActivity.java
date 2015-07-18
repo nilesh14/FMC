@@ -13,7 +13,6 @@ import com.fmc.v1.dialog.AddWallPostDialog;
 import com.fmc.v1.fragments.LocalGlobalFragment;
 import com.fmc.v1.fragments.ProfileFragment;
 import com.fmc.v1.fragments.WallFragment;
-import com.fmc.v1.view.CircularImageView;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -26,8 +25,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,12 +60,17 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         Log.d(TAG, "User ID " + AccessToken.getCurrentAccessToken().getUserId());
         //circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
         btnWall = (Button) findViewById(R.id.btnWall);
+        btnWall.setTypeface(FMCApplication.ubuntu);
         btnWall.setOnClickListener(this);
         btnBitch = (Button) findViewById(R.id.btnBitch);
+        btnBitch.setTypeface(FMCApplication.ubuntu);
         btnFAQS = (Button) findViewById(R.id.btnFAQS);
+        btnFAQS.setTypeface(FMCApplication.ubuntu);
         btnProfile = (Button) findViewById(R.id.btnProfile);
+        btnProfile.setTypeface(FMCApplication.ubuntu);
         btnProfile.setOnClickListener(this);
         btnMore = (Button) findViewById(R.id.btnMore);
+        btnMore.setTypeface(FMCApplication.ubuntu);
         //relTopContainerContainer = (RelativeLayout) findViewById(R.id.relTopContainerContainer);
         imgAddPost = (ImageView) findViewById(R.id.imgAddPost);
         imgFilter = (ImageView) findViewById(R.id.imgFilter);
@@ -106,12 +108,12 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             }
         });*/
 
-        imgAddPost.setOnClickListener(new View.OnClickListener() {
+        /*imgAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAddPostDialog();
             }
-        });
+        });*/
 
         /*if (FMCApplication.loggedinUserPic != null) {
             circularImageView.setImageBitmap(FMCApplication.loggedinUserPic);
@@ -153,8 +155,13 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             HashMap<String, String> data = new HashMap<>();
             data.put("uid", String.valueOf(FMCApplication.mPreffs.getInt(Constants.PREFS_UID, 0)));
             data.put("post", wallData.getTextPost());
-            new PostLike(data, wallData).execute(Constants.ADD_POST__URL);
+            new PostWallMessage(data, wallData).execute(Constants.ADD_POST__URL);
         }
+    }
+
+    @Override
+    public void showAddNewWallPostDialog() {
+        showAddPostDialog();
     }
 
     @Override
@@ -169,12 +176,12 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         }
     }
 
-    class PostLike extends AsyncTask<String, Void, String> {
+    class PostWallMessage extends AsyncTask<String, Void, String> {
 
         HashMap<String, String> data;
         WallData wallData;
 
-        public PostLike(HashMap<String, String> data, WallData wallData) {
+        public PostWallMessage(HashMap<String, String> data, WallData wallData) {
             // TODO Auto-generated constructor stub
             this.data = data;
             this.wallData = wallData;

@@ -30,21 +30,27 @@ import com.fmc.v1.view.CircularImageView;
 import com.fmc.v1.view.DateDisplayPicker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
 
 /**
  * Created by Nilesh on 27/06/15.
  */
-public class EditProfileActivity extends Activity {
+public class EditProfileActivity extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = "EditProfileActivity";
     Button btnDone, btnCancel;
 
     EditText edtHashtag, edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
-    DateDisplayPicker txtBirthday;
+    TextView txtBirthday;
+
     ImageView imgAddChild;
     CircularImageView imgPic;
     LinearLayout linChildrenDetailContainer;
@@ -59,15 +65,24 @@ public class EditProfileActivity extends Activity {
         setContentView(R.layout.edit_profile_activity);
 
         btnDone = (Button) findViewById(R.id.btnDone);
+        btnDone.setTypeface(FMCApplication.ubuntu);
         btnCancel = (Button) findViewById(R.id.btnCancel);
+        btnCancel.setTypeface(FMCApplication.ubuntu);
 
         edtHashtag = (EditText) findViewById(R.id.edtHashtag);
+        edtHashtag.setTypeface(FMCApplication.ubuntu);
         edtBio = (EditText) findViewById(R.id.edtBio);
+        edtBio.setTypeface(FMCApplication.ubuntu);
         edtWebsite = (EditText) findViewById(R.id.edtWebsite);
+        edtWebsite.setTypeface(FMCApplication.ubuntu);
         edtBitchUserName = (EditText) findViewById(R.id.edtBitchUserName);
+        edtBitchUserName.setTypeface(FMCApplication.ubuntu);
         edtBitchPassword = (EditText) findViewById(R.id.edtBitchPassword);
-        txtBirthday = (DateDisplayPicker) findViewById(R.id.txtBirthday);
+        edtBitchPassword.setTypeface(FMCApplication.ubuntu);
+        txtBirthday = (TextView) findViewById(R.id.txtBirthday);
+        txtBirthday.setTypeface(FMCApplication.ubuntu);
         txtName = (TextView) findViewById(R.id.txtName);
+        txtName.setTypeface(FMCApplication.ubuntu);
         layoutInflater = LayoutInflater.from(this);
 
         /*if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_PROFILE_SET,false)){
@@ -77,7 +92,6 @@ public class EditProfileActivity extends Activity {
         userData.setName(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
 
         txtName.setText(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
-        txtBirthday = (DateDisplayPicker) findViewById(R.id.txtBirthday);
 
         imgAddChild = (ImageView) findViewById(R.id.imgAddChild);
         imgPic = (CircularImageView) findViewById(R.id.imgPic);
@@ -104,6 +118,17 @@ public class EditProfileActivity extends Activity {
                     startNextActivity();
                 }
                 //startNextActivity();
+
+            }
+        });
+
+        txtBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                // DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                dpd.show(getFragmentManager(),"DatePickerDialog");
 
             }
         });
@@ -184,15 +209,11 @@ public class EditProfileActivity extends Activity {
             mPreffsEditor.putString(Constants.PREFS_BIRTHDAY, txtBirthday.getText().toString());
             userData.setBirthDay(txtBirthday.getText().toString());
         }
-        if (TextUtils.isEmpty(edtBitchUserName.getText())) {
-            result = false;
-            edtBitchUserName.setError(getString(R.string.field_cannot_be_empty));
-            return false;
-            //showErrorDialog(getString(R.string.please_enter_username),getString(R.string.error));
-        } else {
+        if (edtBitchUserName != null) {
             userData.setBitchUserName(edtBitchUserName.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_BITCH_USERNAME, edtBitchUserName.getText().toString());
         }
+
         if (TextUtils.isEmpty(edtBitchPassword.getText())) {
             result = false;
             edtBitchPassword.setError(getString(R.string.field_cannot_be_empty));
@@ -264,6 +285,55 @@ public class EditProfileActivity extends Activity {
         }
 
         return result;
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth) {
+
+        String date = dayOfMonth+"/"+monthOfYear+"/"+year;
+        txtBirthday.setText(date);
+        showTimePicker();
+
+    }
+
+    private void showTimePicker(){
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                EditProfileActivity.this,
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                false
+        );
+        //tpd.setThemeDark(modeDarkTime.isChecked());
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                Log.d("TimePicker", "Dialog was cancelled");
+            }
+        });
+        tpd.show(getFragmentManager(), "Timepickerdialog");
+
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                txtBirthday.setText("");
+            }
+        });
+
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int hourOfDay, int minute) {
+        Log.d(TAG,"hourofDay = "+hourOfDay+ " minute =  "+minute);
+        String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
+        String minuteString = minute < 10 ? "0"+minute : ""+minute;
+        String time = hourString+" : "+minuteString;
+        String text = txtBirthday.getText().toString();
+        if(!TextUtils.isEmpty(text)){
+            txtBirthday.setText(text+" "+time);
+        }else{
+            txtBirthday.setText("");
+        }
     }
 
     class GetProfilePic extends AsyncTask<String, Void, Bitmap> {

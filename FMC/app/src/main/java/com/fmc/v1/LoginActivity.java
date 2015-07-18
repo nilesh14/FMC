@@ -69,8 +69,10 @@ public class LoginActivity extends Activity implements OnClickListener{
 		mPrefs = app.getmPreffs();
 		
 		btnLoginWithFacebook = (Button) findViewById(R.id.btnLoginWithFacebook);
+        btnLoginWithFacebook.setTypeface(FMCApplication.ubuntu);
 		btnLoginWithFacebook.setOnClickListener(this);
         txtJoinGangText = (TextView) findViewById(R.id.txtJoinGangText);
+        txtJoinGangText.setTypeface(FMCApplication.ubuntu);
         paintJoinGangTextview(txtJoinGangText);
         /*loginButton = (LoginButton) findViewById(R.id.login_button);
 		loginButton.setReadPermissions("user_friends,email,public_profile,user_location");*/

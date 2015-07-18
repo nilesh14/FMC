@@ -40,9 +40,13 @@ public class ProfileFragment extends Fragment {
         imgPic = (CircularImageView) view.findViewById(R.id.imgPic);
         imgCoverPic = (ImageView) view.findViewById(R.id.imgCoverPic);
         txtName = (TextView) view.findViewById(R.id.txtName);
+        txtName.setTypeface(FMCApplication.ubuntu);
         txtBio = (TextView) view.findViewById(R.id.txtBio);
+        txtBio.setTypeface(FMCApplication.ubuntu);
         txtHashTags = (TextView) view.findViewById(R.id.txtHashTags);
+        txtHashTags.setTypeface(FMCApplication.ubuntu);
         txtWebsite = (TextView) view.findViewById(R.id.txtWebsite);
+        txtWebsite.setTypeface(FMCApplication.ubuntu);
         imgEdit = (ImageView) view.findViewById(R.id.imgEdit);
 
         imgEdit.setOnClickListener(new View.OnClickListener() {

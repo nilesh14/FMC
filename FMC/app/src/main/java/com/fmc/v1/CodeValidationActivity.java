@@ -39,7 +39,7 @@ public class CodeValidationActivity extends Activity {
 	EditText edtEnterCode;
 	ProgressDialog pDialog;
 	CircularImageView circularImageView;
-	TextView txtEnterCode,txtName;
+	TextView txtName;
 	HashMap<String, String> mapData = new HashMap<String, String>();
 	public static final String TAG = "CodeValidationActivity";
 	SharedPreferences mPrefs;
@@ -56,7 +56,9 @@ public class CodeValidationActivity extends Activity {
     	//btnAddMommyFriends = (Button) findViewById(R.id.btnAddMommyFriends);
 		circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
     	edtEnterCode = (EditText) findViewById(R.id.edtEnterCode);
+		edtEnterCode.setTypeface(FMCApplication.ubuntu);
 		txtName = (TextView) findViewById(R.id.txtName);
+		txtName.setTypeface(FMCApplication.ubuntu);
 		txtName.setText(mPrefs.getString(Constants.PREFS_USER_NAME, ""));
 		pDialog = new ProgressDialog(CodeValidationActivity.this);
     	Typeface gotham = Typeface.createFromAsset(getAssets(), "Gotham-Rounded-Book_21018.ttf");
