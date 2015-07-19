@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="15dp"
+            android:visibility="gone"
             android:layout_below="@id/imgPostImage"
             android:text="105\t\t\tlikes\t\t\t\t7\t\t\tComments"
             android:textSize="@dimen/text_14sp"/>

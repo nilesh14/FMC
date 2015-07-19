@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.fmc.v1.application.FMCApplication;
@@ -197,6 +198,7 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
         finish();
     }
 
+    // Not used as no field is compulsory
     private boolean checkForRequiredField() {
         boolean result = true;
         SharedPreferences.Editor mPreffsEditor = FMCApplication.mPreffs.edit();
@@ -290,9 +292,16 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth) {
 
-        String date = dayOfMonth+"/"+monthOfYear+"/"+year;
-        txtBirthday.setText(date);
-        showTimePicker();
+        Calendar now = Calendar.getInstance();
+        int currentYear = now.get(Calendar.YEAR);
+        if((currentYear - year) >= 16){
+            String date = dayOfMonth+"/"+monthOfYear+"/"+year;
+            txtBirthday.setText(date);
+            showTimePicker();
+        }else{
+            Toast.makeText(EditProfileActivity.this,"Age should be greater than 16",Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
