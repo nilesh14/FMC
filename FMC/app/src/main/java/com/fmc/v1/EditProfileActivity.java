@@ -114,9 +114,9 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
                     Log.d(TAG, "Total number of children present is = " + linChildrenDetailContainer.getChildCount());
                 }
 
-                if (checkForRequiredField()) {
+               // if (checkForRequiredField()) {
                     startNextActivity();
-                }
+               // }
                 //startNextActivity();
 
             }

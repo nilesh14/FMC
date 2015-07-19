@@ -155,8 +155,8 @@
                     android:layout_marginLeft="10dp" />
             </LinearLayout>
 
-            <!--<LinearLayout
-                android:id="@+id/linShareContainer"
+            <LinearLayout
+                android:id="@+id/linBookmarkContainer"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
@@ -165,29 +165,28 @@
                 android:weightSum="2" >
 
                 <ImageView
-                    android:id="@+id/imgShareImage"
+                    android:id="@+id/imgBookmarkImage"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/share" />
+                    android:src="@drawable/bookmark" />
 
                 <TextView
-                    android:id="@+id/txtShare"
+                    android:id="@+id/txtBookmark"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:text="@string/share" />
-            </LinearLayout>-->
+                    android:layout_marginLeft="10dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <View
+        <!--<View
             android:layout_width="1dp"
             android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:background="@android:color/black"></View>
+            android:background="@android:color/black"></View>-->
     </RelativeLayout>
 
 </LinearLayout>

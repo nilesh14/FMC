@@ -96,7 +96,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:background="@android:color/white">
+        android:background="@color/wall_bg_color">
 
         <LinearLayout
             android:id="@+id/linBottomContainer"
@@ -107,7 +107,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/bg_white_color_no_corner_stroke_1dp"
+            android:background="@color/mdtp_white"
             android:orientation="horizontal" >
 
             <LinearLayout
