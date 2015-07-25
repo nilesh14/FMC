@@ -107,7 +107,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@color/mdtp_white"
+            android:background="@android:color/white"
             android:orientation="horizontal" >
 
             <LinearLayout
@@ -122,8 +122,8 @@
 
                 <ImageView
                     android:id="@+id/imgWritePost"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/write_post" />
 
                 <TextView
@@ -147,8 +147,8 @@
 
                 <ImageView
                     android:id="@+id/imgSharePhoto"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:src="@drawable/share_photo" />
 
                 <TextView

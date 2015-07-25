@@ -10,6 +10,7 @@ import com.fmc.v1.constants.CommonMethods;
 import com.fmc.v1.constants.Constants;
 import com.fmc.v1.data.WallData;
 import com.fmc.v1.dialog.AddWallPostDialog;
+import com.fmc.v1.dialog.SharePhoto;
 import com.fmc.v1.fragments.LocalGlobalFragment;
 import com.fmc.v1.fragments.ProfileFragment;
 import com.fmc.v1.fragments.WallFragment;
@@ -18,13 +19,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +48,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     public static final int FRAG_BITCH = 4;
     public static final int FRAG_PROFILE = 5;
     public static final int FRAG_MORE = 6;
+    private static final int RESULT_LOAD_IMG = 1000;
 
     private static int activeFragment = 0;
     Button btnWall, btnFAQS, btnBitch, btnProfile, btnMore;
@@ -121,7 +129,14 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
 
             new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
         }*/
-        switchNewFragment(FRAG_WALL);
+
+        boolean showProfileFragment = getIntent().getBooleanExtra("show_profile",false);
+        if(showProfileFragment){
+            switchNewFragment(FRAG_PROFILE);
+        }else{
+            switchNewFragment(FRAG_WALL);
+        }
+
     }
 
     private void showAddPostDialog() {
@@ -162,6 +177,14 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     @Override
     public void showAddNewWallPostDialog() {
         showAddPostDialog();
+    }
+
+    @Override
+    public void sharePhoto() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+// Start the Intent
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
 
     @Override
@@ -233,6 +256,48 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             }
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                    && null != data) {
+                // Get the Image from data
+
+                Uri selectedImage = data.getData();
+                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+                // Get the cursor
+                Cursor cursor = getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                // Move to first row
+                cursor.moveToFirst();
+
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                String imgDecodableString = cursor.getString(columnIndex);
+                cursor.close();
+                SharePhoto dialog = new SharePhoto(MainActivity.this,R.style.CommentDialogtheme);
+                dialog.setImage(BitmapFactory
+                        .decodeFile(imgDecodableString));
+                dialog.setOwnerActivity(MainActivity.this);
+                dialog.show();
+                /*ImageView imgView = (ImageView) findViewById(R.id.imgView);
+                // Set the Image in ImageView after decoding the String
+                imgView.setImageBitmap(BitmapFactory
+                        .decodeFile(imgDecodableString));*/
+
+            } else {
+                Toast.makeText(this, "You haven't picked Image",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
+                    .show();
+            e.printStackTrace();
+        }
     }
 
     private void parsePostWallMessageResponse(JSONArray jsonArray, WallData wallData) {

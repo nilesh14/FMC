@@ -46,7 +46,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
     private RecyclerView.LayoutManager mLayoutManager;
     WallAdapter adapter;
     ArrayList<WallData> arrWallData = new ArrayList<WallData>();
-    LinearLayout linSortHeader,linWritePostContainer;
+    LinearLayout linSortHeader,linWritePostContainer,linSharePhotoContainer;
     ProgressDialog pDialog;
     HashMap<String, String> mapData;
     PostNewWallPostDialogCallback postNewWallPostDialogCallback;
@@ -61,6 +61,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
 		View view = inflater.inflate(R.layout.wall, container, false);
 		mRecyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
         linSortHeader = (LinearLayout) view.findViewById(R.id.linSortHeader);
+        linSharePhotoContainer = (LinearLayout) view.findViewById(R.id.linSharePhotoContainer);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mapData = new HashMap<String, String>();
@@ -77,6 +78,13 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
             @Override
             public void onClick(View v) {
                 postNewWallPostDialogCallback.showAddNewWallPostDialog();
+            }
+        });
+
+        linSharePhotoContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postNewWallPostDialogCallback.sharePhoto();
             }
         });
 

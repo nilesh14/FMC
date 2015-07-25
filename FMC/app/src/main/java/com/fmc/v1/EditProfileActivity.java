@@ -2,6 +2,7 @@ package com.fmc.v1;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +13,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,9 +34,6 @@ import com.fmc.v1.view.CircularImageView;
 import com.fmc.v1.view.DateDisplayPicker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -41,10 +41,11 @@ import java.util.Calendar;
 import java.util.List;
 
 
+
 /**
  * Created by Nilesh on 27/06/15.
  */
-public class EditProfileActivity extends Activity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EditProfileActivity extends Activity implements  android.app.DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = "EditProfileActivity";
     Button btnDone, btnCancel;
@@ -85,6 +86,7 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
         txtName = (TextView) findViewById(R.id.txtName);
         txtName.setTypeface(FMCApplication.ubuntu);
         layoutInflater = LayoutInflater.from(this);
+        String [] dataAge = getResources().getStringArray(R.array.gender_array);
 
         /*if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_PROFILE_SET,false)){
             startNextActivity();
@@ -105,8 +107,11 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
         }
         adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, android.R.layout.simple_spinner_item);
+
+        //adapter = new MyArrayAdapter(EditProfileActivity.this,android.R.layout.simple_spinner_item,dataAge);
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.dropdown_resource);
+
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +120,10 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
                     Log.d(TAG, "Total number of children present is = " + linChildrenDetailContainer.getChildCount());
                 }
 
-               // if (checkForRequiredField()) {
-                    startNextActivity();
-               // }
+                checkForRequiredField();
+                // if (checkForRequiredField()) {
+                startNextActivity();
+                // }
                 //startNextActivity();
 
             }
@@ -128,8 +134,10 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
             public void onClick(View v) {
                 Calendar now = Calendar.getInstance();
                 // DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
-                DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
-                dpd.show(getFragmentManager(),"DatePickerDialog");
+                android.app.DatePickerDialog dp = new android.app.DatePickerDialog(EditProfileActivity.this,EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                dp.show();
+                /*DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                dpd.show(getFragmentManager(),"DatePickerDialog");*/
 
             }
         });
@@ -156,6 +164,31 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
 
     }
 
+    private class MyArrayAdapter extends ArrayAdapter<String> {
+
+        String [] data;
+        public MyArrayAdapter(Context context, int textViewResourceId,String[] data) {
+            super(context, textViewResourceId,data);
+        }
+
+        public TextView getView(int position, View convertView, ViewGroup parent) {
+            TextView v = (TextView) super.getView(position, convertView, parent);
+            v.setTypeface(FMCApplication.ubuntu);
+            v.setText(getItem(position));
+            return v;
+        }
+
+        public TextView getDropDownView(int position, View convertView, ViewGroup parent) {
+            TextView v = (TextView) super.getView(position, convertView, parent);
+            v.setTypeface(FMCApplication.ubuntu);
+            v.setTextSize(20);
+            v.setText(getItem(position));
+
+            return v;
+        }
+
+    }
+
     private void prepareInitialData() {
         edtBio.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIO, ""));
         edtWebsite.setText(FMCApplication.mPreffs.getString(Constants.PREFS_WEBSITE, ""));
@@ -173,8 +206,14 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
             for (ChildData childData : arrChildData) {
                 LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
                 EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
+                edtAge.setTypeface(FMCApplication.ubuntu);
                 Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
                 spinnerGender.setAdapter(adapter);
+
+                TextView spinnerText = (TextView) spinnerGender.findViewById(android.R.id.text1);
+                if(spinnerText != null){
+                    spinnerText.setTypeface(FMCApplication.ubuntu);
+                }
 
                 edtAge.setText(String.valueOf(childData.getAge()));
                 if(childData.getGender().equalsIgnoreCase("MALE")){
@@ -193,20 +232,26 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
 
     private void startNextActivity() {
         Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
+        intent.putExtra("show_profile",true);
         FMCApplication.mPreffs.edit().putBoolean(Constants.PREFS_PROFILE_SET,true).apply();
         startActivity(intent);
         finish();
     }
 
-    // Not used as no field is compulsory
+    private void saveUserData(){
+        SharedPreferences.Editor mPreffsEditor = FMCApplication.mPreffs.edit();
+
+    }
+
+    // All Compulsory checks removed
     private boolean checkForRequiredField() {
         boolean result = true;
         SharedPreferences.Editor mPreffsEditor = FMCApplication.mPreffs.edit();
 
         if (TextUtils.isEmpty(txtBirthday.getText())) {
             //txtBirthday.setError("This field cannot be empty");
-            showErrorDialog(getString(R.string.please_enter_birthday), getString(R.string.error));
-            return false;
+            //showErrorDialog(getString(R.string.please_enter_birthday), getString(R.string.error));
+            //return false;
         } else {
             mPreffsEditor.putString(Constants.PREFS_BIRTHDAY, txtBirthday.getText().toString());
             userData.setBirthDay(txtBirthday.getText().toString());
@@ -218,8 +263,8 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
 
         if (TextUtils.isEmpty(edtBitchPassword.getText())) {
             result = false;
-            edtBitchPassword.setError(getString(R.string.field_cannot_be_empty));
-            return false;
+            //edtBitchPassword.setError(getString(R.string.field_cannot_be_empty));
+            //return false;
             //showErrorDialog(getString(R.string.please_enter_password),getString(R.string.error));
         } else {
             userData.setBitchPassword(edtBitchPassword.getText().toString());
@@ -247,13 +292,19 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
                 ChildData childData = new ChildData();
                 LinearLayout childView = (LinearLayout) linChildrenDetailContainer.getChildAt(i);
                 EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
+                edtAge.setTypeface(FMCApplication.ubuntu);
                 Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
+
+                TextView spinnerText = (TextView) spinnerGender.findViewById(android.R.id.text1);
+                if(spinnerText != null){
+                    spinnerText.setTypeface(FMCApplication.ubuntu);
+                }
 
                 if (TextUtils.isEmpty(edtAge.getText())) {
                     result = false;
-                    edtAge.setError(getString(R.string.field_cannot_be_empty));
+                    //edtAge.setError(getString(R.string.field_cannot_be_empty));
                     //showErrorDialog(getString(R.string.please_enter_child_age),getString(R.string.error));
-                    return false;
+                    //return false;
                 } else {
 
                     String regexStr = "^[0-9]*$";
@@ -289,7 +340,7 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
         return result;
     }
 
-    @Override
+    /*@Override
     public void onDateSet(DatePickerDialog datePickerDialog, int year, int monthOfYear, int dayOfMonth) {
 
         Calendar now = Calendar.getInstance();
@@ -303,11 +354,11 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
         }
 
 
-    }
+    }*/
 
     private void showTimePicker(){
         Calendar now = Calendar.getInstance();
-        TimePickerDialog tpd = TimePickerDialog.newInstance(
+        /*TimePickerDialog tpd = TimePickerDialog.newInstance(
                 EditProfileActivity.this,
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
@@ -327,11 +378,11 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
             public void onCancel(DialogInterface dialog) {
                 txtBirthday.setText("");
             }
-        });
+        });*/
 
     }
 
-    @Override
+   /* @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int hourOfDay, int minute) {
         Log.d(TAG,"hourofDay = "+hourOfDay+ " minute =  "+minute);
         String hourString = hourOfDay < 10 ? "0"+hourOfDay : ""+hourOfDay;
@@ -342,6 +393,20 @@ public class EditProfileActivity extends Activity implements DatePickerDialog.On
             txtBirthday.setText(text+" "+time);
         }else{
             txtBirthday.setText("");
+        }
+    }*/
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+        Calendar now = Calendar.getInstance();
+        int currentYear = now.get(Calendar.YEAR);
+        if((currentYear - year) >= 16){
+            String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+            txtBirthday.setText(date);
+            //showTimePicker();
+        }else{
+            Toast.makeText(EditProfileActivity.this,"Age should be greater than 16",Toast.LENGTH_SHORT).show();
         }
     }
 

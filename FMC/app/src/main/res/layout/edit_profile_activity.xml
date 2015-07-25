@@ -105,6 +105,7 @@
                         android:layout_height="@dimen/height_name"
                         android:layout_below="@id/linNameContainer"
                         android:layout_toLeftOf="@id/imgPic"
+                        android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -139,6 +140,7 @@
                         android:layout_height="@dimen/height_name"
                         android:layout_below="@id/viewSeparator"
                         android:layout_toLeftOf="@id/imgPic"
+                        android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -175,6 +177,7 @@
                     android:layout_height="@dimen/height_name"
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
@@ -211,6 +214,7 @@
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:text="@string/private_information"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/text_14sp" />
@@ -229,6 +233,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height_name"
                     android:background="@android:color/white"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
@@ -265,6 +270,7 @@
                     android:layout_height="@dimen/height_name"
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">
@@ -300,6 +306,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="@dimen/height_name"
                     android:background="@android:color/white"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
@@ -338,6 +345,7 @@
                     android:layout_height="@dimen/height_name"
                     android:layout_gravity="center_vertical"
                     android:background="@android:color/white"
+                    android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp">

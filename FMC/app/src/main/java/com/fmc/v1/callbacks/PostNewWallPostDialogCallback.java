@@ -9,4 +9,5 @@ public interface PostNewWallPostDialogCallback {
 
     public void postNewWallMessage(WallData wallData);
     public void showAddNewWallPostDialog();
+    public void sharePhoto();
 }
