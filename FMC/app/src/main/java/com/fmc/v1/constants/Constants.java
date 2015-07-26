@@ -36,6 +36,7 @@ public class Constants {
     public static String KEY_POST_ID ="post_id";
     public static String KEY_POST ="post";
     public static String KEY_LIKES ="likes";
+    public static String KEY_COMMENTS ="comments";
     public static String KEY_TIME_ELAPSED ="time_elapsed";
 
     public static String GET_VALIDATION_CODE_URL = "http://www.firstmomsclub.in/apis/get-code.php";

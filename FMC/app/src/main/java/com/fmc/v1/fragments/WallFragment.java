@@ -231,6 +231,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
             wallData.setName(jObj.optString(Constants.KEY_NAME));
             wallData.setEmail(jObj.optString(Constants.KEY_EMAIL));
             wallData.setLikeCount(jObj.optInt(Constants.KEY_LIKES));
+            wallData.setCommentCount(jObj.optInt(Constants.KEY_COMMENTS));
             wallData.setPostID(jObj.optInt(Constants.KEY_POST_ID));
             wallData.setTextPost(jObj.optString(Constants.KEY_POST));
             wallData.setTime_elapsed(jObj.optString(Constants.KEY_TIME_ELAPSED));

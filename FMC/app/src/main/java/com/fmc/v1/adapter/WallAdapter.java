@@ -60,8 +60,8 @@ public class WallAdapter extends Adapter<WallAdapter.ViewHolder> {
             viewHolder.txtName.setText(data.getName());
             viewHolder.txtPostTime.setText(data.getTime_elapsed());
             viewHolder.txtPost.setText(data.getTextPost());
-            viewHolder.txtLike.setText("("+ ((data.getLikeCount() == 0)?"0":data.getLikeCount()) +")");
-            viewHolder.txtCommentCount.setText( (data.getCommentCount() == 0)? "":String.valueOf(data.getCommentCount()) );
+            viewHolder.txtLike.setText(String.valueOf(data.getLikeCount()));
+            viewHolder.txtCommentCount.setText( String.valueOf(data.getCommentCount()));
 
 
         }

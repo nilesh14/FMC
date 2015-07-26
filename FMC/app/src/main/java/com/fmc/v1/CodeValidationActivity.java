@@ -11,6 +11,8 @@ import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.constants.CommonMethods;
 import com.fmc.v1.constants.Constants;
 import com.fmc.v1.view.CircularImageView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -44,6 +46,7 @@ public class CodeValidationActivity extends Activity {
 	public static final String TAG = "CodeValidationActivity";
 	SharedPreferences mPrefs;
 	FMCApplication app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
     	// TODO Auto-generated method stub
@@ -61,6 +64,7 @@ public class CodeValidationActivity extends Activity {
 		txtName.setTypeface(FMCApplication.ubuntu);
 		txtName.setText(mPrefs.getString(Constants.PREFS_USER_NAME, ""));
 		pDialog = new ProgressDialog(CodeValidationActivity.this);
+
     	Typeface gotham = Typeface.createFromAsset(getAssets(), "Gotham-Rounded-Book_21018.ttf");
     	//btnAddMommyFriends.setTypeface(gotham);
     	//txtEnterCode.setTypeface(gotham);
@@ -68,12 +72,16 @@ public class CodeValidationActivity extends Activity {
         if(FMCApplication.mPreffs.getBoolean(Constants.PREFS_CODE_VALIDATION_DONE,false)){
             startWelcomeActivity();
         }
-		if (FMCApplication.loggedinUserPic != null) {
+		/*if (FMCApplication.loggedinUserPic != null) {
 			circularImageView.setImageBitmap(FMCApplication.loggedinUserPic);
-		}else{
+		}else{*/
 
-			new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
-		}
+			//new GetProfilePic().execute(AccessToken.getCurrentAccessToken().getUserId());
+
+		FMCApplication app = (FMCApplication) getApplication();
+			String url = app.makeFacebookProfileURL(AccessToken.getCurrentAccessToken().getUserId());
+			ImageLoader.getInstance().displayImage(url,circularImageView,FMCApplication.options);
+		//}
     	
     	edtEnterCode.setOnEditorActionListener(new OnEditorActionListener() {
 			

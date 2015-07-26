@@ -63,6 +63,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.fmc.v1.application.FMCApplication;
+
 
 public class CommonMethods {
 
@@ -84,7 +86,7 @@ public class CommonMethods {
 		try {
 			imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
 		
-	    
+	    	Log.d(Tag,"FB profile pic url = "+imageURL);
 			bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -102,8 +104,11 @@ public class CommonMethods {
 	    URL imageURL;
 	    Bitmap bitmap = null;
 		try {
-			imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=small");
-		
+
+			FMCApplication app = (FMCApplication) context.getApplicationContext();
+			//imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=small");
+
+			imageURL = new URL(app.makeFacebookProfileURL(userID));
 	    
 			bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
 		} catch (IOException e) {

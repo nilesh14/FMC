@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/imgImage"
             android:gravity="center_vertical"
             android:orientation="vertical" >
@@ -85,15 +85,15 @@
 
     </RelativeLayout>
 
-    <TextView
+    <!--<TextView
         android:id="@+id/txtCommentCount"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:visibility="gone"
-        android:text="1 Comment" />
+        android:visibility="visible"
+        android:text="1 Comment" />-->
 
     <View
         android:id="@+id/viewSeparator"
@@ -125,9 +125,10 @@
 
                 <ImageView
                     android:id="@+id/imgLikeImage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/heart" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/heart_wall_cell" />
 
                 <TextView
                     android:id="@+id/txtLike"
@@ -153,7 +154,7 @@
                     android:src="@drawable/comment" />
 
                 <TextView
-                    android:id="@+id/txtComment"
+                    android:id="@+id/txtCommentCount"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:gravity="center"
