@@ -4,46 +4,161 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnWall"
+    <LinearLayout
+        android:id="@+id/linWall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@color/main_color_red"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/wall"/>
+        <TextView
+            android:id="@+id/txtWall"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="@string/wall"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linBitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/main_color_red"
-        android:text="@string/wall"
+        android:layout_gravity="center_horizontal"
+        android:padding="2dp"
         android:layout_weight="1"
-        android:textColor="@android:color/white"/>
-    <Button
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/bitch"/>
+        <TextView
+            android:id="@+id/txtBitch"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="@string/bitch"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linFAQ"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:padding="2dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/faq"/>
+        <TextView
+            android:id="@+id/txtFAQ"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="@string/faq"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:padding="2dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/profile"/>
+        <TextView
+            android:id="@+id/txtProfile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="@string/profile"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/main_color_red"
+        android:padding="2dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/more"/>
+        <TextView
+            android:id="@+id/txtMore"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:text="@string/more"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+    <!--<Button
         android:id="@+id/btnBitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/main_color_red"
         android:layout_weight="1"
         android:text="@string/bitch"
-        android:textColor="@android:color/white"/>
-    <Button
+        android:textColor="@android:color/white"/>-->
+    <!--<Button
         android:id="@+id/btnFAQS"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/main_color_red"
         android:text="@string/faq"
         android:layout_weight="1"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"/>-->
 
-    <Button
+    <!--<Button
         android:id="@+id/btnProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/main_color_red"
         android:text="@string/profile"
-        android:textColor="@android:color/white"/>
-    <Button
+        android:textColor="@android:color/white"/>-->
+    <!--<Button
         android:id="@+id/btnMore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/main_color_red"
         android:text="@string/more"
-        android:textColor="@android:color/white"/>
+        android:textColor="@android:color/white"/>-->
 
 </LinearLayout>

@@ -43,7 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="@string/location" />
+                android:text="@string/location"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -66,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="@string/popularity" />
+                android:text="@string/popularity"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -89,19 +91,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:gravity="center"
-                android:text="@string/recent" />
+                android:text="@string/recent"
+                android:textColor="@android:color/white"/>
         </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/wall_bg_color">
 
         <LinearLayout
             android:id="@+id/linBottomContainer"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp"

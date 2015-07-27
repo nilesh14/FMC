@@ -9,9 +9,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fmc.v1.R;
+import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.callbacks.PostNewWallPostDialogCallback;
 import com.fmc.v1.data.WallData;
 
@@ -22,8 +24,9 @@ public class AddWallPostDialog extends Dialog {
 
     EditText edtComment;
     Dialog dialog;
-    Button btnClose,btnCommentCount;
-    ImageView imgPost;
+    Button btnCommentCount;
+    ImageView imgPost,imgClose;
+    TextView txtHeaderText;
     PostNewWallPostDialogCallback postNewWallPostDialogCallback;
     public AddWallPostDialog(Context context) {
         super(context);
@@ -51,11 +54,14 @@ public class AddWallPostDialog extends Dialog {
         dialog = this;
 
         edtComment = (EditText) findViewById(R.id.edtComment);
+        edtComment.setTypeface(FMCApplication.ubuntu);
+        txtHeaderText = (TextView) findViewById(R.id.txtHeaderText);
+        txtHeaderText.setTypeface(FMCApplication.ubuntu);
         imgPost = (ImageView) findViewById(R.id.imgPost);
-        btnClose = (Button) findViewById(R.id.btnClose);
+        imgClose = (ImageView) findViewById(R.id.imgClose);
         btnCommentCount = (Button) findViewById(R.id.btnCommentCount);
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

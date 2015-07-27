@@ -45,7 +45,7 @@ public class Constants {
     public static String COMMENT_URL = "http://www.firstmomsclub.in/apis/comment-post.php";
     public static String ADD_POST__URL = "http://www.firstmomsclub.in/apis/add-post.php";
 
-    public static final int TIMEOUT_SOCKET = (int) TimeUnit.MINUTES.toMillis(2);
-	public static final int TIMEOUT_CONNECTION = (int) TimeUnit.MINUTES.toMillis(2);
+    public static final int TIMEOUT_SOCKET = (int) TimeUnit.MINUTES.toMillis(1);
+	public static final int TIMEOUT_CONNECTION = (int) TimeUnit.MINUTES.toMillis(1);
 
 }

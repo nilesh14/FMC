@@ -25,8 +25,8 @@ public class PostCommentDialog extends Dialog {
 
     EditText edtComment;
     Dialog dialog;
-    Button btnClose,btnCommentCount;
-    ImageView imgPost;
+    Button btnCommentCount;
+    ImageView imgPost,imgClose;
     PostNewCommentDialogCallback postNewCommentDialogCallback;
     WallData wallData;
 
@@ -55,10 +55,10 @@ public class PostCommentDialog extends Dialog {
         edtComment = (EditText) findViewById(R.id.edtComment);
         edtComment.setTypeface(FMCApplication.ubuntu);
         imgPost = (ImageView) findViewById(R.id.imgPost);
-        btnClose = (Button) findViewById(R.id.btnClose);
+        imgClose = (ImageView) findViewById(R.id.imgClose);
         btnCommentCount = (Button) findViewById(R.id.btnCommentCount);
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

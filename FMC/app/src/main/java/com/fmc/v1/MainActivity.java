@@ -31,6 +31,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -51,7 +53,9 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     private static final int RESULT_LOAD_IMG = 1000;
 
     private static int activeFragment = 0;
-    Button btnWall, btnFAQS, btnBitch, btnProfile, btnMore;
+    //Button btnWall, btnFAQS, btnBitch, btnProfile, btnMore;
+    LinearLayout linWall,linBitch,linFAQ,linProfile,linMore;
+    TextView txtMore,txtProfile,txtFAQ,txtBitch,txtWall;
     //CircularImageView circularImageView;
     //RelativeLayout relTopContainerContainer;
     ProgressDialog pDialog;
@@ -67,18 +71,25 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         setContentView(R.layout.home_activity);
         Log.d(TAG, "User ID " + AccessToken.getCurrentAccessToken().getUserId());
         //circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
-        btnWall = (Button) findViewById(R.id.btnWall);
-        btnWall.setTypeface(FMCApplication.ubuntu);
-        btnWall.setOnClickListener(this);
-        btnBitch = (Button) findViewById(R.id.btnBitch);
-        btnBitch.setTypeface(FMCApplication.ubuntu);
-        btnFAQS = (Button) findViewById(R.id.btnFAQS);
-        btnFAQS.setTypeface(FMCApplication.ubuntu);
-        btnProfile = (Button) findViewById(R.id.btnProfile);
-        btnProfile.setTypeface(FMCApplication.ubuntu);
-        btnProfile.setOnClickListener(this);
-        btnMore = (Button) findViewById(R.id.btnMore);
-        btnMore.setTypeface(FMCApplication.ubuntu);
+        linBitch = (LinearLayout) findViewById(R.id.linBitch);
+        linFAQ = (LinearLayout) findViewById(R.id.linFAQ);
+        linMore = (LinearLayout) findViewById(R.id.linMore);
+        linProfile = (LinearLayout) findViewById(R.id.linProfile);
+        linProfile.setOnClickListener(this);
+        linWall = (LinearLayout) findViewById(R.id.linWall);
+        linWall.setOnClickListener(this);
+        txtBitch = (TextView) findViewById(R.id.txtBitch);
+        txtFAQ = (TextView) findViewById(R.id.txtFAQ);
+        txtMore = (TextView) findViewById(R.id.txtMore);
+        txtProfile = (TextView) findViewById(R.id.txtProfile);
+        txtWall = (TextView) findViewById(R.id.txtWall);
+
+        txtWall.setTypeface(FMCApplication.ubuntu);
+        txtProfile.setTypeface(FMCApplication.ubuntu);
+        txtMore.setTypeface(FMCApplication.ubuntu);
+        txtFAQ.setTypeface(FMCApplication.ubuntu);
+        txtBitch.setTypeface(FMCApplication.ubuntu);
+
         //relTopContainerContainer = (RelativeLayout) findViewById(R.id.relTopContainerContainer);
         imgAddPost = (ImageView) findViewById(R.id.imgAddPost);
         imgFilter = (ImageView) findViewById(R.id.imgFilter);
@@ -87,6 +98,14 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             public void onClick(View v) {
                 if (wallFragCommands != null) {
                     wallFragCommands.showFilterOptions(true);
+                    if (currentFragmentInstance instanceof WallFragment) {
+                        boolean isFilterBarVisible = ((WallFragment) currentFragmentInstance).isFilterBarOpen();
+                        if(isFilterBarVisible){
+                            imgFilter.setImageResource(R.drawable.filter_selected);
+                        }else{
+                            imgFilter.setImageResource(R.drawable.filter);
+                        }
+                    }
                 }
             }
         });
@@ -190,10 +209,10 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnWall:
+            case R.id.linWall:
                 switchNewFragment(FRAG_WALL);
                 break;
-            case R.id.btnProfile:
+            case R.id.linProfile:
                 switchNewFragment(FRAG_PROFILE);
                 break;
         }
@@ -349,6 +368,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         if (frag == FRAG_WALL) {
             WallFragment fragment = new WallFragment();
             this.wallFragCommands = fragment;
+            currentFragmentInstance = fragment;
             switchFragment(fragment, FRAG_WALL, null);
 			/*transaction.replace(R.id.frame, new WallFragment()).commit();
             relTopContainerContainer.setVisibility(View.VISIBLE);*/
@@ -357,7 +377,9 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             /*transaction.replace(R.id.frame, new LocalGlobalFragment()).commit();
             relTopContainerContainer.setVisibility(View.GONE);*/
         } else if (frag == FRAG_PROFILE) {
-            switchFragment(new ProfileFragment(), FRAG_PROFILE, null);
+            ProfileFragment fragment = new ProfileFragment();
+            currentFragmentInstance = fragment;
+            switchFragment(fragment, FRAG_PROFILE, null);
         }
 
     }
@@ -365,19 +387,19 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     private void updateButtonBG() {
         switch (activeFragment) {
             case FRAG_WALL:
-                btnWall.setBackgroundColor(getResources().getColor(R.color.selected_yellow));
-                btnBitch.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnFAQS.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnProfile.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnMore.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linWall.setBackgroundColor(getResources().getColor(R.color.tab_selected_color));
+                linBitch.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linFAQ.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linProfile.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linMore.setBackgroundColor(getResources().getColor(R.color.main_color_red));
 
                 break;
             case FRAG_PROFILE:
-                btnWall.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnBitch.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnFAQS.setBackgroundColor(getResources().getColor(R.color.main_color_red));
-                btnProfile.setBackgroundColor(getResources().getColor(R.color.selected_yellow));
-                btnMore.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linWall.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linBitch.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linFAQ.setBackgroundColor(getResources().getColor(R.color.main_color_red));
+                linProfile.setBackgroundColor(getResources().getColor(R.color.tab_selected_color));
+                linMore.setBackgroundColor(getResources().getColor(R.color.main_color_red));
 
                 break;
         }

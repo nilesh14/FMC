@@ -23,30 +23,34 @@
 
         <ImageView
             android:id="@+id/imgPost"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/done"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/tick"
             android:textColor="@color/button_blue"/>
-
         <TextView
-            android:id="@+id/txtWriteAPost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/txtHeaderText"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/imgPost"
+            android:layout_toRightOf="@+id/imgClose"
             android:layout_centerInParent="true"
-            android:text="Write A Post"
-            android:textSize="16sp"/>
-        <Button
-            android:id="@+id/btnClose"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Write a Comment"
+            android:textSize="16sp"
+            android:textColor="@color/main_color_red"/>
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@null"
-            android:text="X"
-            android:textSize="20sp" />
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/close"/>
     </RelativeLayout>
 
     <View
@@ -70,7 +74,7 @@
             android:background="@null"
             android:gravity="center|left"
             android:inputType="textMultiLine"
-            android:minLines="5"
+            android:minLines="6"
             android:paddingLeft="10dp" >
         </EditText>
 

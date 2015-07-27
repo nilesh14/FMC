@@ -54,6 +54,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
     PostCommentDialog postCommentDialog;
     Animation slideFromTop,slideFromBottom;
     TextView txtSortBy,txtWritePost,txtSharePhoto;
+    boolean isFilterBarOpen;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -131,6 +132,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
         if(linSortHeader.getVisibility() == View.GONE){
 
             linSortHeader.setVisibility(View.VISIBLE);
+            isFilterBarOpen = true;
             txtSortBy.setVisibility(View.VISIBLE);
             linSortHeader.startAnimation(slideFromTop);
             //txtSortBy.startAnimation(slideFromTop);
@@ -149,6 +151,7 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
                 public void onAnimationEnd(Animation animation) {
                     linSortHeader.setVisibility(View.GONE);
                     txtSortBy.setVisibility(View.GONE);
+
                 }
 
                 @Override
@@ -157,12 +160,17 @@ public class WallFragment extends Fragment implements PostNewCommentDialogCallba
                 }
             });
             linSortHeader.startAnimation(slideFromBottom);
+            isFilterBarOpen = false;
             //txtSortBy.startAnimation(slideFromBottom);
 
             /*ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(linSortHeader,"translationY",0f,-100f);
             objectAnimator.setDuration(350);
             objectAnimator.start();*/
         }
+    }
+
+    public boolean isFilterBarOpen() {
+        return isFilterBarOpen;
     }
 
     class GetWallData extends AsyncTask<String, Void, String>{

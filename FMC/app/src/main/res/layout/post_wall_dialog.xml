@@ -23,25 +23,34 @@
 
         <ImageView
             android:id="@+id/imgPost"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/done"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/tick"
             android:textColor="@color/button_blue"/>
-
-        <Button
-            android:id="@+id/btnClose"
-            android:layout_width="80dp"
+        <TextView
+            android:id="@+id/txtHeaderText"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/imgPost"
+            android:layout_toRightOf="@+id/imgClose"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="Write a Post"
+            android:textSize="16sp"
+            android:textColor="@color/main_color_red"/>
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:background="@null"
-            android:text="X"
-            android:textSize="20sp" />
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/close"/>
     </RelativeLayout>
 
     <View
@@ -64,9 +73,8 @@
             android:layout_margin="10dp"
             android:background="@null"
             android:gravity="center|left"
-            android:hint="@string/add_new_wall_post"
             android:inputType="textMultiLine"
-            android:minLines="5"
+            android:minLines="6"
             android:paddingLeft="10dp" >
         </EditText>
 
