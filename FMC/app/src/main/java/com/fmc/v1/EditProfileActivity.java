@@ -32,9 +32,10 @@ import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.constants.CommonMethods;
 import com.fmc.v1.constants.Constants;
 import com.fmc.v1.data.ChildData;
+import com.fmc.v1.data.HashtagData;
 import com.fmc.v1.data.UserData;
+import com.fmc.v1.dialog.HashTagDialog;
 import com.fmc.v1.view.CircularImageView;
-import com.fmc.v1.view.DateDisplayPicker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -53,7 +54,8 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
     private static final String TAG = "EditProfileActivity";
     Button btnDone, btnCancel;
 
-    EditText edtHashtag, edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
+    EditText  edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
+    TextView txtHashTag;
     TextView txtBirthday;
 
     ImageView imgAddChild;
@@ -63,6 +65,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
     ArrayAdapter<CharSequence> adapter;
     TextView txtName, txtPrivateInformation, edtChildrenInfo;
     UserData userData = new UserData();
+    ArrayList<HashtagData> arrData = new ArrayList<HashtagData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +81,8 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
         edtChildrenInfo = (TextView) findViewById(R.id.edtChildrenInfo);
         edtChildrenInfo.setTypeface(FMCApplication.ubuntu);
 
-        edtHashtag = (EditText) findViewById(R.id.edtHashtag);
-        edtHashtag.setTypeface(FMCApplication.ubuntu);
+        txtHashTag = (TextView) findViewById(R.id.txtHashtag);
+        txtHashTag.setTypeface(FMCApplication.ubuntu);
         edtBio = (EditText) findViewById(R.id.edtBio);
         edtBio.setTypeface(FMCApplication.ubuntu);
         edtWebsite = (EditText) findViewById(R.id.edtWebsite);
@@ -136,6 +139,42 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                 // }
                 //startNextActivity();
 
+            }
+        });
+
+        txtHashTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashTagDialog dialog = new HashTagDialog(EditProfileActivity.this,R.style.CommentDialogtheme);
+                dialog.setOwnerActivity(EditProfileActivity.this);
+                prepareHashtagData();
+                dialog.setArrData(arrData);
+                txtHashTag.setText("");
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        if (arrData != null) {
+                            StringBuilder hashTagText = new StringBuilder();
+                            int i = 0;
+                            for (HashtagData hashtagData : arrData) {
+                                if(hashtagData != null){
+                                    if(hashtagData.isSelected()){
+                                        if(i > 0){
+                                           hashTagText.append(" , ");
+                                        }
+                                        hashTagText.append(hashtagData.getText());
+                                        i++;
+                                        //hashTagText.append(",");
+
+                                    }
+                                }
+                            }
+
+                            txtHashTag.setText(""+hashTagText.toString());
+                        }
+                    }
+                });
+                dialog.show();
             }
         });
 
@@ -237,6 +276,15 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
 
     }
 
+    private void prepareHashtagData(){
+        arrData.clear();
+        for(int i = 0; i < 6; i ++){
+            HashtagData data = new HashtagData();
+            data.setText("#Tag Number "+i);
+            arrData.add(data);
+        }
+    }
+
     private void setDefaultChildImage(int seletedGender,ImageView imgChildImage){
         if(seletedGender == 0){
             imgChildImage.setImageResource(R.drawable.male_1_2_years);
@@ -295,7 +343,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
     private void prepareInitialData() {
         edtBio.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIO, ""));
         edtWebsite.setText(FMCApplication.mPreffs.getString(Constants.PREFS_WEBSITE, ""));
-        edtHashtag.setText(FMCApplication.mPreffs.getString(Constants.PREFS_HASHTAGS, ""));
+        txtHashTag.setText(FMCApplication.mPreffs.getString(Constants.PREFS_HASHTAGS, ""));
         txtBirthday.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIRTHDAY, ""));
         edtBitchUserName.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BITCH_USERNAME, ""));
 
@@ -437,19 +485,28 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
             mPreffsEditor.putString(Constants.PREFS_BITCH_PASSWORD, edtBitchPassword.getText().toString());
         }
 
-        if (!TextUtils.isEmpty(edtHashtag.getText())) {
-            userData.setHashtags(edtHashtag.getText().toString());
-            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, edtHashtag.getText().toString());
+        if (!TextUtils.isEmpty(txtHashTag.getText())) {
+            userData.setHashtags(txtHashTag.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, txtHashTag.getText().toString());
+        }else{
+            userData.setHashtags(txtHashTag.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, "--");
         }
 
         if (!TextUtils.isEmpty(edtBio.getText())) {
             userData.setBio(edtBio.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_BIO, edtBio.getText().toString());
+        }else{
+            userData.setBio(edtBio.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_BIO, "--");
         }
 
         if (!TextUtils.isEmpty(edtWebsite.getText())) {
             userData.setWebsite(edtWebsite.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_WEBSITE, edtWebsite.getText().toString());
+        }else{
+            userData.setWebsite(edtWebsite.getText().toString());
+            mPreffsEditor.putString(Constants.PREFS_WEBSITE, "---");
         }
 
 

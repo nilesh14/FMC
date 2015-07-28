@@ -26,6 +26,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/wall"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 
@@ -51,6 +52,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/bitch"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 
@@ -75,6 +77,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/faq"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 
@@ -99,6 +102,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/profile"
             android:layout_weight="1"
+            android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 
@@ -123,7 +127,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/more"
             android:layout_weight="1"
-            android:textSize="@dimen/text_14sp"
+            android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
 

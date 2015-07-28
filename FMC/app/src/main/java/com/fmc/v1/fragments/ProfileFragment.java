@@ -84,12 +84,12 @@ public class ProfileFragment extends Fragment {
         //}
 
         UserData userData = FMCApplication.loggedinUserData;
-        if (userData != null) {
+        //if (userData != null) {
             txtName.setText(FMCApplication.mPreffs.getString(Constants.PREFS_USER_NAME, ""));
             txtHashTags.setText(FMCApplication.mPreffs.getString(Constants.PREFS_HASHTAGS, "#"));
             txtBio.setText(FMCApplication.mPreffs.getString(Constants.PREFS_WEBSITE, "--"));
             txtWebsite.setText(FMCApplication.mPreffs.getString(Constants.PREFS_BIO, "--"));
-        }
+        //}
         return view;
     }
 

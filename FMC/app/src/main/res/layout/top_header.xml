@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
+    android:layout_height="40dp"
     android:orientation="horizontal"
     android:id="@+id/linTopHeader"
     android:background="@color/main_color_red"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp" >
+    android:paddingRight="10dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
 
     <ImageView
         android:id="@+id/imgSearch"

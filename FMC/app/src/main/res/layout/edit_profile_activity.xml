@@ -113,17 +113,22 @@
                             android:layout_width="@dimen/text_drawable_width"
                             android:layout_height="@dimen/text_drawable_height"
                             android:src="@drawable/image2" />
-
-                        <EditText
-                            android:id="@+id/edtHashtag"
+                        <HorizontalScrollView
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:background="@null"
-                            android:hint="@string/select_hashtag"
-                            android:imeOptions="actionNext"
-                            android:singleLine="true"
-                            android:textSize="@dimen/text_14sp" />
+                            android:layout_marginLeft="10dp">
+
+                            <TextView
+                                android:id="@+id/txtHashtag"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="@string/select_hashtag"
+                                android:ellipsize="none"
+                                android:imeOptions="actionNext"
+                                android:singleLine="true"
+                                android:textSize="@dimen/text_14sp" />
+                        </HorizontalScrollView>
+
                     </LinearLayout>
 
                     <View

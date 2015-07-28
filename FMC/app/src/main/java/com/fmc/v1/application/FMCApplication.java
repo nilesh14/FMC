@@ -21,7 +21,7 @@ import android.graphics.Typeface;
 
 public class FMCApplication extends Application {
     public static SharedPreferences mPreffs;
-    public static Typeface gotham, daydreamer, ubuntu;
+    public static Typeface gotham, daydreamer, ubuntu,ubuntu_bold;
     public static UserData loggedinUserData;
     public static Bitmap loggedinUserPic, loggedinUserCoverPic;
     String facebookProfileURL,facebookCoverURL;
@@ -39,6 +39,7 @@ public class FMCApplication extends Application {
         gotham = Typeface.createFromAsset(getAssets(), "Gotham-Rounded-Book_21018.ttf");
         daydreamer = Typeface.createFromAsset(getAssets(), "Daydreamer.ttf");
         ubuntu = Typeface.createFromAsset(getAssets(), "Ubuntu_L.ttf");
+        ubuntu_bold = Typeface.createFromAsset(getAssets(), "Ubuntu_Bold.ttf");
         if (BuildConfig.DEBUG) {
             FacebookSdk.setIsDebugEnabled(true);
             FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
