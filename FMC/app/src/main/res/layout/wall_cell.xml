@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white_color_round_corner_stroke_1dp"
     android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:layout_margin="5dp">
+    android:paddingTop="2dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp">
 
     <RelativeLayout
         android:id="@+id/relHeaderContainer"
@@ -18,6 +21,8 @@
             android:id="@+id/imgImage"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             android:src="@drawable/ic_launcher" />
 
         <LinearLayout
@@ -25,6 +30,7 @@
             android:layout_height="fill_parent"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/imgImage"
+            android:layout_toLeftOf="@+id/imgExpand"
             android:gravity="center_vertical"
             android:orientation="vertical" >
 
@@ -42,9 +48,18 @@
                 android:layout_height="wrap_content"
                 android:text="28 minutes ago" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imgExpand"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/expand_icon"/>
     </RelativeLayout>
 
-    <TextView
+    <com.rockerhieu.emojicon.EmojiconTextView
         android:id="@+id/txtPost"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -68,8 +83,10 @@
         <ImageView
             android:id="@+id/imgPostImage"
             android:layout_width="fill_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:visibility="gone"
             android:src="@drawable/banner_access"/>
         
         <TextView
@@ -125,9 +142,8 @@
 
                 <ImageView
                     android:id="@+id/imgLikeImage"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/heart_wall_cell" />
 
                 <TextView

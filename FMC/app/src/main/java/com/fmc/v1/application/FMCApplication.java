@@ -18,6 +18,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 public class FMCApplication extends Application {
     public static SharedPreferences mPreffs;
@@ -25,13 +27,17 @@ public class FMCApplication extends Application {
     public static UserData loggedinUserData;
     public static Bitmap loggedinUserPic, loggedinUserCoverPic;
     String facebookProfileURL,facebookCoverURL;
-    public static DisplayImageOptions options;
+    public static DisplayImageOptions options,wallImageOptions;
+
+    public static Animation slideFromTop,slideFromBottom;
 
     @Override
     public void onCreate() {
         // TODO Auto-generated method stub
         super.onCreate();
 
+        slideFromTop = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_from_top_searchbar);
+        slideFromBottom = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_from_bottom_searchbar);
         loggedinUserData = new UserData();
         //facebookProfileURL = "https://graph.facebook.com/" + AccessToken.getCurrentAccessToken().getUserId() + "/picture?type=large";
         mPreffs = getSharedPreferences(Constants.PREFS_NAME, Context.MODE_PRIVATE);
@@ -48,6 +54,16 @@ public class FMCApplication extends Application {
                 .showImageOnLoading(R.drawable.contact)
                 .showImageForEmptyUri(R.drawable.contact)
                 .showImageOnFail(R.drawable.contact)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+
+        wallImageOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.empty_image)
+                .showImageForEmptyUri(R.drawable.empty_image)
+                .showImageOnFail(R.drawable.empty_image)
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)

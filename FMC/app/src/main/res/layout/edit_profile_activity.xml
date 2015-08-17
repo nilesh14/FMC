@@ -72,9 +72,9 @@
                         android:layout_alignParentRight="true"
                         android:src="@drawable/contact"
                         app1:border="true"
-                        app1:border_color="#E9E8E9"
+                        app1:border_color="@color/circularimage_border_color"
                         app1:border_width="1dp"
-                        app1:shadow="true" />
+                        app1:shadow="false" />
 
                     <LinearLayout
                         android:id="@+id/linNameContainer"
@@ -98,12 +98,21 @@
                             android:textColor="@color/main_color_red"
                             android:textSize="@dimen/text_14sp" />
                     </LinearLayout>
+                    <View
+                        android:id="@+id/viewNameSeparator"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/linNameContainer"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_toLeftOf="@id/imgPic"
+                        android:background="@color/editprofile_separator_color"></View>
 
                     <LinearLayout
                         android:id="@+id/linHashtabContainer"
                         android:layout_width="fill_parent"
                         android:layout_height="@dimen/height_name"
-                        android:layout_below="@id/linNameContainer"
+                        android:layout_below="@id/viewNameSeparator"
                         android:layout_marginTop="@dimen/vertical_dist_between_fields_in_profile_screen"
                         android:layout_toLeftOf="@id/imgPic"
                         android:gravity="center_vertical"
@@ -125,6 +134,7 @@
                                 android:hint="@string/select_hashtag"
                                 android:ellipsize="none"
                                 android:imeOptions="actionNext"
+                                android:scrollbars="none"
                                 android:singleLine="true"
                                 android:textSize="@dimen/text_14sp" />
                         </HorizontalScrollView>
@@ -138,7 +148,7 @@
                         android:layout_below="@id/linHashtabContainer"
                         android:layout_marginTop="2dp"
                         android:layout_toLeftOf="@id/imgPic"
-                        android:background="@android:color/black"></View>
+                        android:background="@color/editprofile_separator_color"></View>
 
                     <LinearLayout
                         android:id="@+id/linBioContainer"
@@ -175,7 +185,7 @@
                         android:layout_below="@id/linBioContainer"
                         android:layout_marginTop="2dp"
                         android:layout_toLeftOf="@id/imgPic"
-                        android:background="@android:color/black"></View>
+                        android:background="@color/editprofile_separator_color"></View>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -213,7 +223,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
                 <TextView
                     android:id="@+id/txtPrivateInformation"
@@ -234,7 +244,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
 
                 <LinearLayout
@@ -271,7 +281,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -327,7 +337,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
                 <LinearLayout
                     android:id="@+id/linBitchPasswordContainer"
@@ -366,7 +376,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="2dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
                 <RelativeLayout
                     android:id="@+id/linChildrenInfoContainer"
@@ -414,7 +424,7 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@android:color/black"></View>
+                    android:background="@color/editprofile_separator_color"></View>
 
                 <LinearLayout
                     android:id="@+id/linChildrenDetailContainer"

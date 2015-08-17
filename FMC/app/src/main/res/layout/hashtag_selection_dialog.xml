@@ -19,22 +19,24 @@
             android:drawableLeft="@drawable/comment_blue"
             android:text="20" />
 
-        <ImageView
-            android:id="@+id/imgPost"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <TextView
+            android:id="@+id/txtDone"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
             android:padding="5dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:gravity="center"
             android:layout_marginRight="10dp"
-            android:src="@drawable/tick"
-            android:textColor="@color/button_blue"/>
+            android:text="DONE"
+            android:textSize="@dimen/text_14sp"
+            android:textColor="@color/hashtag_dialog_done_button"/>
         <TextView
             android:id="@+id/txtHeaderText"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/imgPost"
-            android:layout_toRightOf="@+id/imgClose"
+            android:layout_toLeftOf="@+id/txtDone"
+            android:layout_toRightOf="@+id/imgCloseSearchBar"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="Select Tags"
@@ -42,13 +44,14 @@
             android:textColor="@color/main_color_red"/>
 
         <ImageView
-            android:id="@+id/imgClose"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/imgCloseSearchBar"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/close"/>
+            android:layout_marginTop="5dp"
+            android:src="@drawable/close_pink"/>
     </RelativeLayout>
     <View
         android:id="@+id/viewSeparator"

@@ -35,9 +35,10 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_launcher"
         app1:border="true"
-        app1:border_color="#E9E8E9"
-        app1:border_width="1dp"
-        app1:shadow="true" />
+        app1:border_color="@color/circularimage_border_color"
+        app1:border_width="2dp"
+        app1:shadow="false" />
+
 
     <TextView
         android:id="@+id/txtName"

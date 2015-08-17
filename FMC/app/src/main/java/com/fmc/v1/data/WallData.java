@@ -1,8 +1,9 @@
 package com.fmc.v1.data;
 
 public class WallData {
-	String name, time_elapsed,textPost,email,commentText;
-	int commentCount,likeCount,postID;
+	String name, time_elapsed,textPost,email,commentText,img,fb_id;
+	int commentCount,likeCount,bookmarkCount,postID;
+	boolean postLiked,postBookmarked;
 	
 	public String getName() {
 		return name;
@@ -37,6 +38,14 @@ public class WallData {
 		this.likeCount = likeCount;
 	}
 
+	public int getBookmarkCount() {
+		return bookmarkCount;
+	}
+
+	public void setBookmarkCount(int bookmarkCount) {
+		this.bookmarkCount = bookmarkCount;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -59,5 +68,37 @@ public class WallData {
 
 	public void setCommentText(String commentText) {
 		this.commentText = commentText;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getFb_id() {
+		return fb_id;
+	}
+
+	public void setFb_id(String fb_id) {
+		this.fb_id = fb_id;
+	}
+
+	public boolean isPostLiked() {
+		return postLiked;
+	}
+
+	public void setPostLiked(boolean postLiked) {
+		this.postLiked = postLiked;
+	}
+
+	public boolean isPostBookmarked() {
+		return postBookmarked;
+	}
+
+	public void setPostBookmarked(boolean postBookmarked) {
+		this.postBookmarked = postBookmarked;
 	}
 }

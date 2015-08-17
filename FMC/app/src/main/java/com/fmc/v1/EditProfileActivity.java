@@ -2,6 +2,8 @@ package com.fmc.v1;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,10 +42,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 /**
@@ -54,7 +63,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
     private static final String TAG = "EditProfileActivity";
     Button btnDone, btnCancel;
 
-    EditText  edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
+    EditText edtBio, edtWebsite, edtBitchUserName, edtBitchPassword;
     TextView txtHashTag;
     TextView txtBirthday;
 
@@ -66,6 +75,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
     TextView txtName, txtPrivateInformation, edtChildrenInfo;
     UserData userData = new UserData();
     ArrayList<HashtagData> arrData = new ArrayList<HashtagData>();
+    ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,22 +155,22 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
         txtHashTag.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashTagDialog dialog = new HashTagDialog(EditProfileActivity.this,R.style.CommentDialogtheme);
+                HashTagDialog dialog = new HashTagDialog(EditProfileActivity.this, R.style.CommentDialogtheme);
                 dialog.setOwnerActivity(EditProfileActivity.this);
-                prepareHashtagData();
+                prepareHashtagData(txtHashTag.getText().toString());
                 dialog.setArrData(arrData);
-                txtHashTag.setText("");
+                //txtHashTag.setText("");
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
-                        if (arrData != null) {
+                        if (arrData != null ) {
                             StringBuilder hashTagText = new StringBuilder();
                             int i = 0;
                             for (HashtagData hashtagData : arrData) {
-                                if(hashtagData != null){
-                                    if(hashtagData.isSelected()){
-                                        if(i > 0){
-                                           hashTagText.append(" , ");
+                                if (hashtagData != null) {
+                                    if (hashtagData.isSelected()) {
+                                        if (i > 0) {
+                                            hashTagText.append(" , ");
                                         }
                                         hashTagText.append(hashtagData.getText());
                                         i++;
@@ -169,8 +179,9 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                                     }
                                 }
                             }
-
-                            txtHashTag.setText(""+hashTagText.toString());
+                            if(!TextUtils.isEmpty(hashTagText)){
+                                txtHashTag.setText("" + hashTagText.toString());
+                            }
                         }
                     }
                 });
@@ -200,31 +211,41 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
         imgAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
-                final EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
-                edtAge.setTypeface(FMCApplication.ubuntu);
-                final ImageView imgChildImage = (ImageView) childView.findViewById(R.id.imgChildImage);
-                final Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
-                spinnerGender.setAdapter(adapter);
+               addOneChildView();
 
-                spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(!TextUtils.isEmpty(edtAge.getText())){
-                            int age = Integer.parseInt(edtAge.getText().toString());
-                            setChildImage(position,age,imgChildImage);
-                        }else {
-                            setDefaultChildImage(position,imgChildImage);
-                        }
-                    }
+            }
+        });
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
+        prepareInitialData();
 
-                    }
-                });
+    }
 
-                edtAge.addTextChangedListener(new TextWatcher() {
+    private void addOneChildView(){
+        LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
+        final TextView txtAge = (TextView) childView.findViewById(R.id.txtAge);
+        txtAge.setTypeface(FMCApplication.ubuntu);
+        final ImageView imgChildImage = (ImageView) childView.findViewById(R.id.imgChildImage);
+        final Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
+        spinnerGender.setAdapter(adapter);
+
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!TextUtils.isEmpty(txtAge.getText())) {
+                    int age = Integer.parseInt(txtAge.getText().toString());
+                    setChildImage(position, age, imgChildImage);
+                } else {
+                    setDefaultChildImage(position, imgChildImage);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+                /*txtAge.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -232,10 +253,10 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if(!TextUtils.isEmpty(s)){
+                        if (!TextUtils.isEmpty(s)) {
                             int age = Integer.parseInt(s.toString());
-                            setChildImage(spinnerGender.getSelectedItemPosition(),age,imgChildImage);
-                            /*if(spinnerGender.getSelectedItemPosition() == 0){
+                            setChildImage(spinnerGender.getSelectedItemPosition(), age, imgChildImage);
+                            *//*if(spinnerGender.getSelectedItemPosition() == 0){
                                 if(age > 0 && age <= 2){
                                     imgChildImage.setImageResource(R.drawable.male_1_2_years);
                                 }else if(age >= 3 && age <= 4){
@@ -251,14 +272,14 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                                 }else{
                                     imgChildImage.setImageResource(R.drawable.female_5_10_years);
                                 }
-                            }*/
-                        }else{
-                            /*if(spinnerGender.getSelectedItemPosition() == 0){
+                            }*//*
+                        } else {
+                            *//*if(spinnerGender.getSelectedItemPosition() == 0){
                                 imgChildImage.setImageResource(R.drawable.male_1_2_years);
                             }else{
                                 imgChildImage.setImageResource(R.drawable.female_1_2_years);
-                            }*/
-                            setDefaultChildImage(spinnerGender.getSelectedItemPosition(),imgChildImage);
+                            }*//*
+                            setDefaultChildImage(spinnerGender.getSelectedItemPosition(), imgChildImage);
                         }
                     }
 
@@ -266,49 +287,175 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                     public void afterTextChanged(Editable s) {
 
                     }
-                });
-                linChildrenDetailContainer.addView(childView);
+                });*/
+
+        txtAge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Calendar now = Calendar.getInstance();
+                // DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                android.app.DatePickerDialog dp = new android.app.DatePickerDialog(EditProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar now = Calendar.getInstance();
+                        int currentYear = now.get(Calendar.YEAR);
+                        int resultAge = (currentYear - year);
+                        if (resultAge >= 0) {
+                            setChildImage(spinnerGender.getSelectedItemPosition(), resultAge, imgChildImage);
+                            txtAge.setText("" + (currentYear - year));
+                        } else {
+                            Toast.makeText(EditProfileActivity.this, "Age cannot be less then 0 years", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                dp.show();
+
 
             }
         });
 
-        prepareInitialData();
-
+        linChildrenDetailContainer.addView(childView);
     }
 
-    private void prepareHashtagData(){
-        arrData.clear();
-        for(int i = 0; i < 6; i ++){
-            HashtagData data = new HashtagData();
-            data.setText("#Tag Number "+i);
-            arrData.add(data);
+    public ArrayList<HashtagData> getArrData() {
+        return arrData;
+    }
+
+    public void setArrData(ArrayList<HashtagData> arrData) {
+        this.arrData = arrData;
+    }
+
+    private void prepareHashtagData(String selectedText) {
+        if(arrData == null){
+            arrData = new ArrayList<HashtagData>();
         }
+        arrData.clear();
+        String [] selectedData = new String[0];
+        List<String> arrSelectedTags = new ArrayList<>();
+        //List<String> arrSelectedTagsFinal = new ArrayList<>();
+        if (selectedText != null) {
+            selectedData = selectedText.split(Pattern.quote(","));
+
+        }
+
+        for (int i = 0; i < selectedData.length ; i ++) {
+            String text = selectedData[i].trim();
+            arrSelectedTags.add(text);
+        }
+
+        List<String> listHasttags = Arrays.asList(getResources().getStringArray(R.array.hashtag_data));
+        for (String listHasttag : listHasttags) {
+            HashtagData data = new HashtagData();
+            if(arrSelectedTags.contains(listHasttag)){
+                data.setIsSelected(true);
+            }
+            data.setText(listHasttag);
+            arrData.add(data);
+
+        }
+
+
     }
 
-    private void setDefaultChildImage(int seletedGender,ImageView imgChildImage){
-        if(seletedGender == 0){
+    class UpdateProfileTask extends AsyncTask<String, Void, String>{
+
+        HashMap<String, String> data;
+        public UpdateProfileTask(HashMap<String, String> data) {
+            // TODO Auto-generated constructor stub
+            this.data = data;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+            if(pDialog == null){
+                pDialog = new ProgressDialog(EditProfileActivity.this);
+                pDialog.dismiss();
+            }
+            pDialog.setCancelable(false);
+            pDialog.setMessage(getResources().getString(R.string.please_wait));
+            pDialog.show();
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+
+            return CommonMethods.callSyncService(getApplicationContext(), data, params[0], TAG);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+
+
+            try {
+                if(pDialog != null && pDialog.isShowing()){
+                    pDialog.dismiss();
+                }
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            if(result != null){
+                try {
+                    JSONArray jArr = new JSONArray(result);
+                    for(int i = 0; i < jArr.length(); i++){
+                        JSONObject jOBJ = jArr.getJSONObject(i);
+                        int code = jOBJ.optInt("success");
+                        if(code > 0){
+                            Toast.makeText(EditProfileActivity.this,"Profile updated Successfully",Toast.LENGTH_SHORT).show();
+                            //startWelcomeActivity();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Profile update failed.Please try again!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Error Parsing response.Please try again!", Toast.LENGTH_LONG).show();
+
+                    // Remove this
+					/*Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
+					startActivity(new Intent(CodeValidationActivity.this, MainActivity.class));
+					finish();*/
+                }
+            }else{
+                Toast.makeText(EditProfileActivity.this,getString(R.string.no_internet_or_error),Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    private void setDefaultChildImage(int seletedGender, ImageView imgChildImage) {
+        if (seletedGender == 0) {
             imgChildImage.setImageResource(R.drawable.male_1_2_years);
-        }else{
+        } else {
             imgChildImage.setImageResource(R.drawable.female_1_2_years);
         }
     }
 
-    private void setChildImage(int selectedGender,int age,ImageView imgChildImage){
+    private void setChildImage(int selectedGender, int age, ImageView imgChildImage) {
         //int age = Integer.parseInt(s.toString());
-        if(selectedGender == 0){
-            if(age > 0 && age <= 2){
+        if (selectedGender == 0) {
+            if (age >= 0 && age <= 2) {
                 imgChildImage.setImageResource(R.drawable.male_1_2_years);
-            }else if(age >= 3 && age <= 4){
+            } else if (age >= 3 && age <= 4) {
                 imgChildImage.setImageResource(R.drawable.male_3_4_years);
-            }else{
+            } else {
                 imgChildImage.setImageResource(R.drawable.male_5_10_years);
             }
-        }else{
-            if(age > 0 && age <= 2){
+        } else {
+            if (age >= 0 && age <= 2) {
                 imgChildImage.setImageResource(R.drawable.female_1_2_years);
-            }else if(age >= 3 && age <= 4){
+            } else if (age >= 3 && age <= 4) {
                 imgChildImage.setImageResource(R.drawable.female_3_4_years);
-            }else{
+            } else {
                 imgChildImage.setImageResource(R.drawable.female_5_10_years);
             }
         }
@@ -356,8 +503,8 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
 
             for (ChildData childData : arrChildData) {
                 LinearLayout childView = (LinearLayout) layoutInflater.inflate(R.layout.children_detail, linChildrenDetailContainer, false);
-                final EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
-                edtAge.setTypeface(FMCApplication.ubuntu);
+                final TextView txtAge = (TextView) childView.findViewById(R.id.txtAge);
+                txtAge.setTypeface(FMCApplication.ubuntu);
                 final Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
                 spinnerGender.setAdapter(adapter);
                 final ImageView imgChildImage = (ImageView) childView.findViewById(R.id.imgChildImage);
@@ -367,7 +514,8 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                     spinnerText.setTypeface(FMCApplication.ubuntu);
                 }
 
-                edtAge.setText(String.valueOf(childData.getAge()));
+                txtAge.setText(String.valueOf(childData.getAge()));
+                setChildImage(spinnerGender.getSelectedItemPosition(), childData.getAge(), imgChildImage);
                 if (childData.getGender().equalsIgnoreCase("MALE")) {
                     spinnerGender.setSelection(0);
                 } else {
@@ -378,11 +526,11 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                 spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        if(!TextUtils.isEmpty(edtAge.getText())){
-                            int age = Integer.parseInt(edtAge.getText().toString());
-                            setChildImage(position,age,imgChildImage);
-                        }else {
-                            setDefaultChildImage(position,imgChildImage);
+                        if (!TextUtils.isEmpty(txtAge.getText())) {
+                            int age = Integer.parseInt(txtAge.getText().toString());
+                            setChildImage(position, age, imgChildImage);
+                        } else {
+                            setDefaultChildImage(position, imgChildImage);
                         }
                     }
 
@@ -392,7 +540,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                     }
                 });
 
-                edtAge.addTextChangedListener(new TextWatcher() {
+                /*txtAge.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -403,7 +551,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                         if (!TextUtils.isEmpty(s)) {
                             int age = Integer.parseInt(s.toString());
                             setChildImage(spinnerGender.getSelectedItemPosition(), age, imgChildImage);
-                            /*if(spinnerGender.getSelectedItemPosition() == 0){
+                            *//*if(spinnerGender.getSelectedItemPosition() == 0){
                                 if(age > 0 && age <= 2){
                                     imgChildImage.setImageResource(R.drawable.male_1_2_years);
                                 }else if(age >= 3 && age <= 4){
@@ -419,13 +567,13 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                                 }else{
                                     imgChildImage.setImageResource(R.drawable.female_5_10_years);
                                 }
-                            }*/
+                            }*//*
                         } else {
-                            /*if(spinnerGender.getSelectedItemPosition() == 0){
+                            *//*if(spinnerGender.getSelectedItemPosition() == 0){
                                 imgChildImage.setImageResource(R.drawable.male_1_2_years);
                             }else{
                                 imgChildImage.setImageResource(R.drawable.female_1_2_years);
-                            }*/
+                            }*//*
                             setDefaultChildImage(spinnerGender.getSelectedItemPosition(), imgChildImage);
                         }
                     }
@@ -434,15 +582,40 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                     public void afterTextChanged(Editable s) {
 
                     }
-                });
+                });*/
                 //spinnerGender.setse
+                txtAge.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar now = Calendar.getInstance();
+                        // DatePickerDialog dpd = DatePickerDialog.newInstance(EditProfileActivity.this,now.get(Calendar.YEAR),now.get(Calendar.MONTH),now.get(Calendar.DAY_OF_MONTH));
+                        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(EditProfileActivity.this, new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar now = Calendar.getInstance();
+                                int currentYear = now.get(Calendar.YEAR);
+                                int resultAge = (currentYear - year);
+                                if(resultAge >=0){
+                                    txtAge.setText("" + (currentYear - year));
+                                    setChildImage(spinnerGender.getSelectedItemPosition(), resultAge, imgChildImage);
+                                }else{
+                                    Toast.makeText(EditProfileActivity.this,"Age cannot be less then 0 years",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }, now.get(Calendar.YEAR), now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH));
+                        dp.show();
+                    }
+                });
                 linChildrenDetailContainer.addView(childView);
             }
 
         } else {
+            addOneChildView();
             Log.d(TAG, "No Child found");
         }
     }
+
+
 
     private void startNextActivity() {
         Intent intent = new Intent(EditProfileActivity.this, MainActivity.class);
@@ -488,25 +661,25 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
         if (!TextUtils.isEmpty(txtHashTag.getText())) {
             userData.setHashtags(txtHashTag.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_HASHTAGS, txtHashTag.getText().toString());
-        }else{
+        } else {
             userData.setHashtags(txtHashTag.getText().toString());
-            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, "--");
+            mPreffsEditor.putString(Constants.PREFS_HASHTAGS, "");
         }
 
         if (!TextUtils.isEmpty(edtBio.getText())) {
             userData.setBio(edtBio.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_BIO, edtBio.getText().toString());
-        }else{
+        } else {
             userData.setBio(edtBio.getText().toString());
-            mPreffsEditor.putString(Constants.PREFS_BIO, "--");
+            mPreffsEditor.putString(Constants.PREFS_BIO, "");
         }
 
         if (!TextUtils.isEmpty(edtWebsite.getText())) {
             userData.setWebsite(edtWebsite.getText().toString());
             mPreffsEditor.putString(Constants.PREFS_WEBSITE, edtWebsite.getText().toString());
-        }else{
+        } else {
             userData.setWebsite(edtWebsite.getText().toString());
-            mPreffsEditor.putString(Constants.PREFS_WEBSITE, "---");
+            mPreffsEditor.putString(Constants.PREFS_WEBSITE, "");
         }
 
 
@@ -514,8 +687,8 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
             for (int i = 0; i < linChildrenDetailContainer.getChildCount(); i++) {
                 ChildData childData = new ChildData();
                 LinearLayout childView = (LinearLayout) linChildrenDetailContainer.getChildAt(i);
-                EditText edtAge = (EditText) childView.findViewById(R.id.edtAge);
-                edtAge.setTypeface(FMCApplication.ubuntu);
+                TextView txtAge = (TextView) childView.findViewById(R.id.txtAge);
+                txtAge.setTypeface(FMCApplication.ubuntu);
                 Spinner spinnerGender = (Spinner) childView.findViewById(R.id.spinnerGender);
 
                 TextView spinnerText = (TextView) spinnerGender.findViewById(android.R.id.text1);
@@ -523,7 +696,7 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
                     spinnerText.setTypeface(FMCApplication.ubuntu);
                 }
 
-                if (TextUtils.isEmpty(edtAge.getText())) {
+                if (TextUtils.isEmpty(txtAge.getText())) {
                     result = false;
                     //edtAge.setError(getString(R.string.field_cannot_be_empty));
                     //showErrorDialog(getString(R.string.please_enter_child_age),getString(R.string.error));
@@ -532,10 +705,10 @@ public class EditProfileActivity extends Activity implements android.app.DatePic
 
                     String regexStr = "^[0-9]*$";
 
-                    if (edtAge.getText().toString().trim().matches(regexStr)) {
-                        childData.setAge(Integer.parseInt(edtAge.getText().toString().trim()));
+                    if (txtAge.getText().toString().trim().matches(regexStr)) {
+                        childData.setAge(Integer.parseInt(txtAge.getText().toString().trim()));
                     } else {
-                        edtAge.setError("Not a Valid Age");
+                        txtAge.setError("Not a Valid Age");
                     }
 
                 }

@@ -14,9 +14,10 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
+            android:padding="5dp"
             android:src="@drawable/wall"/>
         <TextView
             android:id="@+id/txtWall"
@@ -26,6 +27,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/wall"
             android:layout_weight="1"
+            android:visibility="gone"
             android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -40,9 +42,10 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
+            android:padding="5dp"
             android:src="@drawable/bitch"/>
         <TextView
             android:id="@+id/txtBitch"
@@ -52,6 +55,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/bitch"
             android:layout_weight="1"
+            android:visibility="gone"
             android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -65,10 +69,11 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/faq"/>
+            android:padding="5dp"
+            android:src="@drawable/bazar"/>
         <TextView
             android:id="@+id/txtFAQ"
             android:layout_width="fill_parent"
@@ -77,6 +82,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/faq"
             android:layout_weight="1"
+            android:visibility="gone"
             android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -90,9 +96,10 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
+            android:padding="5dp"
             android:src="@drawable/profile"/>
         <TextView
             android:id="@+id/txtProfile"
@@ -102,6 +109,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/profile"
             android:layout_weight="1"
+            android:visibility="gone"
             android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>
@@ -115,10 +123,11 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/more"/>
+            android:padding="5dp"
+            android:src="@drawable/ruchika_ramble"/>
         <TextView
             android:id="@+id/txtMore"
             android:layout_width="fill_parent"
@@ -127,6 +136,7 @@
             android:layout_marginTop="2dp"
             android:text="@string/more"
             android:layout_weight="1"
+            android:visibility="gone"
             android:textSize="12sp"
             android:textColor="@android:color/white"/>
     </LinearLayout>

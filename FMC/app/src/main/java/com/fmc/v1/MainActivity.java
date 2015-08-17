@@ -19,6 +19,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,9 +31,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,10 +65,15 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
     TextView txtMore,txtProfile,txtFAQ,txtBitch,txtWall;
     //CircularImageView circularImageView;
     //RelativeLayout relTopContainerContainer;
+    RelativeLayout relSearchContainer,relProfileContainer;
     ProgressDialog pDialog;
     Fragment currentFragmentInstance;
-    ImageView imgAddPost,imgFilter;
+    ImageView imgCancel;
+    ImageView imgAddPost,imgFilter,imgSearch;
     WallFragCommands wallFragCommands;
+    EditText edtSearchText;
+    boolean isSearchLayoutVisible;
+    Animation slideFromTop,slideFromBottom;
     //Switch switchLocalGlobal;
 
     @Override
@@ -83,6 +95,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         txtMore = (TextView) findViewById(R.id.txtMore);
         txtProfile = (TextView) findViewById(R.id.txtProfile);
         txtWall = (TextView) findViewById(R.id.txtWall);
+        edtSearchText = (EditText) findViewById(R.id.edtSearchText);
 
         txtWall.setTypeface(FMCApplication.ubuntu);
         txtProfile.setTypeface(FMCApplication.ubuntu);
@@ -90,7 +103,33 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
         txtFAQ.setTypeface(FMCApplication.ubuntu);
         txtBitch.setTypeface(FMCApplication.ubuntu);
 
+        relSearchContainer = (RelativeLayout) findViewById(R.id.relSearchContainer);
+        relProfileContainer = (RelativeLayout) findViewById(R.id.relProfileContainer);
+        //slideFromTop = AnimationUtils.loadAnimation(MainActivity.this, R.anim.slide_from_top);
+        //slideFromBottom = AnimationUtils.loadAnimation(MainActivity.this,R.anim.slide_from_bottom);
+
+        slideFromTop = FMCApplication.slideFromTop;
+        slideFromBottom = FMCApplication.slideFromBottom;
+
         //relTopContainerContainer = (RelativeLayout) findViewById(R.id.relTopContainerContainer);
+        imgCancel = (ImageView) findViewById(R.id.imgCancel);
+        //imgCloseSearchBar = (ImageView) findViewById(R.id.imgCloseSearchBar);
+        imgCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHideSearchBar(v,false);
+                edtSearchText.clearFocus();
+
+            }
+        });
+        imgSearch = (ImageView) findViewById(R.id.imgSearch);
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showHideSearchBar(v,true);
+
+            }
+        });
         imgAddPost = (ImageView) findViewById(R.id.imgAddPost);
         imgFilter = (ImageView) findViewById(R.id.imgFilter);
         imgFilter.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +139,11 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
                     wallFragCommands.showFilterOptions(true);
                     if (currentFragmentInstance instanceof WallFragment) {
                         boolean isFilterBarVisible = ((WallFragment) currentFragmentInstance).isFilterBarOpen();
-                        if(isFilterBarVisible){
+                        /*if(isFilterBarVisible){
                             imgFilter.setImageResource(R.drawable.filter_selected);
                         }else{
                             imgFilter.setImageResource(R.drawable.filter);
-                        }
+                        }*/
                     }
                 }
             }
@@ -156,6 +195,80 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             switchNewFragment(FRAG_WALL);
         }
 
+    }
+
+    private void showHideSoftInputKeyboard(boolean show , View v){
+        InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            if(show){
+                Log.d(TAG,"Hide Keyboard");
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }else{
+                v.requestFocus();
+                Log.d(TAG,"Show Keyboard");
+                imm.showSoftInput(v,0);
+            }
+
+        }
+    }
+
+    private void showHideSearchBar(View view,boolean showSearchBar){
+        showHideSoftInputKeyboard(!showSearchBar,view);
+        if(showSearchBar){
+
+
+            slideFromTop.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    relSearchContainer.setVisibility(View.VISIBLE);
+                    relSearchContainer.invalidate();
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            relSearchContainer.bringToFront();
+            relSearchContainer.startAnimation(slideFromTop);
+            isSearchLayoutVisible = true;
+        }else{
+            slideFromBottom.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    relSearchContainer.setVisibility(View.GONE);
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            relSearchContainer.startAnimation(slideFromBottom);
+            isSearchLayoutVisible = false;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(isSearchLayoutVisible){
+            showHideSearchBar(edtSearchText,false);
+        }else{
+            super.onBackPressed();
+        }
     }
 
     private void showAddPostDialog() {
@@ -301,7 +414,14 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
                 SharePhoto dialog = new SharePhoto(MainActivity.this,R.style.CommentDialogtheme);
                 dialog.setImage(BitmapFactory
                         .decodeFile(imgDecodableString));
+                dialog.setFilePath(imgDecodableString);
                 dialog.setOwnerActivity(MainActivity.this);
+                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        switchNewFragment(FRAG_WALL);
+                    }
+                });
                 dialog.show();
                 /*ImageView imgView = (ImageView) findViewById(R.id.imgView);
                 // Set the Image in ImageView after decoding the String
@@ -369,6 +489,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             WallFragment fragment = new WallFragment();
             this.wallFragCommands = fragment;
             currentFragmentInstance = fragment;
+            relProfileContainer.setVisibility(View.GONE);
             switchFragment(fragment, FRAG_WALL, null);
 			/*transaction.replace(R.id.frame, new WallFragment()).commit();
             relTopContainerContainer.setVisibility(View.VISIBLE);*/
@@ -380,6 +501,7 @@ public class MainActivity extends Activity implements SwitchFragmentsCallback, P
             ProfileFragment fragment = new ProfileFragment();
             currentFragmentInstance = fragment;
             switchFragment(fragment, FRAG_PROFILE, null);
+            relProfileContainer.setVisibility(View.VISIBLE);
         }
 
     }

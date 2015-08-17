@@ -93,8 +93,9 @@ public class CodeValidationActivity extends Activity {
 					mapData.clear();
 					mapData.put(Constants.KEY_VALUE, edtEnterCode.getText().toString());
 					mapData.put(Constants.KEY_EMAIL, mPrefs.getString(Constants.PREFS_USER_EMAIL, ""));
-					mapData.put(Constants.KEY_NAME, mPrefs.getString(Constants.PREFS_NAME, ""));
-					mapData.put(Constants.KEY_CITY, "Mumbai");
+					mapData.put(Constants.KEY_NAME, mPrefs.getString(Constants.PREFS_USER_NAME, ""));
+					mapData.put(Constants.KEY_CITY, mPrefs.getString(Constants.PREFS_USER_LOCATION, ""));
+					mapData.put(Constants.KEY_FB_ID, mPrefs.getString(Constants.PREFS_USER_ID, ""));
 					new GetValidationCodeResult(mapData).execute(Constants.GET_VALIDATION_CODE_URL);
 				}
 				
@@ -178,9 +179,9 @@ public class CodeValidationActivity extends Activity {
 					Toast.makeText(getApplicationContext(), "Error Parsing response.Please try again!", Toast.LENGTH_LONG).show();
 					
 					// Remove this 
-					Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
+					/*Toast.makeText(getApplicationContext(), "Your in!", Toast.LENGTH_LONG).show();
 					startActivity(new Intent(CodeValidationActivity.this, MainActivity.class));
-					finish();
+					finish();*/
 				}
 			}else{
                 Toast.makeText(CodeValidationActivity.this,getString(R.string.no_internet_or_error),Toast.LENGTH_SHORT).show();

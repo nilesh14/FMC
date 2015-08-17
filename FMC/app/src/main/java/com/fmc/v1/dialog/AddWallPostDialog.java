@@ -16,13 +16,14 @@ import com.fmc.v1.R;
 import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.callbacks.PostNewWallPostDialogCallback;
 import com.fmc.v1.data.WallData;
+import com.rockerhieu.emojicon.EmojiconEditText;
 
 /**
  * Created by Nilesh on 31/05/15.
  */
 public class AddWallPostDialog extends Dialog {
 
-    EditText edtComment;
+    EmojiconEditText edtComment;
     Dialog dialog;
     Button btnCommentCount;
     ImageView imgPost,imgClose;
@@ -53,12 +54,12 @@ public class AddWallPostDialog extends Dialog {
         setContentView(R.layout.post_wall_dialog);
         dialog = this;
 
-        edtComment = (EditText) findViewById(R.id.edtComment);
+        edtComment = (EmojiconEditText) findViewById(R.id.edtComment);
         edtComment.setTypeface(FMCApplication.ubuntu);
         txtHeaderText = (TextView) findViewById(R.id.txtHeaderText);
         txtHeaderText.setTypeface(FMCApplication.ubuntu);
         imgPost = (ImageView) findViewById(R.id.imgPost);
-        imgClose = (ImageView) findViewById(R.id.imgClose);
+        imgClose = (ImageView) findViewById(R.id.imgCloseSearchBar);
         btnCommentCount = (Button) findViewById(R.id.btnCommentCount);
 
         imgClose.setOnClickListener(new View.OnClickListener() {

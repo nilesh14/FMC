@@ -53,7 +53,7 @@ public class HashTagAdapter extends BaseAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.hashtag_cell, parent, false);
             holder = new ViewHolder();
-            assert view != null;
+            //assert view != null;
 
             holder.txtHashTags = (TextView) view.findViewById(R.id.txtHashTags);
             holder.checkbox = (CheckBox) view.findViewById(R.id.checkbox);

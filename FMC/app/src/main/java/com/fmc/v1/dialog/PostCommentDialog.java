@@ -14,9 +14,7 @@ import android.widget.Toast;
 import com.fmc.v1.R;
 import com.fmc.v1.application.FMCApplication;
 import com.fmc.v1.callbacks.PostNewCommentDialogCallback;
-import com.fmc.v1.callbacks.PostNewWallPostDialogCallback;
 import com.fmc.v1.data.WallData;
-import com.fmc.v1.fragments.WallFragment;
 
 /**
  * Created by Nilesh on 31/05/15.
@@ -55,7 +53,7 @@ public class PostCommentDialog extends Dialog {
         edtComment = (EditText) findViewById(R.id.edtComment);
         edtComment.setTypeface(FMCApplication.ubuntu);
         imgPost = (ImageView) findViewById(R.id.imgPost);
-        imgClose = (ImageView) findViewById(R.id.imgClose);
+        imgClose = (ImageView) findViewById(R.id.imgCloseSearchBar);
         btnCommentCount = (Button) findViewById(R.id.btnCommentCount);
 
         imgClose.setOnClickListener(new View.OnClickListener() {

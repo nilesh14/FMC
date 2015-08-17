@@ -4,15 +4,19 @@
     <color name="main_color_red">#EA1D5C</color>
     <color name="main_color_red_light">#DE1C5C</color>
     <color name="tab_selected_color">#c71250</color>
+    <color name="circularimage_border_color">#ffd003</color>
     <color name="enter_your_code_color_yellow">#FCC030</color>
     <color name="separator_color">#F4F3F3</color>
     <color name="selected_yellow">#FEC930</color>
     <color name="top_header_global_color">#DBDCDD</color>
     <color name="wall_bg_color">#E5DADC</color>
     <color name="button_blue">#19b7f1</color>
+    <color name="hashtag_dialog_done_button">#e0145a</color>
     <color name="MOMS_color">#DF1C5C</color>
     <color name="Join_Gang_Text_Color">#FDB62F</color>
     <color name="sort_by_bg_color">#FECF30</color>
     <color name="like_and_post_bg_color">#FAFAFA</color>
+    <color name="wall_separator_color">#8d8d8d</color>
+    <color name="editprofile_separator_color">#999999</color>
 
 </resources>

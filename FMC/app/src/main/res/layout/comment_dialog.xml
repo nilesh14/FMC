@@ -36,7 +36,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_toLeftOf="@+id/imgPost"
-            android:layout_toRightOf="@+id/imgClose"
+            android:layout_toRightOf="@+id/imgCloseSearchBar"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="Write a Comment"
@@ -44,7 +44,7 @@
             android:textColor="@color/main_color_red"/>
 
         <ImageView
-            android:id="@+id/imgClose"
+            android:id="@+id/imgCloseSearchBar"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -72,10 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@null"
-            android:gravity="center|left"
-            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:inputType="textMultiLine|textCapSentences"
             android:minLines="6"
-            android:paddingLeft="10dp" >
+            android:paddingLeft="5dp" >
         </EditText>
 
 

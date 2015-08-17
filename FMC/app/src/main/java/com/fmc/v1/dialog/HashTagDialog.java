@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fmc.v1.EditProfileActivity;
 import com.fmc.v1.R;
 import com.fmc.v1.adapter.HashTagAdapter;
 import com.fmc.v1.application.FMCApplication;
@@ -23,8 +24,8 @@ public class HashTagDialog extends Dialog {
 
     ArrayList<HashtagData> arrData ;
     ListView listHashTags;
-    TextView txtHeaderText;
-    ImageView imgClose,imgPost;
+    TextView txtHeaderText,txtDone;
+    ImageView imgClose;
 
     public HashTagDialog(Context context) {
         super(context);
@@ -48,9 +49,9 @@ public class HashTagDialog extends Dialog {
         listHashTags = (ListView) findViewById(R.id.listHashTags);
         txtHeaderText = (TextView) findViewById(R.id.txtHeaderText);
         txtHeaderText.setTypeface(FMCApplication.ubuntu);
-        imgClose = (ImageView) findViewById(R.id.imgClose);
-        imgPost = (ImageView) findViewById(R.id.imgPost);
-        imgPost.setOnClickListener(new View.OnClickListener() {
+        imgClose = (ImageView) findViewById(R.id.imgCloseSearchBar);
+        txtDone = (TextView) findViewById(R.id.txtDone);
+        txtDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
@@ -59,7 +60,8 @@ public class HashTagDialog extends Dialog {
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                arrData = null;
+                ((EditProfileActivity) getOwnerActivity()).setArrData(null);
+                //arrData.clear();
                 dismiss();
             }
         });
